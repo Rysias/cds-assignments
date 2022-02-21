@@ -20,13 +20,13 @@ def read_txt(file_path):
         return f.read().splitlines()
     
 def get_window(words, idx, window_size):
-    return words[idx-window_size:idx] + words[idx+1:idx+window_size+1]
+    return np.concatenate((words[idx-window_size:idx], words[idx+1:idx+window_size+1]), axis=None)
 
 def flatten_list(lst):
     return [x for sub in lst for x in sub]
 
 def count_words(corpus, term): 
-    return sum(1 for word in corpus if word == term)
+    return np.sum(corpus == term)
 
 def clean_file(file_path):
     raw_text = read_txt(file_path)
@@ -41,7 +41,7 @@ def get_doc(file_path):
     return tokenize_doc(clean_text)
 
 def get_word_list(doc): 
-    return [tok.text for tok in doc if not tok.is_punct | tok.is_space]
+    return np.array([tok.text for tok in doc if not tok.is_punct | tok.is_space])
 
 def find_target_idx(words, search_term):
     return [i for i, word in enumerate(words) if word==search_term]
