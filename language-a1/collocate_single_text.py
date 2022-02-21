@@ -68,19 +68,18 @@ def main(args):
     search_term = args.search_term
     window_size = args.window_size
     file_path = DATA_DIR / args.file_name
-    output_path = Path(args.output_path)
     
     doc = get_doc(file_path)
     corpus = get_word_list(doc)
     collocate_df = collocate_pipeline(corpus, search_term, window_size)
     
-    collocate_df.to_csv(output_path, index=False)
+    output_name = f"{args.file_name[:-4]}_{search_term}.csv"
+    collocate_df.to_csv(output_name, index=False)
     
 if __name__ == "__main__":
-    argparser = argparse.ArgumentParser()
+    argparser = argparse.ArgumentParser(description = "Creates collocation info for a given file, search term, and window size. The output is written to a csv with the name '{text_name}_{search_string}.csv'")
     argparser.add_argument("--file-name", required=True, help="file-name to search through (in 100_english_novels")
     argparser.add_argument("--search-term", required=True, help="Node word to find collocates")
     argparser.add_argument("--window-size", required=True, type=int, help="Window size (on each side of node word)")
-    argparser.add_argument("--output-path", required=True, help="Where to save output (CSV)") 
     args = argparser.parse_args()
     main(args)
