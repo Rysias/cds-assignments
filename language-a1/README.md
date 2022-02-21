@@ -5,5 +5,6 @@ This folder contains the scripts for finding collocation in a txt-file given a s
 1. `collocate_single_text.py`: solves the basic task described above. 
 2. `collocate_all_texts.py`: solves the extra task of generating one csv per text in the entire corpus
 3. `collocate_corpus.py`: solves the extra task of analyzing the whole corpus as one text
+4. `collocate_multi_words.py`: solves the extra task of multiple search terms (in one text)
 
 
