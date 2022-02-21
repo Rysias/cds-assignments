@@ -1,5 +1,5 @@
 # Assignment 1: Collocation of words in corpus
-This folder contains the scripts for finding collocation in a txt-file given a search-term and a window. All solutions are python scripts with cmd-arguments. Documentation for each script can be found using the `--help` flag. In addition to the scripts, there is a jupyter notebook for experimenting with the different solutions. 
+This folder contains the scripts for finding collocation in a txt-file given a search-term and a window. All solutions are python scripts with cmd-arguments. Documentation for each script can be found using the `--help` flag. In addition to the scripts, there is a jupyter notebook for experimenting with the different solutions. The tokenization scheme for all is lower case and disregarding punctuation (filtered through SpaCy). SpaCy is the main tool used together with pandas/numpy. 
 
 ## Scripts
 1. `collocate_single_text.py`: solves the basic task described above. 
