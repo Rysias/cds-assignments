@@ -30,10 +30,17 @@ def flatten_list(lst):
 def count_words(corpus, term): 
     return sum(1 for word in corpus if word == term)
 
-def get_doc(file_path):
-    tokenizer = NLP.tokenizer
+def clean_file(file_path):
     raw_text = read_txt(file_path)
-    return tokenizer(" ".join(raw_text).lower())
+    return " ".join(raw_text).lower()
+
+def tokenize_doc(text):
+    tokenizer = NLP.tokenizer
+    return tokenizer(text)
+    
+def get_doc(file_path):
+    clean_text = clean_file(file_path)
+    return tokenize_doc(clean_text)
 
 def get_word_list(doc): 
     return [tok.text for tok in doc if not tok.is_punct | tok.is_space]
