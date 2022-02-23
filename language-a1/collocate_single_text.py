@@ -12,8 +12,8 @@ import numpy as np
 from pathlib import Path
 from collections import Counter
 
-NLP = load("en_core_web_sm")
-
+NLP = load("en_core_web_sm", exclude=["tagger", "parser", "ner", 'tok2vec', 'attribute_ruler', 'lemmatizer'])
+NLP.max_length = 100000000
 
 def read_txt(file_path):
     with open(file_path, "r") as f:
@@ -32,9 +32,8 @@ def clean_file(file_path):
     raw_text = read_txt(file_path)
     return " ".join(raw_text).lower()
 
-def tokenize_doc(text):
-    tokenizer = NLP.tokenizer
-    return tokenizer(text)
+def tokenize_doc(text, n_cores=1):
+    return next(NLP.pipe([text], n_process=n_cores, disable=NLP.pipe_names))
     
 def get_doc(file_path):
     clean_text = clean_file(file_path)
@@ -93,6 +92,6 @@ if __name__ == "__main__":
     argparser.add_argument("--file-name", required=True, help="file-name to search through (in 100_english_novels")
     argparser.add_argument("--search-term", required=True, help="Node word to find collocates")
     argparser.add_argument("--window-size", required=True, type=int, help="Window size (on each side of node word)")
-    argparser.add_argument("--data-dir", default="../../../CDS-LANG/100_english_novels/corpus", help="Window size (on each side of node word)")
+    argparser.add_argument("--data-dir", default="../../../CDS-LANG/100_english_novels/corpus", help="Where to look for texts")
     args = argparser.parse_args()
     main(args)

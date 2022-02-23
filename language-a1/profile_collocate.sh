@@ -1,0 +1,1 @@
+python -m cProfile -s cumtime collocate_all_texts.py --search-term love --window-size 6 > profile_all.txt
