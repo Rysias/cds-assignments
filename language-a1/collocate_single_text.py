@@ -12,86 +12,131 @@ import numpy as np
 from pathlib import Path
 from collections import Counter
 
-NLP = load("en_core_web_sm", exclude=["tagger", "parser", "ner", 'tok2vec', 'attribute_ruler', 'lemmatizer'])
+NLP = load(
+    "en_core_web_sm",
+    exclude=["tagger", "parser", "ner", "tok2vec", "attribute_ruler", "lemmatizer"],
+)
 NLP.max_length = 100000000
+
 
 def read_txt(file_path):
     with open(file_path, "r") as f:
         return f.read().splitlines()
-    
+
+
 def get_window(words, idx, window_size):
-    return np.concatenate((words[idx-window_size:idx], words[idx+1:idx+window_size+1]), axis=None)
+    return np.concatenate(
+        (words[idx - window_size : idx], words[idx + 1 : idx + window_size + 1]),
+        axis=None,
+    )
+
 
 def flatten_list(lst):
     return [x for sub in lst for x in sub]
 
-def count_words(corpus, term): 
+
+def count_words(corpus, term):
     return np.sum(corpus == term)
+
 
 def clean_file(file_path):
     raw_text = read_txt(file_path)
     return " ".join(raw_text).lower()
 
+
 def tokenize_doc(text, n_cores=1):
     return next(NLP.pipe([text], n_process=n_cores, disable=NLP.pipe_names))
-    
+
+
 def get_doc(file_path):
     clean_text = clean_file(file_path)
     return tokenize_doc(clean_text)
 
-def get_word_list(doc): 
+
+def get_word_list(doc):
     return np.array([tok.text for tok in doc if not tok.is_punct | tok.is_space])
 
+
 def find_target_idx(words, search_term):
-    return [i for i, word in enumerate(words) if word==search_term]
+    return [i for i, word in enumerate(words) if word == search_term]
+
 
 def find_collocates(corpus, search_term_idx, window_size):
     all_collocates = [get_window(corpus, idx, window_size) for idx in search_term_idx]
     return flatten_list(all_collocates)
 
+
 def create_collocate_df(corpus, search_term, window_size):
     search_term_idx = find_target_idx(corpus, search_term)
     all_collocates = find_collocates(corpus, search_term_idx, window_size)
     collocate_counts = Counter(all_collocates)
-    return (pd.DataFrame.from_dict(collocate_counts, orient='index')
-                        .reset_index()
-                        .rename(columns ={"index":"collocate", 0:"collocate_count"}))
+    return (
+        pd.DataFrame.from_dict(collocate_counts, orient="index")
+        .reset_index()
+        .rename(columns={"index": "collocate", 0: "collocate_count"})
+    )
 
-def calc_mi(collocate_count, corpus_freq, corpus, search_term, window_size): 
+
+def calc_mi(collocate_count, corpus_freq, corpus, search_term, window_size):
     corpus_size = len(corpus)
-    node_freq = count_words(corpus, search_term) 
-    return np.log10((collocate_count * corpus_size) / (node_freq * corpus_freq * window_size * 2)) / np.log10(2)
+    node_freq = count_words(corpus, search_term)
+    return np.log10(
+        (collocate_count * corpus_size) / (node_freq * corpus_freq * window_size * 2)
+    ) / np.log10(2)
+
 
 def collocate_pipeline(corpus, search_term, window_size):
     df = create_collocate_df(corpus, search_term, window_size)
-    df['corpus_count'] = df['collocate'].apply(lambda x: count_words(corpus, x))
-    df["MI"] = calc_mi(df['collocate_count'], df['corpus_count'], corpus, search_term, window_size) 
+    df["corpus_count"] = df["collocate"].apply(lambda x: count_words(corpus, x))
+    df["MI"] = calc_mi(
+        df["collocate_count"], df["corpus_count"], corpus, search_term, window_size
+    )
     return df
 
-def process_file(file_path, search_term, window_size): 
+
+def process_file(file_path, search_term, window_size):
     doc = get_doc(file_path)
     corpus = get_word_list(doc)
     return collocate_pipeline(corpus, search_term, window_size)
-    
-def write_output(collocate_df, file_name, search_term): 
-    output_name = Path('output') / f"{file_name[:-4]}_{search_term}.csv"
+
+
+def write_output(collocate_df, file_name, search_term):
+    output_name = Path("output") / f"{file_name[:-4]}_{search_term}.csv"
     collocate_df.to_csv(output_name, index=False)
-    
-    
+
+
 def main(args):
-    DATA_DIR = Path(args.data_dir) 
+    DATA_DIR = Path(args.data_dir)
     search_term = args.search_term
     window_size = args.window_size
     file_path = DATA_DIR / args.file_name
-    
-    collocate_df = process_file(file_path, search_term, window_size) 
+
+    collocate_df = process_file(file_path, search_term, window_size)
     write_output(collocate_df, args.file_name, search_term)
-    
+
+
 if __name__ == "__main__":
-    argparser = argparse.ArgumentParser(description = "Creates collocation info for a given file, search term, and window size. The output is written to a csv with the name '{text_name}_{search_string}.csv' in the output folder")
-    argparser.add_argument("--file-name", required=True, help="file-name to search through (in 100_english_novels")
-    argparser.add_argument("--search-term", required=True, help="Node word to find collocates")
-    argparser.add_argument("--window-size", required=True, type=int, help="Window size (on each side of node word)")
-    argparser.add_argument("--data-dir", default="../../../CDS-LANG/100_english_novels/corpus", help="Where to look for texts")
+    argparser = argparse.ArgumentParser(
+        description="Creates collocation info for a given file, search term, and window size. The output is written to a csv with the name '{text_name}_{search_string}.csv' in the output folder"
+    )
+    argparser.add_argument(
+        "--file-name",
+        required=True,
+        help="file-name to search through (in 100_english_novels",
+    )
+    argparser.add_argument(
+        "--search-term", required=True, help="Node word to find collocates"
+    )
+    argparser.add_argument(
+        "--window-size",
+        required=True,
+        type=int,
+        help="Window size (on each side of node word)",
+    )
+    argparser.add_argument(
+        "--data-dir",
+        default="../../../CDS-LANG/100_english_novels/corpus",
+        help="Where to look for texts",
+    )
     args = argparser.parse_args()
     main(args)
