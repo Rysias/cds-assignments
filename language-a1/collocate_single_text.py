@@ -11,6 +11,8 @@ import argparse
 import numpy as np
 from pathlib import Path
 from collections import Counter
+from spacy.tokens import Doc
+from typing import List, Sequence
 
 NLP = load(
     "en_core_web_sm",
@@ -19,8 +21,8 @@ NLP = load(
 NLP.max_length = 100000000
 
 
-def read_txt(file_path):
-    with open(file_path, "r") as f:
+def read_txt(file_path: Path) -> List[str]:
+    with open(file_path, "r", encoding="utf-8-sig") as f:
         return f.read().splitlines()
 
 
@@ -48,9 +50,19 @@ def tokenize_doc(text, n_cores=1):
     return next(NLP.pipe([text], n_process=n_cores, disable=NLP.pipe_names))
 
 
+def tokenize_docs(texts, n_cores=1):
+    return NLP.pipe(
+        [text.lower() for text in texts], n_process=n_cores, disable=NLP.pipe_names
+    )
+
+
 def get_doc(file_path):
     clean_text = clean_file(file_path)
     return tokenize_doc(clean_text)
+
+
+def text_to_word_list(text_list: Sequence[Doc]) -> np.ndarray:
+    return np.concatenate((get_word_list(doc) for doc in text_list), axis=None)
 
 
 def get_word_list(doc):
@@ -97,6 +109,12 @@ def collocate_pipeline(corpus, search_term, window_size):
 def process_file(file_path, search_term, window_size):
     doc = get_doc(file_path)
     corpus = get_word_list(doc)
+    return collocate_pipeline(corpus, search_term, window_size)
+
+
+def process_file2(file_path, search_term, window_size):
+    doc = read_txt(file_path)
+    corpus = text_to_word_list(doc)
     return collocate_pipeline(corpus, search_term, window_size)
 
 
