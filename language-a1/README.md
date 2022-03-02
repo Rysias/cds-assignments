@@ -7,4 +7,7 @@ This folder contains the scripts for finding collocation in a txt-file given a s
 3. `collocate_corpus.py`: solves the extra task of analyzing the whole corpus as one text
 4. `collocate_multi_words.py`: solves the extra task of multiple search terms (in one text)
 
-
+## Other files
+- `collocate_experiments.ipynb`: code sketches and experiments
+- `profile_collocate.sh`: Script for measuring performance of collocates (used for finding optimizations)
+- `*.txt`: outputs from `profile_collocate_sh`
