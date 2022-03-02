@@ -5,6 +5,8 @@
 - Calculate the mutual information score for each context word.
 - Save the results as a CSV file with (at least) the following columns: the collocate term; how often it appears as a collocate; how often it appears in the text; the mutual information score.
 """
+from spacy.tokens import Doc
+from typing import Iterable, List, Sequence
 from spacy import load
 import pandas as pd
 import argparse
@@ -26,27 +28,27 @@ def read_txt(file_path: Path) -> List[str]:
         return f.read().splitlines()
 
 
-def get_window(words, idx, window_size):
+def get_window(words: np.ndarray, idx: int, window_size: int) -> np.ndarray:
     return np.concatenate(
         (words[idx - window_size : idx], words[idx + 1 : idx + window_size + 1]),
         axis=None,
     )
 
 
-def flatten_list(lst):
+def flatten_list(lst: Iterable[Iterable]):
     return [x for sub in lst for x in sub]
 
 
-def count_words(corpus, term):
+def count_words(corpus: Iterable, term: str) -> int:
     return np.sum(corpus == term)
 
 
-def clean_file(file_path):
+def clean_file(file_path: Path) -> str:
     raw_text = read_txt(file_path)
     return " ".join(raw_text).lower()
 
 
-def tokenize_doc(text, n_cores=1):
+def tokenize_doc(text, n_cores: int = 1) -> Doc:
     return next(NLP.pipe([text], n_process=n_cores, disable=NLP.pipe_names))
 
 
@@ -56,7 +58,7 @@ def tokenize_docs(texts, n_cores=1):
     )
 
 
-def get_doc(file_path):
+def get_doc(file_path: Path) -> Doc:
     clean_text = clean_file(file_path)
     return tokenize_doc(clean_text)
 
@@ -65,11 +67,11 @@ def text_to_word_list(text_list: Sequence[Doc]) -> np.ndarray:
     return np.concatenate((get_word_list(doc) for doc in text_list), axis=None)
 
 
-def get_word_list(doc):
+def get_word_list(doc: Doc) -> np.ndarray:
     return np.array([tok.text for tok in doc if not tok.is_punct | tok.is_space])
 
 
-def find_target_idx(words, search_term):
+def find_target_idx(words: Iterable[str], search_term: str):
     return [i for i, word in enumerate(words) if word == search_term]
 
 
