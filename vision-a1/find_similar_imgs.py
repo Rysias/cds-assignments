@@ -38,7 +38,9 @@ def compare_hists(source_hist, candidate_hist):
 def create_dist_df(
     source_path: Path, hist_dict: Dict[Path, np.ndarray]
 ) -> pd.DataFrame:
-    dist_df = pd.DataFrame({"dist": 0}, index=(key for key in hist_dict.keys() if key != source_path))
+    dist_df = pd.DataFrame(
+        {"dist": 0}, index=(key for key in hist_dict.keys() if key != source_path)
+    )
     source_hist = hist_dict[source_path]
     for cand_path, cand_hist in hist_dict.items():
         if cand_path == source_path:
@@ -147,7 +149,10 @@ def write_output_img(output_img: np.ndarray, source_path: Path, OUTPUT_DIR) -> N
 def list_to_dict(L: List[Dict]) -> dict:
     return {k: v for d in L for k, v in d.items()}
 
-def create_master_hists(all_img_paths: List[Path], n_cores=10) -> Dict[Path, np.ndarray]: 
+
+def create_master_hists(
+    all_img_paths: List[Path], n_cores=10
+) -> Dict[Path, np.ndarray]:
     with Pool(n_cores) as p:
         master_list = p.map(create_hist_dict, all_img_paths)
     return list_to_dict(master_list)
@@ -163,7 +168,7 @@ def main(args):
 
     # Heavy lifting y'all!
     master_dict = create_master_hists(all_img_paths)
-    
+
     dist_df = find_top_dists(target_img, master_dict)
 
     # format output
@@ -191,7 +196,7 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--ncores",
-        type=int, 
+        type=int,
         help="How many cores to use for multiprocessing (defaults to 1 less than total cpu)",
     )
 

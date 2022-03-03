@@ -3,58 +3,72 @@ import itertools
 import find_similar_imgs as fsi
 import numpy as np
 import pandas as pd
+import logging
 from pathlib import Path
 from typing import Dict, Tuple, List
 from multiprocessing import cpu_count, Pool
 
-def create_key(path1: Path, path2: Path) -> str: 
-    return "-".join(sorted([path1.name, path2.name]))
 
-def find_similarity(pair_tuble: Tuple[Tuple[Path, np.ndarray], Tuple[Path, np.ndarray]]): 
+def find_similarity(
+    pair_tuble: Tuple[Tuple[Path, np.ndarray], Tuple[Path, np.ndarray]]
+):
     pair1 = pair_tuble[0]
     pair2 = pair_tuble[1]
-    return {"path1": pair1[0], "path2": pair2[0], "key": create_key(pair1[0], pair2[0]), "dist": fsi.compare_hists(pair1[1], pair2[1])}
+    return {
+        "path1": pair1[0],
+        "path2": pair2[0],
+        "dist": fsi.compare_hists(pair1[1], pair2[1]),
+    }
 
-def find_all_similarities(hist_dict: List[Path], n_cores: int) -> pd.DataFrame: 
+
+def combine_reversed_df(df):
+    reversed_df = df.rename({"path1": "path2", "path2": "path1"}, axis=1)
+    return pd.concat((df, reversed_df))
+
+
+def find_smallest_cands(df, n=3, col="dist", target="path2"):
+    return df.nsmallest(n, col)[[target]].assign(rank=["1st", "2nd", "3rd"])
+
+
+def find_all_similarities(hist_dict: List[Path], n_cores: int) -> pd.DataFrame:
     all_hist_pairs = itertools.combinations(hist_dict.items(), 2)
     with Pool(n_cores) as p:
         master_list = p.map(find_similarity, all_hist_pairs)
     return pd.DataFrame(master_list)
 
-def create_dist_row(arg: Tuple[Path, pd.DataFrame]) -> pd.DataFrame:
-    source_path, dist_df = arg
-    col_filter = (dist_df["path1"] == source_path.name) | (dist_df["path2"] == source_path.name)
-    smallest_dists = dist_df[col_filter].nsmallest(3, "dist")
-    smallest_dists["target"] = smallest_dists["key"].str.replace(source_path.name, "", regex=False).str.replace("-", "", regex=False)
-    smallest_dists["source"] = source_path.name
-    smallest_dists["rank"] = ["1st", "2nd", "3rd"]    
-    return smallest_dists.pivot(index="source", columns = "rank", values="target")
 
+def create_closest_df(dist_df):
+    full_df = combine_reversed_df(dist_df)
+    grouped_df = full_df.groupby("path1").apply(find_smallest_cands).reset_index()
+    return grouped_df.pivot(index="path1", columns="rank", values="path2")
 
-def create_closest_df(img_paths: List[Path], dist_df: pd.DataFrame, n_cores: int) -> pd.DataFrame:
-    dist_input = [(img_path, dist_df) for img_path in img_paths]
-    with Pool(n_cores) as p:
-        df_list = p.map(create_dist_row, dist_input)
-    return pd.concat(df_list)
 
 def main(args):
+    logging.basicConfig(
+        format="%(asctime)s-%(levelname)s-%(message)s",
+        datefmt="%d-%b-%y %H:%M:%S",
+        level=logging.INFO,
+    )
+
     DATA_DIR = Path(args.data_dir)
     OUTPUT_DIR = fsi.create_output_dir()
     ncores = args.ncores if args.ncores is not None else cpu_count() - 1
-    debug = args.debug
-    
+
     all_img_paths = list(DATA_DIR.glob("*.jpg"))
 
     # Heavy lifting y'all!
+    logging.info("Calculating all histograms...")
     master_dict = fsi.create_master_hists(all_img_paths, n_cores=ncores)
+    logging.info("Calculating all distances...")
     all_dists = find_all_similarities(master_dict, ncores)
-    if debug: 
-        all_dists.to_csv(OUTPUT_DIR / "all_dists.csv")
-    
-    # Find closest for all 
-    closest_df = create_closest_df(all_img_paths, all_dists, ncores)
+
+    # Find closest for all
+    logging.info("Finding closest to everyone...")
+    closest_df = create_closest_df(all_dists)
+    logging.info("Writing output...")
     closest_df.to_csv(OUTPUT_DIR / f"{DATA_DIR.parent.name}_dists.csv")
-    
+    logging.info("All done!")
+
 
 if __name__ == "__main__":
     argparser = argparse.ArgumentParser(
@@ -67,11 +81,9 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--ncores",
-        type=int, 
+        type=int,
         help="How many cores to use for multiprocessing (defaults to 1 less than total cpu)",
     )
-    argparser.add_argument('--debug', default=True, action=argparse.BooleanOptionalAction)
-
 
     args = argparser.parse_args()
     main(args)
