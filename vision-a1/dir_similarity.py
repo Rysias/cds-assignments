@@ -13,7 +13,7 @@ def create_key(path1: Path, path2: Path) -> str:
 def find_similarity(pair_tuble: Tuple[Tuple[Path, np.ndarray], Tuple[Path, np.ndarray]]): 
     pair1 = pair_tuble[0]
     pair2 = pair_tuble[1]
-    return {"key": create_key(pair1[0], pair2[0]), "dist": fsi.compare_hists(pair1[1], pair2[1])}
+    return {"path1": pair1[0], "path2": pair2[0], "key": create_key(pair1[0], pair2[0]), "dist": fsi.compare_hists(pair1[1], pair2[1])}
 
 def find_all_similarities(hist_dict: List[Path], n_cores: int) -> pd.DataFrame: 
     all_hist_pairs = itertools.combinations(hist_dict.items(), 2)
@@ -23,16 +23,16 @@ def find_all_similarities(hist_dict: List[Path], n_cores: int) -> pd.DataFrame:
 
 def create_dist_row(arg: Tuple[Path, pd.DataFrame]) -> pd.DataFrame:
     source_path, dist_df = arg
-    col_filter = dist_df["key"].str.contains(source_path.name, regex=False)
+    col_filter = (dist_df["path1"] == source_path.name) | (dist_df["path2"] == source_path.name)
     smallest_dists = dist_df[col_filter].nsmallest(3, "dist")
-    smallest_dists["target"] = smallest_dists["key"].str.replace(source_path.name, "").str.replace("-", "")
+    smallest_dists["target"] = smallest_dists["key"].str.replace(source_path.name, "", regex=False).str.replace("-", "", regex=False)
     smallest_dists["source"] = source_path.name
     smallest_dists["rank"] = ["1st", "2nd", "3rd"]    
     return smallest_dists.pivot(index="source", columns = "rank", values="target")
 
 
 def create_closest_df(img_paths: List[Path], dist_df: pd.DataFrame, n_cores: int) -> pd.DataFrame:
-    dist_input = ((img_path, dist_df) for img_path in img_paths)
+    dist_input = [(img_path, dist_df) for img_path in img_paths]
     with Pool(n_cores) as p:
         df_list = p.map(create_dist_row, dist_input)
     return pd.concat(df_list)
