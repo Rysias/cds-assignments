@@ -9,12 +9,14 @@ from typing import List, Dict
 from multiprocessing import Pool, cpu_count
 
 
-def calc_color_hist(img, key=None):
+def calc_color_hist(img):
+    """ Finds the color histogram of an image """
     return cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
 
 
-def create_norm_hist(img: np.ndarray, key=None) -> np.ndarray:
-    hist = calc_color_hist(img, key=key)
+def create_norm_hist(img: np.ndarray) -> np.ndarray:
+    """ Creates a normalized histogram from an image """
+    hist = calc_color_hist(img)
     return cv2.normalize(hist, hist).flatten()
 
 
@@ -22,16 +24,19 @@ def read_img(path: Path) -> np.ndarray:
     return cv2.imread(str(path))
 
 
-def process_img(img_path: Path):
+def process_img(img_path: Path) -> np.ndarray:
+    """Reads image and returns the normalized histogram"""
     img = read_img(img_path)
     return create_norm_hist(img)
 
 
 def create_hist_dict(img_path: Path) -> Dict[Path, np.ndarray]:
+    """ Associates each image path with a normalized histogram """
     return {img_path: process_img(img_path)}
 
 
 def compare_hists(source_hist, candidate_hist):
+    """ Finds the chi-squared distance between two histograms """
     return cv2.compareHist(source_hist, candidate_hist, cv2.HISTCMP_CHISQR)
 
 
@@ -39,7 +44,7 @@ def create_dist_df(
     source_path: Path, hist_dict: Dict[Path, np.ndarray]
 ) -> pd.DataFrame:
     dist_df = pd.DataFrame(
-        {"dist": 0}, index=(key for key in hist_dict.keys() if key != source_path)
+        {"dist": 0}, index=(key for key in hist_dict if key != source_path)
     )
     source_hist = hist_dict[source_path]
     for cand_path, cand_hist in hist_dict.items():
@@ -97,7 +102,9 @@ def resize_square(img: np.ndarray, size=300) -> np.ndarray:
 
 
 def arrange_square(img_list: List[np.ndarray], img_dim=300) -> np.ndarray:
-    """Adapted from https://stackoverflow.com/a/52283965"""
+    """Adapted from https://stackoverflow.com/a/52283965
+    Arranges images into a square
+    """
     if len(img_list) not in [i ** 2 for i in range(10)]:
         raise ValueError("List must have square number of elements")
 
@@ -114,12 +121,14 @@ def arrange_square(img_list: List[np.ndarray], img_dim=300) -> np.ndarray:
 
 
 def format_source_img(source_path: Path) -> np.ndarray:
+    """ Makes source image into a square and add the word 'SOURCE' to the middle """
     return add_text(resize_square(read_img(source_path)), "SOURCE")
 
 
 def format_dist_list(
     source_path: Path, small_dist_df: pd.DataFrame
 ) -> List[np.ndarray]:
+    """ Formats all images for the final square image """
     dist_img_list = [format_source_img(source_path)]
     for filename, row in small_dist_df.iterrows():
         img = resize_square(read_img(filename))
@@ -128,11 +137,13 @@ def format_dist_list(
 
 
 def create_dist_square(source_path, small_dist_df: pd.DataFrame) -> np.ndarray:
+    """ Creates the output image with source image and three closest ones with info arranged in a square"""
     formatted_imgs = format_dist_list(source_path, small_dist_df)
     return arrange_square(formatted_imgs)
 
 
 def create_output_dir() -> Path:
+    """Creates a directory for the output and returns the path """
     output_dir = Path("output")
     try:
         output_dir.mkdir()
@@ -142,6 +153,7 @@ def create_output_dir() -> Path:
 
 
 def write_output_img(output_img: np.ndarray, source_path: Path, OUTPUT_DIR) -> None:
+    """Writes the output to a file with a sensible name"""
     output_name = str(OUTPUT_DIR / f"{source_path.stem}_closest3.png")
     cv2.imwrite(output_name, output_img)
 
@@ -153,6 +165,7 @@ def list_to_dict(L: List[Dict]) -> dict:
 def create_master_hists(
     all_img_paths: List[Path], n_cores=10
 ) -> Dict[Path, np.ndarray]:
+    """ Parallelized function for calculating histograms for all images in list"""
     with Pool(n_cores) as p:
         master_list = p.map(create_hist_dict, all_img_paths)
     return list_to_dict(master_list)
@@ -167,7 +180,7 @@ def main(args):
     all_img_paths = list(DATA_DIR.glob("*.jpg"))
 
     # Heavy lifting y'all!
-    master_dict = create_master_hists(all_img_paths)
+    master_dict = create_master_hists(all_img_paths, n_cores=ncores)
 
     dist_df = find_top_dists(target_img, master_dict)
 
@@ -185,9 +198,7 @@ if __name__ == "__main__":
         description="Given a filename, finds the top three similar images in the same directory. Outputs an image with th e source + top three similar, as well as a csv-file with the file names."
     )
     argparser.add_argument(
-        "--img-name",
-        required=True,
-        help="file name of the specified image",
+        "--img-name", required=True, help="file name of the specified image",
     )
     argparser.add_argument(
         "--data-dir",
