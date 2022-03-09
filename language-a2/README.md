@@ -7,5 +7,6 @@ The scripts were developed using a TDD-methodology using [pytest](https://docs.p
 # TODO
 - [x] Create full run function
 - [x] Save sentiment function in file names
-- [] Documentation
+- [x] Documentation
 - [] Finish README
+- [] MOve functions to separate script
