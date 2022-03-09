@@ -15,19 +15,23 @@ def create_output_dir() -> Path:
         output_dir.mkdir()
     return output_dir
 
-def process_news_df(df: pd.DataFrame, sentiment: Tuple[str, Callable], group_label: str) -> None:
-    """ Full pipeline for extracting sentiment, GPEs, and creating plot """
+
+def process_news_df(
+    df: pd.DataFrame, sentiment: Tuple[str, Callable], group_label: str
+) -> None:
+    """Full pipeline for extracting sentiment, GPEs, and creating plot"""
     sent_name, sent_fun = sentiment
-        
+
     # Calculate the stuff
     top_ents = ne.df_ent_and_sent(df, NLP, sent_fun=sent_fun)
-    
+
     # Plot
     output_dir = create_output_dir()
     ne.plot_top_ents(top_ents, output_dir, group_type=group_label)
 
     # Write output
     top_ents.to_csv(output_dir / f"{group_label}_GPE_{sent_name}.csv")
+
 
 def main(args):
     topn = args.top_n

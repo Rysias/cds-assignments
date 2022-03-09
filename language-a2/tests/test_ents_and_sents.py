@@ -1,14 +1,16 @@
-import pytest 
+import pytest
 import spacy
 import pandas as pd
 
 from src import news_entities as ne
+
 
 @pytest.fixture(scope="session")
 def nlp():
     nlp = spacy.load("en_core_web_sm")
     nlp.add_pipe("spacytextblob")
     return nlp
+
 
 def test_extract_geopol(nlp):
     doc = nlp("Washington battling Russia")
