@@ -1,36 +1,35 @@
 import argparse
 import pandas as pd
 import networkx as nx
-from pyvis.network import Network
 from functools import partial
 from pathlib import Path
 from src import calc_measures as cm
+from src import visualize
 
-
-def plot_graph(graph, filename):
-    output_path = Path("output") / f"{filename.stem}_viz.html"
-    nt = Network()
-    nt.from_nx(graph)
-    nt.save_graph(str(output_path))
 
 def read_tsv(filepath: Path) -> pd.DataFrame:
     return pd.read_csv(filepath, sep="\t")
 
 
 def write_measures(measure_df: pd.DataFrame, filepath: Path) -> None:
+    """Writes measures to dataframe """
     output_path = Path("output") / f"{filepath.stem}_measures.csv"
     measure_df.to_csv(output_path, index=False)
 
-def right_columns(df) -> bool:
+
+def right_columns(df: pd.DataFrame) -> bool:
     cols = ["Source", "Target", "Weight"]
     return all(col in df.columns for col in cols)
 
-def process_dir(dir_path):
+
+def process_dir(dir_path: Path) -> None:
+    """Processes all valid csv files in folder"""
     for filepath in dir_path.glob("*.csv"):
         process_file(filepath)
 
-    
+
 def process_file(filepath):
+    """"Full pipeline for processing a (valid) file"""
     df = read_tsv(filepath)
     if not right_columns(df):
         return
@@ -42,9 +41,10 @@ def process_file(filepath):
 
     G = cm.df_to_graph(df)
     measure_df = cm.calc_measures(G, measure_dict)
-    
+
     write_measures(measure_df, filepath)
-    plot_graph(G, filepath)
+    visualize.plot_graph(G, filepath)
+
 
 def main(args):
     datapath = Path(args.data_path)
