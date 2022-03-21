@@ -1,6 +1,6 @@
 import argparse
 import pandas as pd
-import networkx as nx
+import networkx as nx  # type: ignore
 from functools import partial
 from pathlib import Path
 from src import calc_measures as cm

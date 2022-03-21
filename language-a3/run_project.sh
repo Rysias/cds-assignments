@@ -1,5 +1,6 @@
 # Script for running everything :))
 echo "installing dependencies"
+pip install pipenv
 pipenv install --dev
 echo "running tests"
 pipenv run python -m pytest
