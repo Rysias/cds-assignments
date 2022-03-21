@@ -1,4 +1,0 @@
-networkx
-pandas
-ipytest
-pytest
