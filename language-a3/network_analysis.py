@@ -1,12 +1,17 @@
 import argparse
 import pandas as pd
 import networkx as nx
+from pyvis.network import Network
 from functools import partial
 from pathlib import Path
 from src import calc_measures as cm
 
 
-
+def plot_graph(graph, filename):
+    output_path = Path("output") / f"{filename.stem}_viz.html"
+    nt = Network()
+    nt.from_nx(graph)
+    nt.save_graph(str(output_path))
 
 def read_tsv(filepath: Path) -> pd.DataFrame:
     return pd.read_csv(filepath, sep="\t")
@@ -37,8 +42,9 @@ def process_file(filepath):
 
     G = cm.df_to_graph(df)
     measure_df = cm.calc_measures(G, measure_dict)
+    
     write_measures(measure_df, filepath)
-
+    plot_graph(G, filepath)
 
 def main(args):
     datapath = Path(args.data_path)
