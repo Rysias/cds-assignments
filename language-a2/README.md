@@ -17,6 +17,7 @@ The scripts were developed using a TDD-methodology using [pytest](https://docs.p
 
 
 # TODO
+(CHECK GITHUB ISSUES FROM ROSS)
 - [x] Create full run function
 - [x] Save sentiment function in file names
 - [x] Documentation
