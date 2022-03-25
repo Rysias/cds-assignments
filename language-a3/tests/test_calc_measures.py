@@ -1,4 +1,4 @@
-import networkx as nx
+import networkx as nx  # type: ignore
 import src.calc_measures as cm
 
 
@@ -12,3 +12,4 @@ def test_calc_measures():
     assert len(measure_df.columns) == 3
     assert "name" in measure_df.columns
     assert measure_df["degree_centrality"].min() > 0
+    assert measure_df["betweenness_centrality"].min() > 0
