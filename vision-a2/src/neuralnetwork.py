@@ -47,9 +47,8 @@ class NeuralNetwork:
                 self.fit_partial(x, target)
 
             # check diaplay
-            if epoch == 0 or (epoch + 1) % displayUpdate == 0:
-                loss = self.calculate_loss(X, y)
-                print("[INFO] epoch={}, loss={:.7f}".format(epoch + 1, loss))
+            loss = self.calculate_loss(X, y)
+            print("[INFO] epoch={}, loss={:.7f}".format(epoch + 1, loss))
 
     def fit_partial(self, x, y):
         # construct list of output activations for each layer
