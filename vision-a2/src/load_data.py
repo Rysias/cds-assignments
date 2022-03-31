@@ -1,6 +1,5 @@
 # import mnist data from keras
-from typing import Callable, Tuple
-
+from typing import Tuple
 import numpy as np
 
 
