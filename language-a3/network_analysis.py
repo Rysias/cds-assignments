@@ -40,7 +40,10 @@ def process_file(filepath):
     }
 
     G = cm.df_to_graph(df)
-    measure_df = cm.calc_measures(G, measure_dict)
+
+    cm.add_measures(G, measure_dict)
+
+    measure_df = cm.network_to_df(G)
 
     write_measures(measure_df, filepath)
     visualize.plot_graph(G, filepath)
