@@ -1,25 +1,7 @@
 from sklearn.linear_model import LogisticRegression
 import src.load_data as load_data
+import src.report_performance as rp
 import argparse
-import numpy as np
-from sklearn.metrics import classification_report
-from pathlib import Path
-
-
-def get_classification_report(
-    model: LogisticRegression, x_test: np.ndarray, y_test: np.ndarray
-) -> str:
-    """
-    Generates a classification report for the given model.
-    """
-    predictions = model.predict(x_test)
-    return classification_report(y_test, predictions)
-
-
-def save_classification_report(report: str, filename: Path) -> None:
-    """ Save classification report as txt file """
-    with open(filename, "w") as f:
-        f.write(report)
 
 
 def main(args):
@@ -28,9 +10,9 @@ def main(args):
 
     logistic = LogisticRegression()
     logistic.fit(x_train, y_train)
-    report = get_classification_report(logistic, x_test, y_test)
+    report = rp.get_classification_report(logistic, x_test, y_test)
     print(report)
-    save_classification_report(report, Path("out/lr_report.txt"))
+    rp.save_classification_report(report, "lr_report")
 
 
 if __name__ == "__main__":
