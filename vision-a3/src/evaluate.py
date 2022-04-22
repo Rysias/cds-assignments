@@ -1,5 +1,5 @@
 import numpy as np
-from tensorflow.keras import Model
+from tensorflow.keras import Model  # type: ignore
 from sklearn.metrics import classification_report
 
 
