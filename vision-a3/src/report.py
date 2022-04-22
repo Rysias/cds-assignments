@@ -21,3 +21,11 @@ def plot_metrics(history: History, output_dir: Path) -> None:
     METRICS = ["loss", "accuracy"]
     for metric in METRICS:
         plot_metric(history, output_dir, metric_name=metric)
+
+
+def save_classification_report(
+    report: str, output_dir: Path, filename: str = "report.txt"
+) -> None:
+    output_path = output_dir / filename
+    with open(output_path, "w") as f:
+        f.write(report)
