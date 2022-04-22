@@ -6,19 +6,29 @@
 - Save the classification report
 """
 import src.load_data as load_data
-import tensorflow as tf
+import src.vgg16 as vgg16
+
+
+INPUT_SIZE = (32, 32, 3)
+BATCH_SIZE = 64
+LEARNING_RATE = 0.001
 
 
 def main():
     # Load the CIFAR10 dataset (NB: Make sure input size is right!)
     x_train, y_train, x_test, y_test = load_data.load_cifar10()
 
-    # Load the VGG16 model
-    base_model = tf.keras.applications.vgg16.VGG16(
-        include_top=False, weights="imagenet", classifier_activation="softmax",
-    )
+    # Create the model
+    model = vgg16.finetuneable_vgg16(INPUT_SIZE, LEARNING_RATE)
 
-    base_model.trainable = False
+    # Train the model
+    history = model.fit(
+        x_train,
+        y_train,
+        epochs=10,
+        batch_size=BATCH_SIZE,
+        validation_data=(x_test, y_test),
+    )
 
 
 if __name__ == "__main__":
