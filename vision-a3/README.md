@@ -22,3 +22,7 @@ The script has two arguments `--batch-size` for controlling the batch size (usef
 $ python transfer_cnn.py --batch-size 32 --learning-rate 0.01
 ```
 
+## References and Resources
+https://www.tensorflow.org/tutorials/images/transfer_learning
+https://www.tensorflow.org/tutorials/images/cnn
+https://medium.com/codex/github-copilot-is-a-game-changer-cd0a2bbe6de8
