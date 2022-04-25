@@ -30,6 +30,3 @@ The scripts were developed using a TDD-methodology using [pytest](https://docs.p
 
 
 # TODO
-- [ ] Create sizes in visualization
-- [ ] Refactor helper functions
-- [ ] Separate calculation from dataframe creation (see notebook)
