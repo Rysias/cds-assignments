@@ -9,6 +9,7 @@ tensorflow = "*"
 imbalanced-learn = "*"
 scikit-learn = "*"
 matplotlib = "*"
+tensorflow-hub = "*"
 
 [dev-packages]
 ipytest = "*"
