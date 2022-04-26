@@ -9,7 +9,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 
 def create_pipeline(textcol: str = "clean_text") -> Pipeline:
-    vectorizer = TfidfVectorizer(stop_words="english")
+    vectorizer = TfidfVectorizer(stop_words="english", max_features=1000)
     sampler = RandomUnderSampler(random_state=1)
     logistic = LogisticRegression()
     return Pipeline(
