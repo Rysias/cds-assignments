@@ -22,6 +22,7 @@ BATCH_SIZE = 64
 
 def main(args: argparse.Namespace) -> None:
     EPOCHS = args.epochs
+    DROPOUT = args.dropout
     df = pd.read_csv(Path(args.dataset))
     X_train, X_test, y_train, y_test = train_test_split(
         df[["text"]], df["label"], test_size=0.2
@@ -30,7 +31,7 @@ def main(args: argparse.Namespace) -> None:
     X_resampled, y_resampled = sampler.fit_resample(X_train, y_train)
 
     assert X_train.shape[0] == y_train.shape[0]
-    model = convnet.create_model()
+    model = convnet.create_model(dropout=DROPOUT)
 
     # Train the model
     history = model.fit(
@@ -62,6 +63,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--epochs", default=1, type=int, required=False, help="Number of epochs"
     )
+    parser.add_argument(
+        "--dropout", default=0.5, type=float, required=False, help="Dropout rate (float between 0-1)"
+    )
+
     args = parser.parse_args()
     main(args)
 
