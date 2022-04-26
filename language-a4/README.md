@@ -12,11 +12,13 @@ Though I have drawn on inspiration from the above guide, I made the workflow mor
 ## Software Design
 The software design attempts to follow the SOLID principles. The concrete 
 
-- **Single responsibility**: 
-- **Interface segregation**: 
-- **Liskov substitution**: 
-- **Open-closed**: 
-- **Dependency Inversion**: 
+- **Single responsibility**: I have split the functionality into files to make sure that there is high cohesion and low coupling.
+- **Interface segregation**: By using type hints, most functions are clear about what they expect. Also, the main functions are kept fairly clean with minimal imports, so everything is pretty neat.
+- **Liskov substitution**: Not quite applicable as the design is more functional than object oriented.
+- **Open-closed**: The code is designed in such a way that the dataset is relatively arbitrary - as long as there is a text-column and a target column called "label", the stuff will work. 
+- **Dependency Inversion**: Not explicitly used but most functions are easy to replace (i.e. having another vectorizer)
+
+In general, I have prioritized having highly opinionated stuff rather than giving much flexibility. However, that would be relatively easy to change given the design.
 
 ## Usage 
 TL;DR: An example of the entire setup, testing, running pipeline can be run using the bash-script `run_project.sh`. 
@@ -24,19 +26,15 @@ TL;DR: An example of the entire setup, testing, running pipeline can be run usin
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script
-TODO
-
+The easiest way to figure out how the scripts work is using the `--help` flag with each of them. Nevertheless, below is an example of the neural network one
 ```console
-$ python TODO
+$ python dnn_text.py --dataset "../donald_trump_tweets.csv" --epochs 100
 ```
 
 ## Other files
 Other files not previously described include:
 - `experiments.ipynb`: for interactively testing the functionality and designing (not up to date)
 
-## Testing
-The scripts were developed using a TDD-methodology using [pytest](https://docs.pytest.org/en/7.0.x/). To execute the test suite run `python -m pytest` from the main directory.
 
 ## References
 Hammer, H. L., Riegler, M. A., Øvrelid, L. & Veldal, E. (2019). "THREAT: A Large Annotated Corpus for Detection of Violent Threats". 7th IEEE International Workshop on Content-Based Multimedia Indexing.
-# TODO
