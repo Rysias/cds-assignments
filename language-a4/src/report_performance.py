@@ -1,5 +1,6 @@
 import numpy as np
 from sklearn.metrics import classification_report
+from tensorflow.keras import Model
 from pathlib import Path
 
 
@@ -20,3 +21,10 @@ def save_classification_report(report: str, filename: str) -> None:
     output_path = output_dir / f"{filename}.txt"
     with open(output_path, "w") as f:
         f.write(report)
+
+
+def evaluate_model(model: Model, x_test: np.ndarray, y_test: np.ndarray) -> str:
+    """ Evaluate the predictions and output classification report """
+    y_preds = model.predict(x_test)
+    y_preds = np.argmax(y_preds, axis=1)
+    return classification_report(y_test, y_preds, zero_division=1)
