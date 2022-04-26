@@ -9,48 +9,34 @@ import tensorflow_hub as hub
 # import tensorflow metrics
 from tensorflow.keras import metrics
 
+from imblearn.over_sampling import RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
 import src.report_performance as rp
+import src.convnet as convnet
 from pathlib import Path
 
 
 BATCH_SIZE = 64
 
 
-def compile_model(model: tf.keras.Model,) -> None:
-    model.compile(
-        optimizer="adam",
-        loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
-        metrics=[metrics.AUC, metrics.Accuracy],
-    )
-
-
 def main(args: argparse.Namespace) -> None:
+    EPOCHS = args.epochs
     df = pd.read_csv(Path(args.dataset))
     X_train, X_test, y_train, y_test = train_test_split(
         df[["text"]], df["label"], test_size=0.2
     )
+    sampler = RandomUnderSampler(random_state=1)
+    X_resampled, y_resampled = sampler.fit_resample(X_train, y_train)
+
     assert X_train.shape[0] == y_train.shape[0]
-
-    model_path = "https://tfhub.dev/google/nnlm-en-dim50-with-normalization/2"
-    hub_layer = hub.KerasLayer(
-        model_path, input_shape=[], dtype=tf.string, trainable=False
-    )
-
-    model = tf.keras.Sequential()
-    model.add(hub_layer)
-    model.add(tf.keras.layers.Dense(16, activation="relu"))
-    model.add(tf.keras.layers.Dense(16, activation="relu"))
-    model.add(tf.keras.layers.Dropout(0.2))
-    model.add(tf.keras.layers.Dense(1))
-
-    compile_model(model)
+    model = convnet.create_model()
 
     # Train the model
     history = model.fit(
-        X_train,
-        y_train,
-        epochs=1,
+        X_resampled,
+        y_resampled,
+        epochs=EPOCHS,
         batch_size=BATCH_SIZE,
         validation_data=(X_test, y_test),
     )
@@ -71,6 +57,10 @@ if __name__ == "__main__":
         type=str,
         required=False,
         help="Path to the dataset.",
+    )
+    # add epoch as argument
+    parser.add_argument(
+        "--epochs", default=1, type=int, required=False, help="Number of epochs"
     )
     args = parser.parse_args()
     main(args)
