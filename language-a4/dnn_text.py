@@ -27,7 +27,7 @@ def main(args: argparse.Namespace) -> None:
     X_train, X_test, y_train, y_test = train_test_split(
         df[["text"]], df["label"], test_size=0.2
     )
-    sampler = RandomUnderSampler(random_state=1)
+    sampler = RandomUnderSampler(random_state=42)
     X_resampled, y_resampled = sampler.fit_resample(X_train, y_train)
 
     assert X_train.shape[0] == y_train.shape[0]

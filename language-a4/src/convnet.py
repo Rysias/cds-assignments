@@ -23,7 +23,7 @@ def compile_model(model: tf.keras.Model,) -> None:
     )
 
 
-def create_model() -> tf.keras.Model:
-    model = define_model()
+def create_model(dropout=0.2) -> tf.keras.Model:
+    model = define_model(dropout=dropout)
     compile_model(model)
     return model
