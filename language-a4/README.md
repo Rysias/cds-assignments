@@ -1,4 +1,5 @@
 # Simple Network Analysis
+https://www.tensorflow.org/hub/tutorials/tf2_text_classification <-- guide used
 TODO
 
 ## Software Design
