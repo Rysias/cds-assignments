@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "54364c7252279d9018e7b0fa855f8d1f03fc09b7a6c3bf8c0979cc122cbdabe1"
+            "sha256": "b5733da8beb84b91fc12267bea816c657adc0dc1847aeb6b6db97342fe3c34c4"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -692,6 +692,13 @@
             ],
             "index": "pypi",
             "version": "==2.8.0"
+        },
+        "tensorflow-hub": {
+            "hashes": [
+                "sha256:822fe5f7338c95efcc3a534011c6689e4309ba2459def87194179c4de8a6e1fc"
+            ],
+            "index": "pypi",
+            "version": "==0.12.0"
         },
         "tensorflow-io-gcs-filesystem": {
             "hashes": [
