@@ -40,30 +40,6 @@ def compare_hists(source_hist: np.ndarray, candidate_hist: np.ndarray) -> float:
     return cv2.compareHist(source_hist, candidate_hist, cv2.HISTCMP_CHISQR)
 
 
-def create_dist_df(
-    source_path: Path, hist_dict: Dict[Path, np.ndarray]
-) -> pd.DataFrame:
-    dist_df = pd.DataFrame(
-        {"dist": 0}, index=(key for key in hist_dict if key != source_path)
-    )
-    source_hist = hist_dict[source_path]
-    for cand_path, cand_hist in hist_dict.items():
-        if cand_path == source_path:
-            continue
-        dist_df.loc[cand_path, "dist"] += compare_hists(source_hist, cand_hist)
-    return dist_df
-
-
-def create_dist_output_dict(target_file: Path, dist_df: pd.DataFrame) -> pd.DataFrame:
-    dist_dict = {
-        "source": [target_file.name],
-        "1st": [dist_df.index[0].name],
-        "2nd": [dist_df.index[1].name],
-        "3rd": [dist_df.index[2].name],
-    }
-    return pd.DataFrame.from_dict(dist_dict)
-
-
 def filter_top_dists(dist_df: pd.DataFrame, n: int = 3) -> pd.DataFrame:
     return dist_df.nsmallest(n=n, columns="dist")
 
@@ -99,30 +75,6 @@ def format_dist(dist: float) -> str:
 
 def resize_square(img: np.ndarray, size=300) -> np.ndarray:
     return cv2.resize(img, dsize=(size, size))
-
-
-def arrange_square(img_list: List[np.ndarray], img_dim=300) -> np.ndarray:
-    """Adapted from https://stackoverflow.com/a/52283965
-    Arranges images into a square
-    """
-    if len(img_list) not in [i ** 2 for i in range(10)]:
-        raise ValueError("List must have square number of elements")
-
-    canvas_shape = math.isqrt(len(img_list))
-    imgmatrix = np.zeros((canvas_shape * img_dim, canvas_shape * img_dim, 3), np.uint8)
-    # Prepare an iterable with the right dimensions
-    positions = itertools.product(range(canvas_shape), range(canvas_shape))
-
-    for (y_i, x_i), img in zip(positions, img_list):
-        x = x_i * img_dim
-        y = y_i * img_dim
-        imgmatrix[y : y + img_dim, x : x + img_dim, :] = img
-    return imgmatrix
-
-
-def format_source_img(source_path: Path) -> np.ndarray:
-    """ Makes source image into a square and add the word 'SOURCE' to the middle """
-    return add_text(resize_square(read_img(source_path)), "SOURCE")
 
 
 def format_dist_list(
@@ -181,7 +133,6 @@ def main(args: argparse.Namespace) -> None:
 
     # Heavy lifting y'all!
     master_dict = create_master_hists(all_img_paths, n_cores=ncores)
-
     dist_df = find_top_dists(target_img, master_dict)
 
     # format output
