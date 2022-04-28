@@ -81,3 +81,8 @@ def create_dist_square(source_path, small_dist_df: pd.DataFrame) -> np.ndarray:
     formatted_imgs = format_dist_list(source_path, small_dist_df)
     return arrange_square(formatted_imgs)
 
+
+def write_output_img(output_img: np.ndarray, source_path: Path, OUTPUT_DIR) -> None:
+    """Writes the output to a file with a sensible name"""
+    output_name = str(OUTPUT_DIR / f"{source_path.stem}_closest3.png")
+    cv2.imwrite(output_name, output_img)
