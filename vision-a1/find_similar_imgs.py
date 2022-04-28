@@ -9,7 +9,7 @@ from typing import List, Dict
 from multiprocessing import Pool, cpu_count
 
 
-def calc_color_hist(img):
+def calc_color_hist(img: np.ndarray) -> np.ndarray:
     """ Finds the color histogram of an image """
     return cv2.calcHist([img], [0, 1, 2], None, [8, 8, 8], [0, 256, 0, 256, 0, 256])
 
@@ -35,7 +35,7 @@ def create_hist_dict(img_path: Path) -> Dict[Path, np.ndarray]:
     return {img_path: process_img(img_path)}
 
 
-def compare_hists(source_hist, candidate_hist):
+def compare_hists(source_hist: np.ndarray, candidate_hist: np.ndarray) -> float:
     """ Finds the chi-squared distance between two histograms """
     return cv2.compareHist(source_hist, candidate_hist, cv2.HISTCMP_CHISQR)
 
@@ -64,7 +64,7 @@ def create_dist_output_dict(target_file: Path, dist_df: pd.DataFrame) -> pd.Data
     return pd.DataFrame.from_dict(dist_dict)
 
 
-def filter_top_dists(dist_df: pd.DataFrame, n=3) -> pd.DataFrame:
+def filter_top_dists(dist_df: pd.DataFrame, n: int = 3) -> pd.DataFrame:
     return dist_df.nsmallest(n=n, columns="dist")
 
 
@@ -75,7 +75,7 @@ def find_top_dists(
     return filter_top_dists(dist_df, n=n)
 
 
-def add_text(img, text):
+def add_text(img: np.ndarray, text: str) -> np.ndarray:
     new_img = img.copy()
     # setup text
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -171,7 +171,7 @@ def create_master_hists(
     return list_to_dict(master_list)
 
 
-def main(args):
+def main(args: argparse.Namespace) -> None:
     DATA_DIR = Path(args.data_dir)
     OUTPUT_DIR = create_output_dir()
     target_img = DATA_DIR / args.img_name

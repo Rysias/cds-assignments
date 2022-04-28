@@ -9,5 +9,7 @@ Here are solutions for finding most similar images as described in `assignment1.
 - `experiments.ipynb`: code sketches and experiments
 
 ## TODO
-- improve nsmallest performance (DONE)
-- Add logging to `dir_similarity.py` (DONE)
+- [] create reproducible pipenv 
+- [] create `run_project.sh`
+- [] refactor to output / src 
+- [] Update README with template from the other ones
