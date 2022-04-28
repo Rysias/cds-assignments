@@ -1,13 +1,15 @@
-# Simple Image Classifications 
-TODO: Simple description
+# Assignment 3 - Transfer learning + CNN classification
+This assignment implements transfer learning using the VGG16 neural network for effectively classifying images. This is (hopefully) an improvement over the simpler used in assignment 2. In implementing this project, I have relied on [this tensorflow tutorial](https://www.tensorflow.org/tutorials/images/transfer_learning) about transfer learning as well as [this one](https://www.tensorflow.org/tutorials/images/cnn) about convolutional neural networks. 
 
+However, instead of blindly following the tutorials, I have updated them using the SOLID-principles, which I will further describe in the next section. I have also used GitHub Copilot, a code completition tool, which I believe is a [game changer for coding](https://medium.com/codex/github-copilot-is-a-game-changer-cd0a2bbe6de8)
 
-## Software Design (TODO: This)
-- **Single responsibility**: 
-- **Interface segregation**: 
-- **Liskov substitution**: 
-- **Open-closed**: 
-- **Dependency Inversion**:
+## Software Design
+As mentioned, I have tried to follow the SOLID-principles. On a high-level, this means that the main script (`transfer_cnn.py`) is easy to modify to suit future needs as it is relatively agnostic to implementation details. This means that it would be relatively easy to change the base model to another model than VGG16, though it would take a bit of refactoring to make this process silky smooth. Below are some concrete examples of the SOLID principles.
+- **Single responsibility**: Each function attempts to do just one thing, which decreases coupling.
+- **Interface segregation**: Each functionality (such as loading data or reporting) has a separate file, which decreases the dependencies between scripts. This also means that the main script only imports other files and base modules.
+- **Liskov substitution**: Not strictly implemented as there are no classes. However, the design utilizes that tensorflow uses Liskov substitution, which makes extensions easier.
+- **Open-closed**: Functions are build in a modular way that makes them relatively easy to extend with e.g. new models.
+- **Dependency Inversion**: Not used too much, as the task only requires to work with VGG16. However, for possible extensions this could make adding other models quite a bit easier.
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -21,8 +23,3 @@ The script has two arguments `--batch-size` for controlling the batch size (usef
 ```console
 $ python transfer_cnn.py --batch-size 32 --learning-rate 0.01
 ```
-
-## References and Resources
-https://www.tensorflow.org/tutorials/images/transfer_learning
-https://www.tensorflow.org/tutorials/images/cnn
-https://medium.com/codex/github-copilot-is-a-game-changer-cd0a2bbe6de8

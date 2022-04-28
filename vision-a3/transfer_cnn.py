@@ -49,6 +49,6 @@ if __name__ == "__main__":
         description="Train a VGG16 model on CIFAR10 using Keras"
     )
     parser.add_argument("--learning_rate", type=float, default=0.001)
-    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--batch_size", type=int, default=32)
     args = parser.parse_args()
     main(args)
