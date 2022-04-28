@@ -7,8 +7,8 @@ from pathlib import Path
 from typing import List, Dict
 from multiprocessing import Pool, cpu_count
 
-import calculate_dists as cd
-import img_help as ih
+import src.calculate_dists as cd
+import src.img_help as ih
 
 
 def create_output_dir() -> Path:

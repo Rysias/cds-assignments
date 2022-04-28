@@ -7,7 +7,7 @@ from pathlib import Path
 from typing import List, Dict, Tuple
 from multiprocessing import Pool
 
-import img_help as ih
+import src.img_help as ih
 
 
 def calc_color_hist(img: np.ndarray) -> np.ndarray:
