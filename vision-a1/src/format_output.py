@@ -11,6 +11,14 @@ import calculate_dists as cd
 import img_help as ih
 
 
+def create_output_dir() -> Path:
+    """Creates a directory for the output and returns the path """
+    output_dir = Path("output")
+    if not output_dir.exists():
+        output_dir.mkdir()
+    return output_dir
+
+
 def add_text(img: np.ndarray, text: str) -> np.ndarray:
     new_img = img.copy()
     # setup text

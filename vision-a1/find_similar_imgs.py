@@ -6,19 +6,9 @@ import src.calculate_dists as cd
 import src.format_output as fo
 
 
-def create_output_dir() -> Path:
-    """Creates a directory for the output and returns the path """
-    output_dir = Path("output")
-    try:
-        output_dir.mkdir()
-    except FileExistsError:
-        pass
-    return output_dir
-
-
 def main(args: argparse.Namespace) -> None:
     DATA_DIR = Path(args.data_dir)
-    OUTPUT_DIR = create_output_dir()
+    OUTPUT_DIR = fo.create_output_dir()
     target_img = DATA_DIR / args.img_name
     ncores = args.ncores if args.ncores is not None else cpu_count() - 1
 
