@@ -11,3 +11,9 @@ This folder contains the scripts for finding collocation in a txt-file given a s
 - `collocate_experiments.ipynb`: code sketches and experiments
 - `profile_collocate.sh`: Script for measuring performance of collocates (used for finding optimizations)
 - `*.txt`: outputs from `profile_collocate_sh`
+
+# TODO
+- [] refactor functions into src
+- [] create reproducible pipenv
+- [] create run_project.sh 
+- [] Create README following structure of the other repos
