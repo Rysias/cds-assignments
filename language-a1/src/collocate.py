@@ -2,7 +2,6 @@ from spacy.tokens import Doc
 from typing import Iterable, List, Sequence
 from spacy import load
 import pandas as pd
-import argparse
 import numpy as np
 from pathlib import Path
 from collections import Counter
