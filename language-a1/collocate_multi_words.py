@@ -1,8 +1,7 @@
 """
 Create a program which allows a user to define a number of different collocates at the same time, rather than only one
 """
-
-import collocate_single_text as clt
+import src.collocate as clt
 import argparse
 import pandas as pd
 from pathlib import Path

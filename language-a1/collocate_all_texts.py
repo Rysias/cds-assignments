@@ -1,7 +1,7 @@
 """
 - Create a program which does the above for every novel in the corpus, saving one output CSV per novel
 """
-import collocate_single_text as clt
+import src.collocate as clt
 import argparse
 from pathlib import Path
 

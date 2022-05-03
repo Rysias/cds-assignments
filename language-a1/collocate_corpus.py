@@ -2,7 +2,7 @@
 Create a program which does this for the whole dataset, creating a CSV with one set of results, showing the mutual information scores for collocates across the whole set of texts
 """
 
-import collocate_single_text as clt
+import src.collocate as clt
 import argparse
 from pathlib import Path
 
