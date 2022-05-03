@@ -6,8 +6,14 @@
 - Save the results as a CSV file with (at least) the following columns: the collocate term; how often it appears as a collocate; how often it appears in the text; the mutual information score.
 """
 import argparse
+import logging
 from pathlib import Path
 import src.collocate as collocate
+
+# add basic logging
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 def main(args):
@@ -16,8 +22,11 @@ def main(args):
     window_size = args.window_size
     file_path = DATA_DIR / args.file_name
 
+    logging.info(f"Searching for {search_term} in {file_path}...")
     collocate_df = collocate.process_file(file_path, search_term, window_size)
+    logging.info(f"writing output...")
     collocate.write_output(collocate_df, args.file_name, search_term)
+    logging.info("done!")
 
 
 if __name__ == "__main__":

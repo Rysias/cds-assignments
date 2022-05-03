@@ -3,10 +3,15 @@ from typing import Iterable, List, Sequence
 from spacy import load
 import pandas as pd
 import numpy as np
+import logging
 from pathlib import Path
 from collections import Counter
 from spacy.tokens import Doc
 from typing import List, Sequence
+
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 NLP = load(
     "en_core_web_sm",
@@ -93,10 +98,13 @@ def calc_mi(collocate_count, corpus_freq, corpus, search_term, window_size):
 
 def collocate_pipeline(corpus, search_term, window_size):
     df = create_collocate_df(corpus, search_term, window_size)
+    logging.info(f"Created collocate df for {search_term}")
     df["corpus_count"] = df["collocate"].apply(lambda x: count_words(corpus, x))
+    logging.info(f"Calculated corpus count for {search_term}")
     df["MI"] = calc_mi(
         df["collocate_count"], df["corpus_count"], corpus, search_term, window_size
     )
+    logging.info(f"Calculated MI for {search_term}")
     return df
 
 

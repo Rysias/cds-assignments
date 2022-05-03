@@ -4,7 +4,12 @@ Create a program which allows a user to define a number of different collocates 
 import src.collocate as clt
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
+
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 def join_texts(file_list):
@@ -12,6 +17,7 @@ def join_texts(file_list):
 
 
 def process_corpus(file_list):
+    logging.info("processing corpus...")
     joined_text = join_texts(file_list)
     return clt.tokenize_doc(joined_text)
 
