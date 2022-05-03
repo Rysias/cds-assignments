@@ -1,10 +1,15 @@
 import spacy
 import argparse
 import pandas as pd
+import logging
 from pathlib import Path
 from src import news_entities as ne
-from typing import Sequence, Callable, List, Tuple
+from typing import Callable, Tuple
 
+# Add basic logging
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 NLP = spacy.load("en_core_web_sm")
 
@@ -23,18 +28,20 @@ def process_news_df(
     sent_name, sent_fun = sentiment
 
     # Calculate the stuff
+    logging.info(f"Calculating {sent_name} for {group_label} news")
     top_ents = ne.df_ent_and_sent(df, NLP, sent_fun=sent_fun)
 
     # Plot
+    logging.info("plotting...")
     output_dir = create_output_dir()
     ne.plot_top_ents(top_ents, output_dir, group_type=group_label)
 
     # Write output
+    logging.info("writing output...")
     top_ents.to_csv(output_dir / f"{group_label}_GPE_{sent_name}.csv")
 
 
 def main(args):
-    topn = args.top_n
     DATA_PATH = Path(args.data_path)
 
     if args.sentiment == "textblob":
