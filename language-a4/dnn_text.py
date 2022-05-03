@@ -3,13 +3,9 @@ Trains a deep neural network for detecting toxicity
 """
 import argparse
 import pandas as pd
-import tensorflow as tf
-import tensorflow_hub as hub
 
 # import tensorflow metrics
-from tensorflow.keras import metrics
 
-from imblearn.over_sampling import RandomOverSampler
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
 import src.report_performance as rp
@@ -64,7 +60,11 @@ if __name__ == "__main__":
         "--epochs", default=1, type=int, required=False, help="Number of epochs"
     )
     parser.add_argument(
-        "--dropout", default=0.5, type=float, required=False, help="Dropout rate (float between 0-1)"
+        "--dropout",
+        default=0.5,
+        type=float,
+        required=False,
+        help="Dropout rate (float between 0-1)",
     )
 
     args = parser.parse_args()
