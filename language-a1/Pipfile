@@ -4,15 +4,4 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-tensorflow = "*"
-imbalanced-learn = "*"
-scikit-learn = "*"
-matplotlib = "*"
-tensorflow-hub = "*"
 
-[dev-packages]
-ipytest = "*"
-
-[requires]
-python_version = "3.9"
