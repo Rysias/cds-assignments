@@ -27,14 +27,14 @@ if __name__ == "__main__":
     argparser.add_argument(
         "--file-name",
         required=True,
-        help="file-name to search through (in 100_english_novels",
+        help="file-name to search through (in 100_english_novels)",
     )
     argparser.add_argument(
         "--search-term", required=True, help="Node word to find collocates"
     )
     argparser.add_argument(
         "--window-size",
-        required=True,
+        default=6,
         type=int,
         help="Window size (on each side of node word)",
     )
