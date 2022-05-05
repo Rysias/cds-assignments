@@ -1,6 +1,12 @@
 # import mnist data from keras
 from typing import Tuple
 import numpy as np
+import logging
+
+# basic logging
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 
 def load_image_data() -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
@@ -79,6 +85,7 @@ def load_dataset(dataset: str) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.n
     """
     all_dataloaders = {"mnist": load_mnist, "cifar10": load_cifar10}
     try:
+        logging.info("Loading data...")
         return all_dataloaders[dataset]()
     except KeyError:
         raise ValueError(
