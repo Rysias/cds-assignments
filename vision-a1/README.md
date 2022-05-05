@@ -82,7 +82,7 @@ There are two things to evaluate wrt results: The quality of the code and the (s
 
 As humans are fairly good at pattern recognition, it is instructive to investigate the example output: 
 
-![alt text](output/image_003_closest3.png)
+![alt text](output/image_0003_closest3.png)
 
 At first glance the script is successful: all the images depict yellow flowers. At a closer look one notices small disrepencies. For instances the closest flower (top right corner) is a different species, while the third closest (bottom right) is the same. From our expert-ish botanist (or at least evolutionarily trained) perspective, the two should been reversed. 
 
