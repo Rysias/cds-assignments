@@ -1,8 +1,8 @@
 # Script for running everything :))
 echo "installing dependencies"
 pip install pipenv
-pipenv install
+python -m pipenv install
 echo "Running main script!"
-pipenv run python transfer_cnn.py
+python -m pipenv run python transfer_cnn.py --epochs 20
 echo "All done!"
 

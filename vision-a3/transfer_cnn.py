@@ -20,6 +20,7 @@ OUTPUT_DIR = Path("output")
 def main(args: argparse.Namespace) -> None:
     BATCH_SIZE = args.batch_size
     LEARNING_RATE = args.learning_rate
+    EPOCHS = args.epochs
 
     # Load the CIFAR10 dataset (NB: Make sure input size is right!)
     x_train, y_train, x_test, y_test = load_data.load_cifar10()
@@ -31,7 +32,7 @@ def main(args: argparse.Namespace) -> None:
     history = model.fit(
         x_train,
         y_train,
-        epochs=10,
+        epochs=EPOCHS,
         batch_size=BATCH_SIZE,
         validation_data=(x_test, y_test),
     )
@@ -50,5 +51,6 @@ if __name__ == "__main__":
     )
     parser.add_argument("--learning_rate", type=float, default=0.001)
     parser.add_argument("--batch_size", type=int, default=32)
+    parser.add_argument("--epochs", type=int, default=10)
     args = parser.parse_args()
     main(args)
