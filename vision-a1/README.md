@@ -7,8 +7,9 @@ Points
 
 
 ## Table of Content
-#TODO
-
+- [Assignment Description](#assignment-description)
+- [Methods and design](#methods-and-design)
+    * [Software design](#software-design)
 ## Assignment Description
 For this assignment, you will write a small Python program to compare image histograms quantitively using Open-CV and the other image processing tools you've already encountered. Your script should do the following:
 
@@ -88,4 +89,4 @@ At first glance the script is successful: all the images depict yellow flowers. 
 
 Looking at it from a histogram-comparison perspective, the rankings make sense. The saturation and ligthing are quite similar on the top image compared to the same-species one that is much . This highlights a fundamental flaw with the technique: it has no conception of semantics. What we mean by "similar" is a relatively abstract thing such as structure of the petals or other more qualified botany-jargon. 
 
-This doesn't mean that finding similar images is forever outside the reach of mere computers. Using sophisticated feature extraction (such as in [assignment 3](../vision-a1) with VGG16) one can capture more of the semantics. However, this comes with its own trade-offs which I will describe in due time. 
+This doesn't mean that finding similar images is forever outside the reach of mere computers. Using sophisticated feature extraction (such as in [assignment 3](../vision-a3) with VGG16) one can capture more of the semantics. However, this comes with its own trade-offs which I will describe in due time. 
