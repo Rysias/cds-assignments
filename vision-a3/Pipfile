@@ -5,8 +5,9 @@ name = "pypi"
 
 [packages]
 scikit-learn = "*"
-tensorflow = "*"
 numpy = "*"
+matplotlib = "*"
+tensorflow = "~=2.8"
 
 [requires]
 python_version = "3.9"

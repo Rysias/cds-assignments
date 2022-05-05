@@ -43,9 +43,9 @@ def create_model(
 
 def compile_model(model: tf.keras.Model, learning_rate: float = 0.001) -> None:
     logger.info("Compiling model...")
+    optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(
-        optimizer="adam",
-        learning_rate=learning_rate,
+        optimizer=optimizer,
         loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
         metrics=["accuracy"],
     )
@@ -56,5 +56,5 @@ def finetuneable_vgg16(input_shape, learning_rate=0.001) -> tf.keras.Model:
     """
     vgg16 = load_vgg16(input_shape)
     model = create_model(vgg16, input_shape)
-    compile_model(model, learning_rate=learning_rate))
+    compile_model(model, learning_rate=learning_rate)
     return model 
