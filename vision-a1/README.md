@@ -20,6 +20,7 @@ For this assignment, you will write a small Python program to compare image hist
 - (bonus task) Create a program which does this for the whole dataset, creating a CSV with one column showing the file name for each image and three other columns showing the most similar images
 
 **Personal focus**
+
 In this assignment, I want to focus on creating performant code. Finding most similar images is fairly expensive as it requires a) a lot of image processing, and b) N^2 comparisons. I will therefore experiment with how to parallelize the code and avoid unnecessary duplication of processing.
 Furthermore, I want to be better at writing production-grade code that is easy to read and maintain. Therefore I will try to implement the SOLID-principles in this (and future) assignments.
 
@@ -77,4 +78,14 @@ $ python find_similar_imgs.py --img-name testimg.jpg --ncores 1000
 ```
 
 ## Discussion of the results
-There are two aspects, I want to focus on wrt. discussing the results: computational performance and subjective quality. The 
+There are two things to evaluate wrt results: The quality of the code and the (subjective) quality of the output. As I have previously discussed the code quality and performance, I will focus on the quality of the output. 
+
+As humans are fairly good at pattern recognition, it is instructive to investigate the example output: 
+
+![alt text](output/image_003_closest3.png)
+
+At first glance the script is successful: all the images depict yellow flowers. At a closer look one notices small disrepencies. For instances the closest flower (top right corner) is a different species, while the third closest (bottom right) is the same. From our expert-ish botanist (or at least evolutionarily trained) perspective, the two should been reversed. 
+
+Looking at it from a histogram-comparison perspective, the rankings make sense. The saturation and ligthing are quite similar on the top image compared to the same-species one that is much . This highlights a fundamental flaw with the technique: it has no conception of semantics. What we mean by "similar" is a relatively abstract thing such as structure of the petals or other more qualified botany-jargon. 
+
+This doesn't mean that finding similar images is forever outside the reach of mere computers. Using sophisticated feature extraction (such as in [assignment 3](../vision-a1) with VGG16) one can capture more of the semantics. However, this comes with its own trade-offs which I will describe in due time. 
