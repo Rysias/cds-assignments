@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Warwick", "label": "Warwick", "shape": "dot", "size": 10}, {"id": "York", "label": "York", "shape": "dot", "size": 10}, {"id": "Gloucester", "label": "Gloucester", "shape": "dot", "size": 10}, {"id": "KingHenry", "label": "KingHenry", "shape": "dot", "size": 10}, {"id": "Exeter", "label": "Exeter", "shape": "dot", "size": 10}, {"id": "Clifford", "label": "Clifford", "shape": "dot", "size": 10}, {"id": "Westmorland", "label": "Westmorland", "shape": "dot", "size": 10}, {"id": "Northumberland", "label": "Northumberland", "shape": "dot", "size": 10}, {"id": "Norfolk", "label": "Norfolk", "shape": "dot", "size": 10}, {"id": "KingEdward", "label": "KingEdward", "shape": "dot", "size": 10}, {"id": "2Messenger", "label": "2Messenger", "shape": "dot", "size": 10}, {"id": "QueenMargaret", "label": "QueenMargaret", "shape": "dot", "size": 10}, {"id": "PrinceEdward", "label": "PrinceEdward", "shape": "dot", "size": 10}, {"id": "Clarence", "label": "Clarence", "shape": "dot", "size": 10}, {"id": "Oxford", "label": "Oxford", "shape": "dot", "size": 10}, {"id": "KingLewis", "label": "KingLewis", "shape": "dot", "size": 10}, {"id": "LadyBona", "label": "LadyBona", "shape": "dot", "size": 10}, {"id": "2Watchman", "label": "2Watchman", "shape": "dot", "size": 10}, {"id": "1Watchman", "label": "1Watchman", "shape": "dot", "size": 10}, {"id": "Somerset", "label": "Somerset", "shape": "dot", "size": 10}, {"id": "3Post", "label": "3Post", "shape": "dot", "size": 10}, {"id": "4Messenger", "label": "4Messenger", "shape": "dot", "size": 10}, {"id": "5Messenger", "label": "5Messenger", "shape": "dot", "size": 10}, {"id": "Somerville", "label": "Somerville", "shape": "dot", "size": 10}, {"id": "Montague", "label": "Montague", "shape": "dot", "size": 10}, {"id": "1Messenger", "label": "1Messenger", "shape": "dot", "size": 10}, {"id": "SirJohn", "label": "SirJohn", "shape": "dot", "size": 10}, {"id": "LadyGrey", "label": "LadyGrey", "shape": "dot", "size": 10}, {"id": "Nobleman", "label": "Nobleman", "shape": "dot", "size": 10}, {"id": "2Post", "label": "2Post", "shape": "dot", "size": 10}, {"id": "Hastings", "label": "Hastings", "shape": "dot", "size": 10}, {"id": "Huntsman", "label": "Huntsman", "shape": "dot", "size": 10}, {"id": "Mayor", "label": "Mayor", "shape": "dot", "size": 10}, {"id": "Montgomery", "label": "Montgomery", "shape": "dot", "size": 10}, {"id": "Son", "label": "Son", "shape": "dot", "size": 10}, {"id": "Father", "label": "Father", "shape": "dot", "size": 10}, {"id": "2Keeper", "label": "2Keeper", "shape": "dot", "size": 10}, {"id": "1Keeper", "label": "1Keeper", "shape": "dot", "size": 10}, {"id": "Lieutenant", "label": "Lieutenant", "shape": "dot", "size": 10}, {"id": "Rutland", "label": "Rutland", "shape": "dot", "size": 10}, {"id": "Tutor", "label": "Tutor", "shape": "dot", "size": 10}, {"id": "3Messenger", "label": "3Messenger", "shape": "dot", "size": 10}, {"id": "6Messenger", "label": "6Messenger", "shape": "dot", "size": 10}, {"id": "Rivers", "label": "Rivers", "shape": "dot", "size": 10}, {"id": "1Post", "label": "1Post", "shape": "dot", "size": 10}, {"id": "Soldier", "label": "Soldier", "shape": "dot", "size": 10}, {"id": "3Watchman", "label": "3Watchman", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 12, "from": "Warwick", "to": "York", "weight": 1}, {"Weight": 27, "from": "Warwick", "to": "Gloucester", "weight": 1}, {"Weight": 20, "from": "Warwick", "to": "KingHenry", "weight": 1}, {"Weight": 3, "from": "Warwick", "to": "Exeter", "weight": 1}, {"Weight": 7, "from": "Warwick", "to": "Clifford", "weight": 1}, {"Weight": 3, "from": "Warwick", "to": "Westmorland", "weight": 1}, {"Weight": 5, "from": "Warwick", "to": "Northumberland", "weight": 1}, {"Weight": 1, "from": "Warwick", "to": "Norfolk", "weight": 1}, {"Weight": 31, "from": "Warwick", "to": "KingEdward", "weight": 1}, {"Weight": 2, "from": "Warwick", "to": "2Messenger", "weight": 1}, {"Weight": 15, "from": "Warwick", "to": "QueenMargaret", "weight": 1}, {"Weight": 4, "from": "Warwick", "to": "PrinceEdward", "weight": 1}, {"Weight": 14, "from": "Warwick", "to": "Clarence", "weight": 1}, {"Weight": 9, "from": "Warwick", "to": "Oxford", "weight": 1}, {"Weight": 13, "from": "Warwick", "to": "KingLewis", "weight": 1}, {"Weight": 2, "from": "Warwick", "to": "LadyBona", "weight": 1}, {"Weight": 1, "from": "Warwick", "to": "2Watchman", "weight": 1}, {"Weight": 1, "from": "Warwick", "to": "1Watchman", "weight": 1}, {"Weight": 6, "from": "Warwick", "to": "Somerset", "weight": 1}, {"Weight": 4, "from": "Warwick", "to": "3Post", "weight": 1}, {"Weight": 2, "from": "Warwick", "to": "4Messenger", "weight": 1}, {"Weight": 2, "from": "Warwick", "to": "5Messenger", "weight": 1}, {"Weight": 5, "from": "Warwick", "to": "Somerville", "weight": 1}, {"Weight": 1, "from": "Warwick", "to": "Montague", "weight": 1}, {"Weight": 6, "from": "York", "to": "KingEdward", "weight": 1}, {"Weight": 12, "from": "York", "to": "Gloucester", "weight": 1}, {"Weight": 3, "from": "York", "to": "Norfolk", "weight": 1}, {"Weight": 13, "from": "York", "to": "KingHenry", "weight": 1}, {"Weight": 7, "from": "York", "to": "Exeter", "weight": 1}, {"Weight": 7, "from": "York", "to": "Northumberland", "weight": 1}, {"Weight": 3, "from": "York", "to": "Montague", "weight": 1}, {"Weight": 2, "from": "York", "to": "1Messenger", "weight": 1}, {"Weight": 2, "from": "York", "to": "SirJohn", "weight": 1}, {"Weight": 4, "from": "York", "to": "Clifford", "weight": 1}, {"Weight": 3, "from": "York", "to": "QueenMargaret", "weight": 1}, {"Weight": 5, "from": "KingEdward", "to": "Montague", "weight": 1}, {"Weight": 85, "from": "KingEdward", "to": "Gloucester", "weight": 1}, {"Weight": 2, "from": "KingEdward", "to": "1Messenger", "weight": 1}, {"Weight": 4, "from": "KingEdward", "to": "PrinceEdward", "weight": 1}, {"Weight": 11, "from": "KingEdward", "to": "QueenMargaret", "weight": 1}, {"Weight": 26, "from": "KingEdward", "to": "Clarence", "weight": 1}, {"Weight": 1, "from": "KingEdward", "to": "Clifford", "weight": 1}, {"Weight": 43, "from": "KingEdward", "to": "LadyGrey", "weight": 1}, {"Weight": 2, "from": "KingEdward", "to": "Nobleman", "weight": 1}, {"Weight": 11, "from": "KingEdward", "to": "2Post", "weight": 1}, {"Weight": 6, "from": "KingEdward", "to": "Hastings", "weight": 1}, {"Weight": 3, "from": "KingEdward", "to": "Oxford", "weight": 1}, {"Weight": 2, "from": "KingEdward", "to": "Huntsman", "weight": 1}, {"Weight": 4, "from": "KingEdward", "to": "Mayor", "weight": 1}, {"Weight": 7, "from": "KingEdward", "to": "Montgomery", "weight": 1}, {"Weight": 1, "from": "KingEdward", "to": "Exeter", "weight": 1}, {"Weight": 1, "from": "KingEdward", "to": "Somerville", "weight": 1}, {"Weight": 1, "from": "KingEdward", "to": "Somerset", "weight": 1}, {"Weight": 3, "from": "Montague", "to": "Gloucester", "weight": 1}, {"Weight": 1, "from": "Montague", "to": "Norfolk", "weight": 1}, {"Weight": 2, "from": "Montague", "to": "KingHenry", "weight": 1}, {"Weight": 4, "from": "Montague", "to": "Hastings", "weight": 1}, {"Weight": 1, "from": "Montague", "to": "Oxford", "weight": 1}, {"Weight": 1, "from": "Gloucester", "to": "Norfolk", "weight": 1}, {"Weight": 16, "from": "Gloucester", "to": "KingHenry", "weight": 1}, {"Weight": 2, "from": "Gloucester", "to": "1Messenger", "weight": 1}, {"Weight": 10, "from": "Gloucester", "to": "Clifford", "weight": 1}, {"Weight": 1, "from": "Gloucester", "to": "Northumberland", "weight": 1}, {"Weight": 6, "from": "Gloucester", "to": "QueenMargaret", "weight": 1}, {"Weight": 23, "from": "Gloucester", "to": "Clarence", "weight": 1}, {"Weight": 6, "from": "Gloucester", "to": "LadyGrey", "weight": 1}, {"Weight": 2, "from": "Gloucester", "to": "Somerset", "weight": 1}, {"Weight": 2, "from": "Gloucester", "to": "Huntsman", "weight": 1}, {"Weight": 4, "from": "Gloucester", "to": "Hastings", "weight": 1}, {"Weight": 1, "from": "Gloucester", "to": "Mayor", "weight": 1}, {"Weight": 2, "from": "Gloucester", "to": "Montgomery", "weight": 1}, {"Weight": 1, "from": "Gloucester", "to": "Oxford", "weight": 1}, {"Weight": 3, "from": "Gloucester", "to": "PrinceEdward", "weight": 1}, {"Weight": 4, "from": "KingHenry", "to": "Northumberland", "weight": 1}, {"Weight": 3, "from": "KingHenry", "to": "Westmorland", "weight": 1}, {"Weight": 6, "from": "KingHenry", "to": "Clifford", "weight": 1}, {"Weight": 11, "from": "KingHenry", "to": "Exeter", "weight": 1}, {"Weight": 15, "from": "KingHenry", "to": "QueenMargaret", "weight": 1}, {"Weight": 3, "from": "KingHenry", "to": "PrinceEdward", "weight": 1}, {"Weight": 5, "from": "KingHenry", "to": "Son", "weight": 1}, {"Weight": 5, "from": "KingHenry", "to": "Father", "weight": 1}, {"Weight": 14, "from": "KingHenry", "to": "2Keeper", "weight": 1}, {"Weight": 9, "from": "KingHenry", "to": "1Keeper", "weight": 1}, {"Weight": 2, "from": "KingHenry", "to": "Lieutenant", "weight": 1}, {"Weight": 5, "from": "KingHenry", "to": "Clarence", "weight": 1}, {"Weight": 2, "from": "KingHenry", "to": "Somerset", "weight": 1}, {"Weight": 1, "from": "KingHenry", "to": "Oxford", "weight": 1}, {"Weight": 8, "from": "Northumberland", "to": "Clifford", "weight": 1}, {"Weight": 3, "from": "Northumberland", "to": "Westmorland", "weight": 1}, {"Weight": 3, "from": "Northumberland", "to": "QueenMargaret", "weight": 1}, {"Weight": 1, "from": "Northumberland", "to": "PrinceEdward", "weight": 1}, {"Weight": 5, "from": "Clifford", "to": "Westmorland", "weight": 1}, {"Weight": 13, "from": "Clifford", "to": "Rutland", "weight": 1}, {"Weight": 4, "from": "Clifford", "to": "Tutor", "weight": 1}, {"Weight": 6, "from": "Clifford", "to": "QueenMargaret", "weight": 1}, {"Weight": 1, "from": "Clifford", "to": "PrinceEdward", "weight": 1}, {"Weight": 2, "from": "Clifford", "to": "3Messenger", "weight": 1}, {"Weight": 1, "from": "Clifford", "to": "Clarence", "weight": 1}, {"Weight": 1, "from": "Exeter", "to": "QueenMargaret", "weight": 1}, {"Weight": 9, "from": "QueenMargaret", "to": "PrinceEdward", "weight": 1}, {"Weight": 21, "from": "QueenMargaret", "to": "KingLewis", "weight": 1}, {"Weight": 3, "from": "QueenMargaret", "to": "LadyBona", "weight": 1}, {"Weight": 3, "from": "QueenMargaret", "to": "Somerset", "weight": 1}, {"Weight": 1, "from": "QueenMargaret", "to": "Oxford", "weight": 1}, {"Weight": 5, "from": "QueenMargaret", "to": "Clarence", "weight": 1}, {"Weight": 3, "from": "PrinceEdward", "to": "KingLewis", "weight": 1}, {"Weight": 2, "from": "PrinceEdward", "to": "Oxford", "weight": 1}, {"Weight": 1, "from": "PrinceEdward", "to": "6Messenger", "weight": 1}, {"Weight": 1, "from": "PrinceEdward", "to": "Clarence", "weight": 1}, {"Weight": 1, "from": "Clarence", "to": "LadyGrey", "weight": 1}, {"Weight": 1, "from": "Clarence", "to": "Somerset", "weight": 1}, {"Weight": 1, "from": "Clarence", "to": "Hastings", "weight": 1}, {"Weight": 1, "from": "Clarence", "to": "2Post", "weight": 1}, {"Weight": 3, "from": "Son", "to": "Father", "weight": 1}, {"Weight": 4, "from": "1Keeper", "to": "2Keeper", "weight": 1}, {"Weight": 9, "from": "LadyGrey", "to": "Rivers", "weight": 1}, {"Weight": 3, "from": "KingLewis", "to": "LadyBona", "weight": 1}, {"Weight": 1, "from": "KingLewis", "to": "1Post", "weight": 1}, {"Weight": 1, "from": "Oxford", "to": "1Post", "weight": 1}, {"Weight": 5, "from": "Oxford", "to": "Somerset", "weight": 1}, {"Weight": 1, "from": "Oxford", "to": "6Messenger", "weight": 1}, {"Weight": 1, "from": "Somerset", "to": "2Watchman", "weight": 1}, {"Weight": 2, "from": "Hastings", "to": "Mayor", "weight": 1}, {"Weight": 2, "from": "Hastings", "to": "Montgomery", "weight": 1}, {"Weight": 1, "from": "Hastings", "to": "Soldier", "weight": 1}, {"Weight": 5, "from": "1Watchman", "to": "2Watchman", "weight": 1}, {"Weight": 3, "from": "1Watchman", "to": "3Watchman", "weight": 1}, {"Weight": 3, "from": "2Watchman", "to": "3Watchman", "weight": 1}, {"Weight": 1, "from": "Mayor", "to": "Montgomery", "weight": 1}, {"Weight": 1, "from": "Montgomery", "to": "Soldier", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "King", "label": "King", "shape": "dot", "size": 10}, {"id": "Westmorland", "label": "Westmorland", "shape": "dot", "size": 10}, {"id": "Worcester", "label": "Worcester", "shape": "dot", "size": 10}, {"id": "Northumberland", "label": "Northumberland", "shape": "dot", "size": 10}, {"id": "Blunt", "label": "Blunt", "shape": "dot", "size": 10}, {"id": "Hotspur", "label": "Hotspur", "shape": "dot", "size": 10}, {"id": "Prince", "label": "Prince", "shape": "dot", "size": 10}, {"id": "Falstaff", "label": "Falstaff", "shape": "dot", "size": 10}, {"id": "Lancaster", "label": "Lancaster", "shape": "dot", "size": 10}, {"id": "Douglas", "label": "Douglas", "shape": "dot", "size": 10}, {"id": "Poins", "label": "Poins", "shape": "dot", "size": 10}, {"id": "Gadshill", "label": "Gadshill", "shape": "dot", "size": 10}, {"id": "Bardolph", "label": "Bardolph", "shape": "dot", "size": 10}, {"id": "1Traveler", "label": "1Traveler", "shape": "dot", "size": 10}, {"id": "2Traveler", "label": "2Traveler", "shape": "dot", "size": 10}, {"id": "Peto", "label": "Peto", "shape": "dot", "size": 10}, {"id": "Hostess", "label": "Hostess", "shape": "dot", "size": 10}, {"id": "Francis", "label": "Francis", "shape": "dot", "size": 10}, {"id": "Vintner", "label": "Vintner", "shape": "dot", "size": 10}, {"id": "Sheriff", "label": "Sheriff", "shape": "dot", "size": 10}, {"id": "3Carrier", "label": "3Carrier", "shape": "dot", "size": 10}, {"id": "Mortimer", "label": "Mortimer", "shape": "dot", "size": 10}, {"id": "1Messenger", "label": "1Messenger", "shape": "dot", "size": 10}, {"id": "Vernon", "label": "Vernon", "shape": "dot", "size": 10}, {"id": "LadyPercy", "label": "LadyPercy", "shape": "dot", "size": 10}, {"id": "Servant", "label": "Servant", "shape": "dot", "size": 10}, {"id": "Glendower", "label": "Glendower", "shape": "dot", "size": 10}, {"id": "2Messenger", "label": "2Messenger", "shape": "dot", "size": 10}, {"id": "3Messenger", "label": "3Messenger", "shape": "dot", "size": 10}, {"id": "1Carrier", "label": "1Carrier", "shape": "dot", "size": 10}, {"id": "Ostler", "label": "Ostler", "shape": "dot", "size": 10}, {"id": "2Carrier", "label": "2Carrier", "shape": "dot", "size": 10}, {"id": "Chamberlain", "label": "Chamberlain", "shape": "dot", "size": 10}, {"id": "Archbishop", "label": "Archbishop", "shape": "dot", "size": 10}, {"id": "SirMichael", "label": "SirMichael", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 10, "from": "King", "to": "Westmorland", "weight": 1}, {"Weight": 6, "from": "King", "to": "Worcester", "weight": 1}, {"Weight": 2, "from": "King", "to": "Northumberland", "weight": 1}, {"Weight": 3, "from": "King", "to": "Blunt", "weight": 1}, {"Weight": 4, "from": "King", "to": "Hotspur", "weight": 1}, {"Weight": 22, "from": "King", "to": "Prince", "weight": 1}, {"Weight": 2, "from": "King", "to": "Falstaff", "weight": 1}, {"Weight": 1, "from": "King", "to": "Lancaster", "weight": 1}, {"Weight": 2, "from": "King", "to": "Douglas", "weight": 1}, {"Weight": 6, "from": "Westmorland", "to": "Falstaff", "weight": 1}, {"Weight": 1, "from": "Westmorland", "to": "Prince", "weight": 1}, {"Weight": 192, "from": "Falstaff", "to": "Prince", "weight": 1}, {"Weight": 22, "from": "Falstaff", "to": "Poins", "weight": 1}, {"Weight": 9, "from": "Falstaff", "to": "Gadshill", "weight": 1}, {"Weight": 20, "from": "Falstaff", "to": "Bardolph", "weight": 1}, {"Weight": 3, "from": "Falstaff", "to": "1Traveler", "weight": 1}, {"Weight": 1, "from": "Falstaff", "to": "2Traveler", "weight": 1}, {"Weight": 1, "from": "Falstaff", "to": "Peto", "weight": 1}, {"Weight": 36, "from": "Falstaff", "to": "Hostess", "weight": 1}, {"Weight": 3, "from": "Falstaff", "to": "Hotspur", "weight": 1}, {"Weight": 1, "from": "Falstaff", "to": "Lancaster", "weight": 1}, {"Weight": 40, "from": "Prince", "to": "Poins", "weight": 1}, {"Weight": 9, "from": "Prince", "to": "Peto", "weight": 1}, {"Weight": 19, "from": "Prince", "to": "Francis", "weight": 1}, {"Weight": 2, "from": "Prince", "to": "Vintner", "weight": 1}, {"Weight": 1, "from": "Prince", "to": "Gadshill", "weight": 1}, {"Weight": 11, "from": "Prince", "to": "Hostess", "weight": 1}, {"Weight": 13, "from": "Prince", "to": "Bardolph", "weight": 1}, {"Weight": 9, "from": "Prince", "to": "Sheriff", "weight": 1}, {"Weight": 1, "from": "Prince", "to": "3Carrier", "weight": 1}, {"Weight": 1, "from": "Prince", "to": "Worcester", "weight": 1}, {"Weight": 6, "from": "Prince", "to": "Lancaster", "weight": 1}, {"Weight": 2, "from": "Prince", "to": "Douglas", "weight": 1}, {"Weight": 7, "from": "Prince", "to": "Hotspur", "weight": 1}, {"Weight": 1, "from": "Poins", "to": "Bardolph", "weight": 1}, {"Weight": 9, "from": "Poins", "to": "Francis", "weight": 1}, {"Weight": 6, "from": "Worcester", "to": "Northumberland", "weight": 1}, {"Weight": 40, "from": "Worcester", "to": "Hotspur", "weight": 1}, {"Weight": 2, "from": "Worcester", "to": "Mortimer", "weight": 1}, {"Weight": 3, "from": "Worcester", "to": "1Messenger", "weight": 1}, {"Weight": 6, "from": "Worcester", "to": "Douglas", "weight": 1}, {"Weight": 4, "from": "Worcester", "to": "Vernon", "weight": 1}, {"Weight": 1, "from": "Worcester", "to": "Blunt", "weight": 1}, {"Weight": 14, "from": "Northumberland", "to": "Hotspur", "weight": 1}, {"Weight": 13, "from": "Hotspur", "to": "Blunt", "weight": 1}, {"Weight": 31, "from": "Hotspur", "to": "LadyPercy", "weight": 1}, {"Weight": 6, "from": "Hotspur", "to": "Servant", "weight": 1}, {"Weight": 6, "from": "Hotspur", "to": "Mortimer", "weight": 1}, {"Weight": 30, "from": "Hotspur", "to": "Glendower", "weight": 1}, {"Weight": 17, "from": "Hotspur", "to": "Douglas", "weight": 1}, {"Weight": 5, "from": "Hotspur", "to": "1Messenger", "weight": 1}, {"Weight": 18, "from": "Hotspur", "to": "Vernon", "weight": 1}, {"Weight": 2, "from": "Hotspur", "to": "2Messenger", "weight": 1}, {"Weight": 2, "from": "Hotspur", "to": "3Messenger", "weight": 1}, {"Weight": 4, "from": "Blunt", "to": "Douglas", "weight": 1}, {"Weight": 2, "from": "1Carrier", "to": "Ostler", "weight": 1}, {"Weight": 8, "from": "1Carrier", "to": "2Carrier", "weight": 1}, {"Weight": 5, "from": "1Carrier", "to": "Gadshill", "weight": 1}, {"Weight": 4, "from": "2Carrier", "to": "Gadshill", "weight": 1}, {"Weight": 12, "from": "Gadshill", "to": "Chamberlain", "weight": 1}, {"Weight": 2, "from": "Gadshill", "to": "Peto", "weight": 1}, {"Weight": 1, "from": "Gadshill", "to": "1Traveler", "weight": 1}, {"Weight": 1, "from": "Gadshill", "to": "2Traveler", "weight": 1}, {"Weight": 1, "from": "Bardolph", "to": "1Traveler", "weight": 1}, {"Weight": 1, "from": "Bardolph", "to": "2Traveler", "weight": 1}, {"Weight": 1, "from": "Bardolph", "to": "Peto", "weight": 1}, {"Weight": 1, "from": "Bardolph", "to": "Hostess", "weight": 1}, {"Weight": 1, "from": "Peto", "to": "1Traveler", "weight": 1}, {"Weight": 1, "from": "Peto", "to": "2Traveler", "weight": 1}, {"Weight": 1, "from": "Sheriff", "to": "3Carrier", "weight": 1}, {"Weight": 16, "from": "Mortimer", "to": "Glendower", "weight": 1}, {"Weight": 6, "from": "Douglas", "to": "Vernon", "weight": 1}, {"Weight": 8, "from": "Archbishop", "to": "SirMichael", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

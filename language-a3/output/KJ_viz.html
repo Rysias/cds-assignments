@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Chatillon", "label": "Chatillon", "shape": "dot", "size": 10}, {"id": "KingJohn", "label": "KingJohn", "shape": "dot", "size": 10}, {"id": "QueenEleanor", "label": "QueenEleanor", "shape": "dot", "size": 10}, {"id": "KingPhilip", "label": "KingPhilip", "shape": "dot", "size": 10}, {"id": "Essex", "label": "Essex", "shape": "dot", "size": 10}, {"id": "Bastard", "label": "Bastard", "shape": "dot", "size": 10}, {"id": "RobertFaulc", "label": "RobertFaulc", "shape": "dot", "size": 10}, {"id": "Austria", "label": "Austria", "shape": "dot", "size": 10}, {"id": "Lewis", "label": "Lewis", "shape": "dot", "size": 10}, {"id": "Constance", "label": "Constance", "shape": "dot", "size": 10}, {"id": "Citizen", "label": "Citizen", "shape": "dot", "size": 10}, {"id": "Blanche", "label": "Blanche", "shape": "dot", "size": 10}, {"id": "Pandulph", "label": "Pandulph", "shape": "dot", "size": 10}, {"id": "Arthur", "label": "Arthur", "shape": "dot", "size": 10}, {"id": "Hubert", "label": "Hubert", "shape": "dot", "size": 10}, {"id": "Pembroke", "label": "Pembroke", "shape": "dot", "size": 10}, {"id": "Salisbury", "label": "Salisbury", "shape": "dot", "size": 10}, {"id": "1Messenger", "label": "1Messenger", "shape": "dot", "size": 10}, {"id": "Peter", "label": "Peter", "shape": "dot", "size": 10}, {"id": "2Messenger", "label": "2Messenger", "shape": "dot", "size": 10}, {"id": "PrinceHenry", "label": "PrinceHenry", "shape": "dot", "size": 10}, {"id": "LadyFaulc", "label": "LadyFaulc", "shape": "dot", "size": 10}, {"id": "Gurney", "label": "Gurney", "shape": "dot", "size": 10}, {"id": "Bigot", "label": "Bigot", "shape": "dot", "size": 10}, {"id": "Executioner", "label": "Executioner", "shape": "dot", "size": 10}, {"id": "FrenchHerald", "label": "FrenchHerald", "shape": "dot", "size": 10}, {"id": "3Messenger", "label": "3Messenger", "shape": "dot", "size": 10}, {"id": "EnglishHerald", "label": "EnglishHerald", "shape": "dot", "size": 10}, {"id": "Melun", "label": "Melun", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"Weight": 7, "from": "Chatillon", "to": "KingJohn", "weight": 1}, {"Weight": 1, "from": "Chatillon", "to": "QueenEleanor", "weight": 1}, {"Weight": 2, "from": "Chatillon", "to": "KingPhilip", "weight": 1}, {"Weight": 13, "from": "KingJohn", "to": "QueenEleanor", "weight": 1}, {"Weight": 1, "from": "KingJohn", "to": "Essex", "weight": 1}, {"Weight": 50, "from": "KingJohn", "to": "Bastard", "weight": 1}, {"Weight": 4, "from": "KingJohn", "to": "RobertFaulc", "weight": 1}, {"Weight": 2, "from": "KingJohn", "to": "Austria", "weight": 1}, {"Weight": 24, "from": "KingJohn", "to": "KingPhilip", "weight": 1}, {"Weight": 3, "from": "KingJohn", "to": "Lewis", "weight": 1}, {"Weight": 5, "from": "KingJohn", "to": "Constance", "weight": 1}, {"Weight": 8, "from": "KingJohn", "to": "Citizen", "weight": 1}, {"Weight": 4, "from": "KingJohn", "to": "Blanche", "weight": 1}, {"Weight": 6, "from": "KingJohn", "to": "Pandulph", "weight": 1}, {"Weight": 2, "from": "KingJohn", "to": "Arthur", "weight": 1}, {"Weight": 24, "from": "KingJohn", "to": "Hubert", "weight": 1}, {"Weight": 7, "from": "KingJohn", "to": "Pembroke", "weight": 1}, {"Weight": 4, "from": "KingJohn", "to": "Salisbury", "weight": 1}, {"Weight": 8, "from": "KingJohn", "to": "1Messenger", "weight": 1}, {"Weight": 2, "from": "KingJohn", "to": "Peter", "weight": 1}, {"Weight": 4, "from": "KingJohn", "to": "2Messenger", "weight": 1}, {"Weight": 4, "from": "KingJohn", "to": "PrinceHenry", "weight": 1}, {"Weight": 1, "from": "QueenEleanor", "to": "Essex", "weight": 1}, {"Weight": 12, "from": "QueenEleanor", "to": "Bastard", "weight": 1}, {"Weight": 1, "from": "QueenEleanor", "to": "KingPhilip", "weight": 1}, {"Weight": 13, "from": "QueenEleanor", "to": "Constance", "weight": 1}, {"Weight": 1, "from": "QueenEleanor", "to": "Arthur", "weight": 1}, {"Weight": 1, "from": "QueenEleanor", "to": "Citizen", "weight": 1}, {"Weight": 1, "from": "QueenEleanor", "to": "Pandulph", "weight": 1}, {"Weight": 4, "from": "Bastard", "to": "RobertFaulc", "weight": 1}, {"Weight": 10, "from": "Bastard", "to": "LadyFaulc", "weight": 1}, {"Weight": 2, "from": "Bastard", "to": "Gurney", "weight": 1}, {"Weight": 14, "from": "Bastard", "to": "Austria", "weight": 1}, {"Weight": 4, "from": "Bastard", "to": "Blanche", "weight": 1}, {"Weight": 8, "from": "Bastard", "to": "KingPhilip", "weight": 1}, {"Weight": 3, "from": "Bastard", "to": "Citizen", "weight": 1}, {"Weight": 8, "from": "Bastard", "to": "Lewis", "weight": 1}, {"Weight": 17, "from": "Bastard", "to": "Salisbury", "weight": 1}, {"Weight": 5, "from": "Bastard", "to": "Pembroke", "weight": 1}, {"Weight": 1, "from": "Bastard", "to": "Bigot", "weight": 1}, {"Weight": 25, "from": "Bastard", "to": "Hubert", "weight": 1}, {"Weight": 3, "from": "Bastard", "to": "Pandulph", "weight": 1}, {"Weight": 4, "from": "Bastard", "to": "PrinceHenry", "weight": 1}, {"Weight": 1, "from": "Arthur", "to": "KingPhilip", "weight": 1}, {"Weight": 1, "from": "Arthur", "to": "Lewis", "weight": 1}, {"Weight": 3, "from": "Arthur", "to": "Constance", "weight": 1}, {"Weight": 35, "from": "Arthur", "to": "Hubert", "weight": 1}, {"Weight": 1, "from": "Arthur", "to": "Executioner", "weight": 1}, {"Weight": 1, "from": "Arthur", "to": "Salisbury", "weight": 1}, {"Weight": 5, "from": "KingPhilip", "to": "Austria", "weight": 1}, {"Weight": 19, "from": "KingPhilip", "to": "Constance", "weight": 1}, {"Weight": 7, "from": "KingPhilip", "to": "Citizen", "weight": 1}, {"Weight": 1, "from": "KingPhilip", "to": "FrenchHerald", "weight": 1}, {"Weight": 6, "from": "KingPhilip", "to": "Lewis", "weight": 1}, {"Weight": 9, "from": "KingPhilip", "to": "Pandulph", "weight": 1}, {"Weight": 2, "from": "Lewis", "to": "Austria", "weight": 1}, {"Weight": 2, "from": "Lewis", "to": "Constance", "weight": 1}, {"Weight": 4, "from": "Lewis", "to": "Blanche", "weight": 1}, {"Weight": 18, "from": "Lewis", "to": "Pandulph", "weight": 1}, {"Weight": 2, "from": "Lewis", "to": "Salisbury", "weight": 1}, {"Weight": 6, "from": "Lewis", "to": "3Messenger", "weight": 1}, {"Weight": 8, "from": "Austria", "to": "Constance", "weight": 1}, {"Weight": 1, "from": "Austria", "to": "Pandulph", "weight": 1}, {"Weight": 6, "from": "Constance", "to": "Salisbury", "weight": 1}, {"Weight": 8, "from": "Constance", "to": "Pandulph", "weight": 1}, {"Weight": 6, "from": "Constance", "to": "Blanche", "weight": 1}, {"Weight": 1, "from": "Citizen", "to": "EnglishHerald", "weight": 1}, {"Weight": 1, "from": "FrenchHerald", "to": "EnglishHerald", "weight": 1}, {"Weight": 20, "from": "Salisbury", "to": "Pembroke", "weight": 1}, {"Weight": 6, "from": "Salisbury", "to": "Bigot", "weight": 1}, {"Weight": 7, "from": "Salisbury", "to": "Hubert", "weight": 1}, {"Weight": 5, "from": "Salisbury", "to": "Melun", "weight": 1}, {"Weight": 3, "from": "Salisbury", "to": "PrinceHenry", "weight": 1}, {"Weight": 3, "from": "Hubert", "to": "Executioner", "weight": 1}, {"Weight": 2, "from": "Hubert", "to": "Pembroke", "weight": 1}, {"Weight": 6, "from": "Hubert", "to": "Bigot", "weight": 1}, {"Weight": 1, "from": "Pembroke", "to": "Bigot", "weight": 1}, {"Weight": 1, "from": "Pembroke", "to": "Melun", "weight": 1}, {"Weight": 4, "from": "Pembroke", "to": "PrinceHenry", "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
