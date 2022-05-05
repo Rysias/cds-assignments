@@ -49,22 +49,6 @@ The main challenge in this assignments is creating a design that avoids code dup
 - **Open-closed**: I have tried making it easy to add more datasets / models by having structural expectations
 - **Dependency Inversion**: This is also to use the power of typing to avoid low-level coupling
 
-## Files
-Below is a description of the different files.
-
-### Helper files 
-To cleanly separate functionality, I have created a `src` directory with the following files. This allows us to segregate the interfaces: 
-- `calculate_dists.py`: functionality for doing all the heavy lifting and calculations
-- `format_output.py`: functionality for creating nice and readable outputs
-- `img_help.py`: functionality shared between the two main scripts.
-
-### Scripts
-1. `find_similar_imgs.py`: a script for completing the basic task as described in `assignment1.md`. Takes a filename (the source image) as argument and, optionally, a directory and number of cores to use. Outputs an image with the 3 most similar images with their distances as well as a csv with similarities. 
-2. `dir_similarity.py`: Find closest 3 images for every image in the supplied directory.
-
-### Other files
-- `experiments.ipynb`: code sketches and experiments
-
 ## Usage 
 TL;DR: An example of the entire setup and running pipeline can be run using the bash-script `run_project.sh`. 
 
@@ -90,3 +74,19 @@ At first glance the script is successful: all the images depict yellow flowers. 
 Looking at it from a histogram-comparison perspective, the rankings make sense. The saturation and ligthing are quite similar on the top image compared to the same-species one that is much . This highlights a fundamental flaw with the technique: it has no conception of semantics. What we mean by "similar" is a relatively abstract thing such as structure of the petals or other more qualified botany-jargon. 
 
 This doesn't mean that finding similar images is forever outside the reach of mere computers. Using sophisticated feature extraction (such as in [assignment 3](../vision-a3) with VGG16) one can capture more of the semantics. However, this comes with its own trade-offs which I will describe in due time. 
+
+## Files
+Below is a description of the different files.
+
+### Helper files 
+To cleanly separate functionality, I have created a `src` directory with the following files. This allows us to segregate the interfaces: 
+- `calculate_dists.py`: functionality for doing all the heavy lifting and calculations
+- `format_output.py`: functionality for creating nice and readable outputs
+- `img_help.py`: functionality shared between the two main scripts.
+
+### Scripts
+1. `find_similar_imgs.py`: a script for completing the basic task as described in `assignment1.md`. Takes a filename (the source image) as argument and, optionally, a directory and number of cores to use. Outputs an image with the 3 most similar images with their distances as well as a csv with similarities. 
+2. `dir_similarity.py`: Find closest 3 images for every image in the supplied directory.
+
+### Other files
+- `experiments.ipynb`: code sketches and experiments
