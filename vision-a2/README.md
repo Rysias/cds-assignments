@@ -9,7 +9,7 @@ This assignment solves the problem of creating rudimentary network analysis base
 - [Usage](#usage)
     * [Setting up](#setting-up)
     * [Using the script(s)](#using-the-scripts)
-- [Discussion of the Results](#discussion-of-the-results)
+- [Results and Discussion](#results-and-discussion)
 
 ## Assignment Description
 For this assignment, you will take the classifier pipelines we covered in lecture 7 and turn them into *two separate ```.py``` scripts*. Your code should do the following:
@@ -50,5 +50,7 @@ The script has a single argument `--data-path` that can be either a) a .csv-file
 $ python logistic_regression.py --dataset cifar10
 ```
 
-## Discussion of the Results
+## Results and Discussion
 
+| 0 | 1 | 2| 3| 4| 5| 6| 7| 8| 9| accuracy | macro avg | weighted avg
+|---|---|---|---|---|---|---|---|---|---|---|---|
