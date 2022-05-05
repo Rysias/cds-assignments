@@ -20,7 +20,8 @@ For this assignment, you will write a small Python program to compare image hist
 - (bonus task) Create a program which does this for the whole dataset, creating a CSV with one column showing the file name for each image and three other columns showing the most similar images
 
 **Personal focus**
-In this assignment, I want to focus on creating performant code. Finding most similar images is fairly expensive as it requires a) a lot of image processing, and b) N^2 comparisons. I will therefore experiment with how to parallelize the code and avoid unnecessary duplication of processing. 
+In this assignment, I want to focus on creating performant code. Finding most similar images is fairly expensive as it requires a) a lot of image processing, and b) N^2 comparisons. I will therefore experiment with how to parallelize the code and avoid unnecessary duplication of processing.
+Furthermore, I want to be better at writing production-grade code that is easy to read and maintain. Therefore I will try to implement the SOLID-principles in this (and future) assignments.
 
 ## Methods and design
 My algorithm for finding the most similar images for a given image goes as follows: 
@@ -76,3 +77,4 @@ $ python find_similar_imgs.py --img-name testimg.jpg --ncores 1000
 ```
 
 ## Discussion of the results
+There are two aspects, I want to focus on wrt. discussing the results: computational performance and subjective quality. The 
