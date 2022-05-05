@@ -15,6 +15,8 @@ def plot_metric(
     # Save plot to file
     output_path = output_dir / f"plot_{metric_name}.png"
     plt.savefig(output_path)
+    # Clean plot
+    plt.clf()
 
 
 def plot_metrics(history: History, output_dir: Path) -> None:
