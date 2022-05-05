@@ -25,7 +25,8 @@ For this assignment, you will take the classifier pipelines we covered in lectur
   - Print the classification report to the terminal **and** save the classification report to ```out/nn_report.txt```
 
 ### Personal learning goals
-For this assignment I have two goals: 1) 
+For this assignment I have two goals: 1) explore the powers of [Github Copilot](https://copilot.github.com/) which I believe will fundamentally change the way we do programming (see my arguments in [this post](https://medium.com/codex/github-copilot-is-a-game-changer-cd0a2bbe6de8)), 2) further hone my software design skills in applying SOLID principles. 
+
 ## Methods and Design
 
 ### Software Design
@@ -48,4 +49,6 @@ The script has a single argument `--data-path` that can be either a) a .csv-file
 ```console
 $ python logistic_regression.py --dataset cifar10
 ```
+
+## Discussion of the Results
 
