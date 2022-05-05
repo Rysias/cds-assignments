@@ -47,15 +47,16 @@ calculating for the whole dir is basically the same. The only difference is some
 
 
 ### Software Design
-The main challenge in this assignments is creating a design that avoids code duplication between the two different models. I found that the main commonalites between the use cases were a) loading the data and b) printing the report. This is why I moved the functionality for these two tasks into separate files (`src/load_data.py` and `src/report_performance.py`). The actual scripts can then be higher level and focus on the specifics of the two models. Translated into the SOLID-principles this means: 
-- **Single responsibility**: Splitting functionality into separate files and functions. 
-- **Interface segregation**: I make the main scripts independent of the implementation details in each other and in loading the data / writing the reports. 
-- **Liskov substitution**: I make sure that each dataset / model uses structural typing which makes them more cleanly separated.
-- **Open-closed**: I have tried making it easy to add more datasets / models by having structural expectations
-- **Dependency Inversion**: This is also to use the power of typing to avoid low-level coupling
+The SOLID-principles are a way of writing robust and scalable code. Below is a break-down of how each principle applies
+
+- **Single responsibility**: Splitting functionality into separate files and functions. This makes it easier to know where to change functionality / refactor. For instance I have split [calculating distances](src/calculate_dists.py) and [formatting output](src/format_output.py) into two separate files. 
+- **Interface segregation**: I make the main scripts independent of the implementation details in each other by relying on files in the [`src`-directory](src/). This makes it easier to clean
+- **Liskov substitution**: Not super applicable to this concrete project as it is more functional than OOP
+- **Open-closed**: This follows closely from single responsibility in this project
+- **Dependency Inversion**: By using type hints, I make it relatively easy to create a new function for comparing distances (such as the ones explained in the [discussion](#discussion-of-the-results))
 
 ## Usage 
-TL;DR: An example of the entire setup and running pipeline can be run using the bash-script `run_project.sh`. 
+TL;DR: An example of the entire setup and running pipeline can be run using the bash-script [`run_project.sh`](./run_project.sh). 
 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
@@ -85,13 +86,13 @@ Below is a description of the different files.
 
 ### Helper files 
 To cleanly separate functionality, I have created a `src` directory with the following files. This allows us to segregate the interfaces: 
-- `calculate_dists.py`: functionality for doing all the heavy lifting and calculations
-- `format_output.py`: functionality for creating nice and readable outputs
-- `img_help.py`: functionality shared between the two main scripts.
+- [`calculate_dists.py`](src/calculate_dists.py): functionality for doing all the heavy lifting and calculations
+- [`format_output.py`](src/format_output.py): functionality for creating nice and readable outputs
+- [`img_help.py`](src/img_help.py): functionality shared between the two main scripts.
 
 ### Scripts
 1. [`find_similar_imgs.py`](./find_similar_imgs.py): a script for completing the basic task as described in `assignment1.md`. Takes a filename (the source image) as argument and, optionally, a directory and number of cores to use. Outputs an image with the 3 most similar images with their distances as well as a csv with similarities. 
-2. `dir_similarity.py`: Find closest 3 images for every image in the supplied directory.
+2. [`dir_similarity.py`](./dir_similarity.py): Find closest 3 images for every image in the supplied directory.
 
 ### Other files
-- `experiments.ipynb`: code sketches and experiments
+- [`experiments.ipynb`](./experiments.ipynb): code sketches and experiments
