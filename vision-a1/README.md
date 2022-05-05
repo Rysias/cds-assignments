@@ -1,7 +1,44 @@
 # Assignment 1: Most similar images
 Here are solutions for finding most similar images as described in `assignment1.md`. All solutions are python scripts with cmd-arguments. Documentation for each script can be found using the `--help` flag. In addition to the scripts, there is a jupyter notebook for experimenting with the different solutions. Most similar images are defined using chi-squared from the `compareHist`-function in `cv2`. Main packages used are `numpy`, `pandas`, and `cv2`. To increase processing speed, multiprocessing is also used (per default all cores-1 are utilized)
 
-## Software Design
+Points
+- Image search is an important problem
+    - Exploring rudimentary approaches
+
+
+## Table of Content
+#TODO
+
+## Assignment Description
+For this assignment, you will write a small Python program to compare image histograms quantitively using Open-CV and the other image processing tools you've already encountered. Your script should do the following:
+
+- Take a user-defined image from the folder
+- Calculate the "distance" between the colour histogram of that image and all of the others.
+- Find which 3 image are most "similar" to the target image.
+- Save an image which shows the target image, the three most similar, and the calculated distance score.
+- Save a CSV which has one column for the filename and three columns showing the filenames of the closest images in descending order
+- (bonus task) Create a program which does this for the whole dataset, creating a CSV with one column showing the file name for each image and three other columns showing the most similar images
+
+**Personal focus**
+In this assignment, I want to focus on creating performant code. Finding most similar images is fairly expensive as it requires a) a lot of image processing, and b) N^2 comparisons. I will therefore experiment with how to parallelize the code and avoid unnecessary duplication of processing. 
+
+## Methods and design
+My algorithm for finding the most similar images for a given image goes as follows: 
+1. *calculate color histograms of all images in directory*: This is the most expensive part. Calculating them all at once has several benefits: 
+    1) it allows for multi-processing 
+    2) the histograms require dramatically less memory than images which makes it possible to hold all results in memory. This further speeds up the calculations.
+2. *find the 3 closest images*: Finding the three closest require a couple of steps: 
+    1) create a dataframe of all comparisons with source image (`create_dist_df()`)
+    2) find the n smallest using the build in `pandas` function `df.nsmallest()`
+3. Create target output dataframe
+4. Organise the top images in a square using some `opencv` magic
+5. write images. 
+A full breakdown can be seen in the `find_similar_imgs.py` script. 
+
+calculating for the whole dir is basically the same. The only difference is some tricks to avoid double counting and more parallel processing as found in the `find_all_similarities()`-function. 
+
+
+### Software Design
 The main challenge in this assignments is creating a design that avoids code duplication between the two different models. I found that the main commonalites between the use cases were a) loading the data and b) printing the report. This is why I moved the functionality for these two tasks into separate files (`src/load_data.py` and `src/report_performance.py`). The actual scripts can then be higher level and focus on the specifics of the two models. Translated into the SOLID-principles this means: 
 - **Single responsibility**: Splitting functionality into separate files and functions. 
 - **Interface segregation**: I make the main scripts independent of the implementation details in each other and in loading the data / writing the reports. 
@@ -38,9 +75,4 @@ The scripts are based around strong defaults. However, `find_similar_imgs.py` ha
 $ python find_similar_imgs.py --img-name testimg.jpg --ncores 1000
 ```
 
-
-## TODO
-- [] create reproducible pipenv 
-- [] create `run_project.sh`
-- [X] refactor to output / src 
-- [] Update README with template from the other ones
+## Discussion of the results
