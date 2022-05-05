@@ -36,7 +36,6 @@ def create_model(
     x = preprocess_input(x)
     x = base_model(x, training=False)
     x = global_average_layer(x)
-    x = tf.keras.layers.Dense(16, activation="relu")(x)
     x = tf.keras.layers.Dropout(0.2)(x)
     outputs = prediction_layer(x)
     return tf.keras.Model(inputs, outputs)
