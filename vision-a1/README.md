@@ -1,11 +1,6 @@
 # Assignment 1: Most similar images
 Here are solutions for finding most similar images as described in `assignment1.md`. All solutions are python scripts with cmd-arguments. Documentation for each script can be found using the `--help` flag. In addition to the scripts, there is a jupyter notebook for experimenting with the different solutions. Most similar images are defined using chi-squared from the `compareHist`-function in `cv2`. Main packages used are `numpy`, `pandas`, and `cv2`. To increase processing speed, multiprocessing is also used (per default all cores-1 are utilized)
 
-Points
-- Image search is an important problem
-    - Exploring rudimentary approaches
-
-
 ## Table of Content
 - [Assignment Description](#assignment-description)
 - [Methods and design](#methods-and-design)
