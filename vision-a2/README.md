@@ -55,7 +55,7 @@ $ python logistic_regression.py --dataset cifar10
 ### Classification reports
 #### Logistic Regression
 | | precision | recall | f1-score | support |
-|---|---|---|---|
+|---|---|---|---|---|
 |accuracy | 0.93 | 0.93 | 0.93 | 10000|
 
 #### Neural Network 
