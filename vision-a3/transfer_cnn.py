@@ -6,11 +6,17 @@
 - Save the classification report
 """
 import argparse
+import logging
 import src.load_data as load_data
 import src.vgg16 as vgg16
 import src.report as report
 import src.evaluate as evaluate
 from pathlib import Path
+
+# Add basic logging
+logging.basicConfig(
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+)
 
 # Input size is fixed to 32x32 in CIFAR10
 INPUT_SIZE = (32, 32, 3)
@@ -26,7 +32,10 @@ def main(args: argparse.Namespace) -> None:
     x_train, y_train, x_test, y_test = load_data.load_cifar10()
 
     # Create the model
+    logging.info("Creating the model...")
     model = vgg16.finetuneable_vgg16(INPUT_SIZE, LEARNING_RATE)
+    # log model summary
+    logging.info(model.summary())
 
     # Train the model
     history = model.fit(
