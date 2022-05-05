@@ -10,6 +10,11 @@ Points
 - [Assignment Description](#assignment-description)
 - [Methods and design](#methods-and-design)
     * [Software design](#software-design)
+- [Usage](#usage)
+    * [Setting up](#setting-up)
+    * [Using the script(s)](#using-the-scripts)
+- [Discussion of the Results](#discussion-of-the-results)
+
 ## Assignment Description
 For this assignment, you will write a small Python program to compare image histograms quantitively using Open-CV and the other image processing tools you've already encountered. Your script should do the following:
 
@@ -62,7 +67,7 @@ The scripts are based around strong defaults. However, `find_similar_imgs.py` ha
 $ python find_similar_imgs.py --img-name testimg.jpg --ncores 1000
 ```
 
-## Discussion of the results
+## Discussion of the Results
 There are two things to evaluate wrt results: The quality of the code and the (subjective) quality of the output. As I have previously discussed the code quality and performance, I will focus on the quality of the output. 
 
 As humans are fairly good at pattern recognition, it is instructive to investigate the example output: 
@@ -85,7 +90,7 @@ To cleanly separate functionality, I have created a `src` directory with the fol
 - `img_help.py`: functionality shared between the two main scripts.
 
 ### Scripts
-1. `find_similar_imgs.py`: a script for completing the basic task as described in `assignment1.md`. Takes a filename (the source image) as argument and, optionally, a directory and number of cores to use. Outputs an image with the 3 most similar images with their distances as well as a csv with similarities. 
+1. [`find_similar_imgs.py`](./find_similar_imgs.py): a script for completing the basic task as described in `assignment1.md`. Takes a filename (the source image) as argument and, optionally, a directory and number of cores to use. Outputs an image with the 3 most similar images with their distances as well as a csv with similarities. 
 2. `dir_similarity.py`: Find closest 3 images for every image in the supplied directory.
 
 ### Other files
