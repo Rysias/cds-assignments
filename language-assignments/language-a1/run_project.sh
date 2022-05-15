@@ -1,6 +1,8 @@
 # Script for running everything :))
 echo "setting up..."
 bash setup.sh
+echo "downloading data..."
+bash download_data.sh
 echo "Running the scripts..."
 echo "Collocating 'bleak' in 'Bleak'..."
 python collocate_single_text.py --file-name "Dickens_Bleak_1853.txt" --search-term "bleak"
