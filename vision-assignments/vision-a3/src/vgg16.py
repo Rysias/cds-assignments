@@ -1,4 +1,5 @@
 import tensorflow as tf
+from tensorflow.keras import Model
 
 # Create logging
 import logging
@@ -10,7 +11,7 @@ formatter = logging.Formatter(
 )
 
 
-def load_vgg16(input_shape: tf.TensorShape) -> tf.keras.Model:
+def load_vgg16(input_shape: tf.TensorShape) -> Model:
     # Load the VGG16 model
     logger.info("Loading VGG16 model...")
     base_model = tf.keras.applications.vgg16.VGG16(
@@ -23,9 +24,7 @@ def load_vgg16(input_shape: tf.TensorShape) -> tf.keras.Model:
     return base_model
 
 
-def create_model(
-    base_model: tf.keras.Model, input_shape: int, num_classes: int = 10,
-) -> tf.keras.Model:
+def create_model(base_model: Model, input_shape: int, num_classes: int = 10,) -> Model:
     logging.info("Creating model...")
     preprocess_input = tf.keras.applications.vgg16.preprocess_input
     global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
@@ -41,7 +40,7 @@ def create_model(
     return tf.keras.Model(inputs, outputs)
 
 
-def compile_model(model: tf.keras.Model, learning_rate: float = 0.001) -> None:
+def compile_model(model: Model, learning_rate: float = 0.001) -> None:
     logger.info("Compiling model...")
     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(
@@ -50,11 +49,13 @@ def compile_model(model: tf.keras.Model, learning_rate: float = 0.001) -> None:
         metrics=["accuracy"],
     )
 
-def finetuneable_vgg16(input_shape, learning_rate=0.001) -> tf.keras.Model:
+
+def finetuneable_vgg16(input_shape, learning_rate=0.001) -> Model:
     """
     Loads the VGG16 model and returns a finetunable model.
     """
     vgg16 = load_vgg16(input_shape)
     model = create_model(vgg16, input_shape)
     compile_model(model, learning_rate=learning_rate)
-    return model 
+    return model
+
