@@ -6,7 +6,7 @@ import pandas as pd
 
 # import tensorflow metrics
 
-from imblearn.under_sampling import RandomUnderSampler
+from imblearn.under_sampling import RandomUnderSampler  # type: ignore
 from sklearn.model_selection import train_test_split
 import src.report_performance as rp
 import src.convnet as convnet
