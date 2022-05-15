@@ -50,7 +50,7 @@ if __name__ == "__main__":
     )
     parser.add_argument(
         "--dataset",
-        default="in/VideoCommentsThreatCorpus.csv",
+        default="input/VideoCommentsThreatCorpus.csv",
         type=str,
         required=False,
         help="Path to the dataset.",

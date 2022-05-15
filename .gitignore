@@ -1,6 +1,5 @@
 # Remove output
 **/input
-**/in
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
