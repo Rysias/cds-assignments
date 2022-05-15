@@ -5,5 +5,5 @@ name = "pypi"
 
 [packages]
 scikit-learn = "*"
-tensorflow = "2.1.*"
+tensorflow = "*"
 numpy = "*"
