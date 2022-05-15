@@ -24,15 +24,29 @@ def load_vgg16(input_shape: tf.TensorShape) -> Model:
     return base_model
 
 
+def data_augmentation():
+    return tf.keras.Sequential(
+        [
+            tf.keras.layers.RandomFlip("horizontal"),
+            tf.keras.layers.RandomRotation(0.2),
+            tf.keras.layers.RandomZoom(
+                height_factor=(-0.05, -0.15), width_factor=(-0.05, -0.15)
+            ),
+        ]
+    )
+
+
 def create_model(base_model: Model, input_shape: int, num_classes: int = 10,) -> Model:
     logging.info("Creating model...")
     preprocess_input = tf.keras.applications.vgg16.preprocess_input
+    augmentation = data_augmentation()
     global_average_layer = tf.keras.layers.GlobalAveragePooling2D()
     prediction_layer = tf.keras.layers.Dense(num_classes)  # 10 classes
 
     inputs = tf.keras.Input(shape=input_shape)
     x = inputs
     x = preprocess_input(x)
+    x = augmentation(x)
     x = base_model(x, training=False)
     x = global_average_layer(x)
     x = tf.keras.layers.Dropout(0.2)(x)
