@@ -36,7 +36,7 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--data-dir",
-        default="../../../CDS-VIS/flowers",
+        default="input/jpg/",
         help="Path to directory for finding images and similar images (optional)",
     )
     argparser.add_argument(
