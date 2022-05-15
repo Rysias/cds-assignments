@@ -33,6 +33,4 @@ def load_cifar10() -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     from tensorflow.keras.datasets import cifar10
 
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-    x_train = preprocess_image_data(x_train)
-    x_test = preprocess_image_data(x_test)
     return x_train, y_train, x_test, y_test
