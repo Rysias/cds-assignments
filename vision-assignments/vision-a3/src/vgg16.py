@@ -28,10 +28,7 @@ def data_augmentation():
     return tf.keras.Sequential(
         [
             tf.keras.layers.RandomFlip("horizontal"),
-            tf.keras.layers.RandomRotation(0.2),
-            tf.keras.layers.RandomZoom(
-                height_factor=(-0.05, -0.15), width_factor=(-0.05, -0.15)
-            ),
+           # tf.keras.layers.RandomRotation(0.2),
         ]
     )
 
@@ -49,12 +46,14 @@ def create_model(base_model: Model, input_shape: int, num_classes: int = 10,) ->
     x = augmentation(x)
     x = base_model(x, training=False)
     x = global_average_layer(x)
-    x = tf.keras.layers.Dropout(0.2)(x)
+    x = tf.keras.layers.Dense(256)(x)
+    x = tf.keras.layers.Dense(256)(x)
+    #x = tf.keras.layers.Dropout(0.2)(x)
     outputs = prediction_layer(x)
     return tf.keras.Model(inputs, outputs)
 
 
-def compile_model(model: Model, learning_rate: float = 0.001) -> None:
+def compile_model(model: Model, learning_rate: float = 0.0001) -> None:
     logger.info("Compiling model...")
     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
     model.compile(
