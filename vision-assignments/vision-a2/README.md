@@ -46,10 +46,22 @@ TL;DR: An example of the entire setup, testing, running pipeline can be run usin
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script(s)
-The script has a single argument `--data-path` that can be either a) a .csv-file (tab-delimited) or b) a folder containing .csv-files (tab delimited). An example can be seen below:
+Below is a description of the usage parameters for the two main scripts [`nn_classifier.py`](./nn_classifier.py) and [`logistic_regression.py`](./logistic_regression.py). The scripts are documented using argparse so a full description can be found using `python <name of script>.py --help`. 
 
+#### logistic_regression.py
+Parameter | Type | Required | Description
+---- | ---- | ---- | ----
+`--dataset` | `str` |  | The dataset to train on. Choose between `mnist_784` or `cifar10`.
+
+#### nn_classifier.py
+Parameter | Type | Required | Description
+---- | ---- | ---- | ----
+`--dataset` | `str` | Yes | The dataset to train on. Choose between `mnist_784` or `cifar10`.
+`--epochs` | `int` | no | How many epochs to train for.
+
+#### Example
 ```console
-$ python logistic_regression.py --dataset cifar10
+$ python nn_classifier.py --dataset cifar10 --epochs 200
 ```
 
 ## Results and Discussion

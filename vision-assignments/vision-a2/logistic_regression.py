@@ -29,9 +29,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--dataset",
-        default="mnist",
+        required=True,
         choices=["mnist", "cifar10"],
-        help="Choose to use either mnist or cifar10 (default: %(default)s)",
+        help="Dataset to use for training and testing. Choose from %(choices)s.",
     )
     args = parser.parse_args()
 
