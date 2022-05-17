@@ -5,4 +5,4 @@ This is the repository for the Language Analytics S2022 course at Aarhus univers
 - [Assignment 1](./language-a1/README.md)
 - [Assignment 2](./language-a2/README.md)
 - [Assignment 3](./language-a3/README.md)
-- [Self Assignment](github link)
+- [Self Assignment](https://github.com/Rysias/fooled-by-llm)

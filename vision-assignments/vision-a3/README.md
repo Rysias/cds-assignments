@@ -1,9 +1,7 @@
 # Assignment 3 - Transfer learning + CNN classification
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a3)
 
-This assignment implements transfer learning using the VGG16 neural network for effectively classifying images. This is (hopefully) an improvement over the simpler used in assignment 2. In implementing this project, I have relied on [this tensorflow tutorial](https://www.tensorflow.org/tutorials/images/transfer_learning) about transfer learning as well as [this one](https://www.tensorflow.org/tutorials/images/cnn) about convolutional neural networks. 
 
-However, instead of blindly following the tutorials, I have updated them using the SOLID-principles, which I will further describe in the next section. I have also used GitHub Copilot, a code completition tool, which I believe is a [game changer for coding](https://medium.com/codex/github-copilot-is-a-game-changer-cd0a2bbe6de8)
 ## Table of Content
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
