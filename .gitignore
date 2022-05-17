@@ -1,5 +1,6 @@
-# ignore pdf
+# ignore hand-in stuff
 *.pdf
+frontpage.md
 
 # Remove input
 **/input
