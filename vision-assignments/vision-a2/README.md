@@ -1,5 +1,5 @@
 # Assignment 2: Simple Image Classifications
-[GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a1)
+[GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a2)
 
 While [finding similar images is useful](../vision-a1/README.md#assignment-1-most-similar-images), we also want to know what they depict. This can be either because you want to build a self-driving car, or simply want to find out whether something is a [hotdog or not](https://www.youtube.com/watch?v=vIci3C4JkL0&ab_channel=vietanhle). 
 
