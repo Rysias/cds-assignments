@@ -1,6 +1,9 @@
 # Assignment 1: Most similar images
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a1)
 
+The amount of images in the world is rapidly increasing. On Instagram alone 1074 images are uploaded... [every second!](https://earthweb.com/how-many-pictures-are-on-instagram/). This makes searching through them a valuable task. 
+
+While humans are excellent at finding similar images, computers have historically had a harder time. That is because the semantics of images are not well-represented in the simple RGB matrices ([Manovich (2012)](https://link.springer.com/chapter/10.1057/9780230371934_14), [T. Arnold & L. Tilton (2019)](https://academic.oup.com/dsh/article/34/Supplement_1/i3/5694340?login=true)). Therefore, we need to help with the semantics through clever feature extraction. In this assignment, we will attempt just that with an old-school color-based approach. 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
