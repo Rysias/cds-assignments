@@ -58,8 +58,15 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script
-The script has three arguments `--batch-size` for controlling the batch size (useful for configuring to different memory sizes); `--learning-rate` for controlling the learning rate; and `--epochs` for controlling the number of epochs to train for. The defaults are sensible but can be changed as below.
+As in the other assignments, the script is documented using argparse. Therefore, the most up to date descriptions can be found using `python transfer_cnn.py --help`. However, you can also refer to the table below. 
 
+Parameter | Type | Required | Description
+---- | ---- | ---- | ----
+`--learning-rate` | `float` | No | The learning rate (defaults to 0.001)
+`--learning-rate` | `int` | No | Batch size for each iteration of SGD (defaults to 32)
+`--epochs` | `int` | No | How many epochs to train for (defaults to 10).
+
+#### Example usage
 ```console
 $ python transfer_cnn.py --batch-size 32 --learning-rate 0.01
 ```

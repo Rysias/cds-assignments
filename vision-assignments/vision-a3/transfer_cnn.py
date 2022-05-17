@@ -58,8 +58,23 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Train a VGG16 model on CIFAR10 using Keras"
     )
-    parser.add_argument("--learning_rate", type=float, default=0.001)
-    parser.add_argument("--batch_size", type=int, default=32)
-    parser.add_argument("--epochs", type=int, default=10)
+    parser.add_argument(
+        "--learning-rate",
+        type=float,
+        default=0.001,
+        help="The learning rate (defaults to %(default)s)",
+    )
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        default=32,
+        help="The batch size (defaults to %(default)s)",
+    )
+    parser.add_argument(
+        "--epochs",
+        type=int,
+        default=10,
+        help="Number of epochs to train for (defaults to %(default)s)",
+    )
     args = parser.parse_args()
     main(args)
