@@ -1,6 +1,8 @@
 # Assignment 2: Simple Image Classifications
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a2)
 
+<img src="https://www.softwaretestinghelp.com/wp-content/qa/uploads/2019/04/DeepLearning.png">
+
 While [finding similar images is useful](../vision-a1/README.md#assignment-1-most-similar-images), we also want to know what they depict. This can be either because you want to build a self-driving car, or simply want to find out whether something is a [hotdog or not](https://www.youtube.com/watch?v=vIci3C4JkL0&ab_channel=vietanhle). 
 
 In ye olden days of pre-2012, this task was approached through classical machine learning. Here domain-specific feature extraction was combined with algorithms such as logistic regression or SVMs to produce a (hopefully) correct prediction. 
