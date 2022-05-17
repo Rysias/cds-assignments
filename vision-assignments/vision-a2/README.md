@@ -1,6 +1,13 @@
 # Assignment 2: Simple Image Classifications
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a1)
 
+While [finding similar images is useful](../vision-a1/README.md#assignment-1-most-similar-images), we also want to know what they depict. This can be either because you want to build a self-driving car, or simply want to find out whether something is a [hotdog or not](https://www.youtube.com/watch?v=vIci3C4JkL0&ab_channel=vietanhle). 
+
+In ye olden days of pre-2012, this task was approached through classical machine learning. Here domain-specific feature extraction was combined with algorithms such as logistic regression or SVMs to produce a (hopefully) correct prediction. 
+
+However, this all changed with the introduction of [AlexNet in 2012](https://paperswithcode.com/paper/imagenet-classification-with-deep). Here Hinton and his gang showed that deep neural networks accelerated by GPUs could perform remarkably well just by throwing huge amounts of compute and data at the problem. 
+
+In this assignment we will pit the two methods up against each other. However, for the real powers of deep learning we will have to wait until the [next assignment](../vision-a3/)
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
