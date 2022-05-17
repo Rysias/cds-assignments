@@ -2,7 +2,8 @@
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a1)
 
 <img src="https://cdn.pixabay.com/photo/2016/02/22/00/25/robot-1214536_1280.png">
-The amount of images in the world is rapidly increasing. On Instagram alone 1074 images are uploaded... [every second!](https://earthweb.com/how-many-pictures-are-on-instagram/). This makes searching through them a valuable task. 
+
+The amount of images in the world is rapidly increasing. On Instagram alone 1116 images are uploaded... [every second!](https://www.internetlivestats.com/one-second/). This makes searching through them a valuable task. 
 
 While humans are excellent at finding similar images, computers have historically had a harder time. That is because the semantics of images are not well-represented in the simple RGB matrices ([Manovich (2012)](https://link.springer.com/chapter/10.1057/9780230371934_14), [T. Arnold & L. Tilton (2019)](https://academic.oup.com/dsh/article/34/Supplement_1/i3/5694340?login=true)). Therefore, we need to help with the semantics through clever feature extraction. In this assignment, we will attempt just that with an old-school color-based approach on the [17 Category Flower Dataset](https://www.robots.ox.ac.uk/~vgg/data/flowers/17/). 
 
