@@ -1,5 +1,6 @@
 # Assignment 2: Simple Image Classifications
-This assignment solves the problem of creating rudimentary network analysis based on edgelists saved in tsv-format. The project is structured as a mini "package" with helpler functions in `src/`, and the main scripts in the main folder (`nn_classifier.py` and `logistic_regression.py`). 
+[GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a1)
+
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
