@@ -1,4 +1,7 @@
-# Remove output
+# ignore pdf
+*.pdf
+
+# Remove input
 **/input
 
 # Byte-compiled / optimized / DLL files

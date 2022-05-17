@@ -57,6 +57,7 @@ TL;DR: An example of the entire setup and running pipeline can be run using the 
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script(s)
+#TODO: Put into nice table
 The scripts are based around strong defaults. However, `find_similar_imgs.py` has a required argument of a path to an image (`--img-path`). Complete documentation can be found using `<name of script>.py --help`. For an example, see below:
 
 ```console
