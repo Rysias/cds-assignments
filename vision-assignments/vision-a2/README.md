@@ -69,13 +69,14 @@ $ python nn_classifier.py --dataset cifar10 --epochs 200
 #### Logistic Regression
 | | precision | recall | f1-score | support |
 |---|---|---|---|---|
-|macro avg | 0.92 | 0.92 | 0.92 | 10000|
-|weighted avg | 0.93 | 0.93 | 0.93 | 10000|
+|macro avg | 0.40 | 0.41 | 0.40 | 10000|
+|weighted avg | 0.40 | 0.41 | 0.40 | 10000|
+
 #### Neural Network 
 | | precision | recall | f1-score | support |
 |---|---|---|---|---|
-|macro avg | 0.09 | 0.11 | 0.08 | 10000|
-|weighted avg | 0.09 | 0.11 | 0.08 | 10000|
+|macro avg | 0.12 | 0.08 | 0.03 | 10000|
+|weighted avg | 0.12 | 0.08 | 0.03 | 10000|
 
 ### Discussion
 At first glance, there is not much to discuss: logistic regression bleew the neural network out of the water. Simple machine learning is superior, cue the next [AI Winter](https://en.wikipedia.org/wiki/AI_winter). 
@@ -84,4 +85,6 @@ However, there are several caveats to this conclusion. The first (and most impor
 
 This was a quite deliberate choice on my end. Deep learning is incredibly energy intensive as [this report from MIT shows](https://www.technologyreview.com/2019/06/06/239031/training-a-single-ai-model-can-emit-as-much-carbon-as-five-cars-in-their-lifetimes/). Going against the IPCC with the goal of predicting digits seemed imprudent. The Danish Data Science Community has compiled a great list of carbon impact of data science in [this repository](https://github.com/Dansk-Data-Science-Community/sustainable-data-science).
 
-The reason for this is that it takes a looong time to train a deep learning system. Currently, each epoch took \~70 seconds. Multiplying this by 200 gives approximately 4 hours. The reasons for this are partially that python is a slow language, and that deep learning is works suboptimally on CPUs. There are many ways to speed this up from using tensorflow and GPU-acceleration to using transfer learning. However, we will explore all of that in the [next assignment](../vision-a3/). 
+The reason for this is that it takes a looong time to train a deep learning system. Currently, each epoch took \~70 seconds. Multiplying this by 200 gives approximately 4 hours. The reasons for this are partially that python is a slow language, and that deep learning is works suboptimally on CPUs. There are many ways to speed this up from using tensorflow and GPU-acceleration to using transfer learning.
+
+We know that Deep Learning can perform quite a lot better as the current [SOTA on CIFAR10 is ~99%](https://paperswithcode.com/sota/image-classification-on-cifar-10) and the logistic regression is currently performing at 40%. However, we will explore all of that in the [next assignment](../vision-a3/). 
