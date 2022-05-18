@@ -1,4 +1,5 @@
 # ignore hand-in stuff
+*.zip
 *.pdf
 frontpage.md
 
