@@ -1,7 +1,7 @@
 # Assignment 3 - Transfer learning + CNN classification
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a3)
 
-<img src="https://i.redd.it/5j2u143gprr71.jpg">
+![](../imgs/a3front.jpg)
 
 In the [previous assignment](../vision-a2/README.md), we saw that our neural network had a hard time competing with logistic regression. In this week, however, it is time for payback! We will use the powers of [transfer learning](https://www.tensorflow.org/tutorials/images/transfer_learning) to stand on the shoulders of giant amounts of data and compute to finally show classical ML where the new paradigm where it's at! 
 
