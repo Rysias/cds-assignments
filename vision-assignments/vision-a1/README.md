@@ -51,9 +51,9 @@ calculating for the whole dir is basically the same. The only difference is some
 The SOLID-principles are a way of writing robust and scalable code. Below is a break-down of how each principle applies
 
 - **Single responsibility**: Splitting functionality into separate files and functions. This makes it easier to know where to change functionality / refactor. For instance I have split [calculating distances](src/calculate_dists.py) and [formatting output](src/format_output.py) into two separate files. 
-- **Interface segregation**: I make the main scripts independent of the implementation details in each other by relying on files in the [`src`-directory](src/). This makes it easier to clean
-- **Liskov substitution**: Not super applicable to this concrete project as it is more functional than OOP
 - **Open-closed**: This follows closely from single responsibility in this project
+- **Liskov substitution**: Not super applicable to this concrete project as it is more functional than OOP
+- **Interface segregation**: I make the main scripts independent of the implementation details in each other by relying on files in the [`src`-directory](src/). This makes it easier to clean
 - **Dependency Inversion**: By using type hints, I make it relatively easy to create a new function for comparing distances (such as the ones explained in the [discussion](#discussion-of-the-results))
 
 ## Usage 
@@ -83,7 +83,7 @@ As humans are fairly good at pattern recognition, it is instructive to investiga
 
 ![alt text](output/image_0003_closest3.png)
 
-At first glance the script is successful: all the images depict yellow flowers. At a closer look one notices small disrepencies. For instances the closest flower (top right corner) is a different species, while the third closest (bottom right) is the same. From our expert-ish botanist (or at least evolutionarily trained) perspective, the two should been reversed. 
+At first glance the script is successful: all the images depict yellow flowers. At a closer look one notices small disrepencies. For instances the closest flower (top right corner) is a different species, while the third closest (bottom right) is the same. From our expert-ish botanist (or at least evolutionarily trained) perspective, the two should have been reversed. 
 
 Looking at it from a histogram-comparison perspective, the rankings make sense. The saturation and ligthing are quite similar on the top image compared to the same-species one that is much . This highlights a fundamental flaw with the technique: it has no conception of semantics. What we mean by "similar" is a relatively abstract thing such as structure of the petals or other more qualified botany-jargon. 
 
