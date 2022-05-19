@@ -3,7 +3,7 @@
 
 ![](../imgs/a3front.jpg)
 
-In the [previous assignment](../vision-a2/README.md), we saw that our neural network had a hard time competing with logistic regression. In this week, however, it is time for payback! We will use the powers of [transfer learning](https://www.tensorflow.org/tutorials/images/transfer_learning) to stand on the shoulders of giant amounts of data and compute to finally show classical ML where the new paradigm where it's at! 
+In the [previous assignment](../vision-a2/README.md), we saw that our neural network had a hard time competing with logistic regression. In this week, however, it is time for payback! We will use the powers of [transfer learning](https://www.tensorflow.org/tutorials/images/transfer_learning) to stand on the shoulders of giant amounts of data and compute to finally show classical ML where the new paradigm is at! 
 
 For those purposes we will still be working with the CIFAR10 dataset.
 
@@ -36,7 +36,7 @@ Your ```.py``` script should minimally do the following:
   - This might include e.g. learning rate, batch size, etc
 
 ### Personal Learning Goals
-Apart from continuing my exploration of Github Copilot and the SOLID principles, I want to see how much I can transfer from the [assignment 2](../vision-a2/) to this one wrt the structure. I will still create individual files to reduce coupling, but it might be fun to see. 
+Apart from continuing my exploration of Github Copilot and the SOLID principles, I want to see how much of the structure I can transfer from [assignment 2](../vision-a2/) to this one. I will still create individual files to reduce coupling, but it might be fun to see. 
 
 ## Methods and Design
 The overall approach to this task is quite similar to [assignment 2](../vision-a2/) with a few different notes. the main difference is that we use a much more powerful system in relying on vgg16 as our base model.
