@@ -1,4 +1,5 @@
 # ignore hand-in stuff
+**/vision-self
 *.zip
 *.pdf
 frontpage.md
