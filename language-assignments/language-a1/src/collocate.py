@@ -1,23 +1,24 @@
-from spacy.tokens import Doc
+from spacy.tokens import Doc  # type: ignore
 from typing import Iterable, List, Sequence
-from spacy import load
+import spacy  # type: ignore
 import pandas as pd
 import numpy as np
 import logging
 from pathlib import Path
 from collections import Counter
-from spacy.tokens import Doc
+from spacy.tokens import Doc  # type: ignore
 from typing import List, Sequence
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-NLP = load(
+# Disable everything but tokenisation to improve performance
+NLP = spacy.load(
     "en_core_web_sm",
     exclude=["tagger", "parser", "ner", "tok2vec", "attribute_ruler", "lemmatizer"],
 )
-NLP.max_length = 100000000
+NLP.max_length = 100000000  # For handling funky bug - too long to actually matter
 
 
 def read_txt(file_path: Path) -> List[str]:
@@ -32,7 +33,7 @@ def get_window(words: np.ndarray, idx: int, window_size: int) -> np.ndarray:
     )
 
 
-def flatten_list(lst: Iterable[Iterable]):
+def flatten_list(lst: Iterable[Iterable]) -> List:
     return [x for sub in lst for x in sub]
 
 

@@ -34,9 +34,9 @@ The assignment for this week builds on these concepts and techniques. We're goin
 ### Software Design
 # TODO 
 - **Single responsibility**: 
-- **Interface segregation**: 
-- **Liskov substitution**: 
 - **Open-closed**: 
+- **Liskov substitution**: 
+- **Interface segregation**: 
 - **Dependency Inversion**: 
 
 ## Usage 

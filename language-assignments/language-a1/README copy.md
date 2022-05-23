@@ -32,18 +32,27 @@ For this assignment, you will write a small Python program to perform collocatio
 - Create a program which allows a user to define a number of different collocates at the same time, rather than only one
 
 ### Personal Learning Goals
-#TODO: Create this
+Apart from challenging myself with the bonus tasks, I want to see if I can make the assignment follow the  [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) to the extent that it makes sense. There is a lot of room for this, as many of the tasks follow the same basic structure. I will explain more about this in the [software design section](#software-design). 
 
 ## Methods and Design
-#TOD: Create this
+- Uses Spacy for tokenisation
+    - lower case and punctuation removed
+- other than that a vectorized approach using numpy and pandas to calculate Mutual information 
+- Link to MI calculation + short explainer
+
+# TODO WRITE THIS OUT
 
 ### Software Design
+- Share core functionality through src/collocate.py 
+    - Might have been nicer to split more out
+- Still uses a functional paradigm (lower complexity)
+- Focus on single responsibility and interface segregation
 
-- **Single responsibility**:
-- **Open-closed**: 
-- **Liskov substitution**: 
-- **Interface segregation**: 
-- **Dependency Inversion**: 
+- **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor.
+- **Open-closed**: Not too applicable as we have little functionality to add.
+- **Liskov substitution**: Not applicable as we don't work with classes. 
+- **Interface segregation**: Each file (e.g. [`collocate_corpus.py`](./collocate_corpus.py)) has more or less only base python dependencies. This makes it easier to change implementation details.
+- **Dependency Inversion**: Not super relevant for this project, as the assignment is relatively set so we don't need to juggle different back-ends.
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -52,6 +61,7 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script (TODO: THIS!)
+
 
 Parameter | Type | Required | Description
 ---- | ---- | ---- | ----
