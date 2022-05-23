@@ -1,11 +1,7 @@
 # Assignment 3 - Transfer learning + CNN classification
-[GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/vision-assignments/vision-a3)
+[GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a4)
 
-![](../imgs/a3front.jpg)
-
-In the [previous assignment](../vision-a2/README.md), we saw that our neural network had a hard time competing with logistic regression. In this week, however, it is time for payback! We will use the powers of [transfer learning](https://www.tensorflow.org/tutorials/images/transfer_learning) to stand on the shoulders of giant amounts of data and compute to finally show classical ML where the new paradigm is at! 
-
-For those purposes we will still be working with the CIFAR10 dataset.
+# TODO 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
@@ -20,41 +16,28 @@ For those purposes we will still be working with the CIFAR10 dataset.
     * [Discussion](#discussion)
 
 ## Assignment Description
-In this assignment, you are still going to work with the CIFAR10 dataset. However, this time, you are going to make build a classifier using transfer learning with a pretrained CNN like VGG16 for feature extraction. 
+The assignment for this week builds on these concepts and techniques. We're going to be working with the data in the folder ```CDS-LANG/toxic``` and trying to see if we can predict whether or not a comment is a certain kind of *toxic speech*. You should write two scripts which do the following:
 
-Your ```.py``` script should minimally do the following:
-
-- Load the CIFAR10 dataset
-- Use VGG16 to perform feature extraction
-- Train a classifier 
-- Save plots of the loss and accuracy 
-- Save the classification report
-
-**Additional bonus tasks completed**:
-
-- Use ```argparse()``` to allow users to define specific hyperparameters in the script.
-  - This might include e.g. learning rate, batch size, etc
+- The first script should perform benchmark classification using standard machine learning approaches
+  - This means ```CountVectorizer()``` or ```TfidfVectorizer()```, ```LogisticRegression``` classifier
+  - Save the results from the classification report to a text file
+- The second script should perform classification using the kind of deep learning methods we saw in class
+  - Keras ```Embedding``` layer, Convolutional Neural Network
+  - Save the classification report to a text file 
 
 ### Personal Learning Goals
-Apart from continuing my exploration of Github Copilot and the SOLID principles, I want to see how much of the structure I can transfer from [assignment 2](../vision-a2/) to this one. I will still create individual files to reduce coupling, but it might be fun to see. 
+# TODO 
 
 ## Methods and Design
-The overall approach to this task is quite similar to [assignment 2](../vision-a2/) with a few different notes. the main difference is that we use a much more powerful system in relying on vgg16 as our base model.
-
-Other than that the flow goes as follows (as shown in [transfer_cnn.py](./transfer_cnn.py)): 
-1. specify the hyperparameters using the command line
-2. load the data 
-3. initialize the model
-4. train the model
-5. evaluate (both in terms of the training plot and the classification report)
+# TODO 
 
 ### Software Design
-As mentioned, I have tried to follow the SOLID-principles. On a high-level, this means that the main script (`transfer_cnn.py`) is easy to modify to suit future needs as it is relatively agnostic to implementation details. This means that it would be relatively easy to change the base model to another model than VGG16, though it would take a bit of refactoring to make this process silky smooth. Below are some concrete examples of the SOLID principles.
-- **Single responsibility**: Each function attempts to do just one thing, which decreases coupling.
-- **Interface segregation**: Each functionality (such as loading data or reporting) has a separate file, which decreases the dependencies between scripts. This also means that the main script only imports other files and base modules.
-- **Liskov substitution**: Not strictly implemented as there are no classes. However, the design utilizes that tensorflow uses Liskov substitution, which makes extensions easier.
-- **Open-closed**: Functions are build in a modular way that makes them relatively easy to extend with e.g. new models.
-- **Dependency Inversion**: Not used too much, as the task only requires to work with VGG16. However, for possible extensions this could make adding other models quite a bit easier.
+# TODO 
+- **Single responsibility**: 
+- **Interface segregation**: 
+- **Liskov substitution**: 
+- **Open-closed**: 
+- **Dependency Inversion**: 
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -63,40 +46,26 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script
-As in the other assignments, the script is documented using argparse. Therefore, the most up to date descriptions can be found using `python transfer_cnn.py --help`. However, you can also refer to the table below. 
+# TODO 
 
 Parameter | Type | Required | Description
 ---- | ---- | ---- | ----
-`--learning-rate` | `float` | No | The learning rate (defaults to 0.001)
-`--learning-rate` | `int` | No | Batch size for each iteration of SGD (defaults to 32)
-`--epochs` | `int` | No | How many epochs to train for (defaults to 10).
+
 
 #### Example usage
 ```console
-$ python transfer_cnn.py --batch-size 32 --learning-rate 0.01
+$ python 
 ```
 ## Discussion and Results
 ### Results
-#### Loss and Accuracy 
-**Loss**
 
-[loss plot](./output/plot_loss.png)
-
-**Accuracy**
-
-[accuracy plot](./output/plot_accuracy.png)
 
 #### Classification Report
+# TODO
 | | precision | recall | f1-score | support |
 |---|---|---|---|---|
 |macro avg | 0.62 | 0.62 | 0.62 | 10000|
 |weighted avg | 0.62 | 0.62 | 0.62 | 10000|
 
 ### Discussion
-Compared to the [results from the previous assignment](../vision-a2/README.md#classification-reports), we see a significant ~20% improvement. This is partially to be expected. Our featurization is much more sophisticated than the simple linear approach used in the previous assignment as it is based on a fairly large neural network. Adding the two dense layers, further allowed us to fit the data nicely. 
-
-Although we significantly outperformed our simplistic baseline, there is still far from the [SOTA performance](https://paperswithcode.com/sota/image-classification-on-cifar-10) of 99.4% accuracy. This model called CaiT by [Touvron et al.](https://arxiv.org/pdf/2103.17239v2.pdf) is an image transformer with 356M parameters. This is more than 2.5x our VGG16 and a more efficient architecture. And in deep learning size matters ([a lot](https://arxiv.org/abs/2001.08361)). 
-
-This can also be seen in the curious fact that our model didn't seem to overfit. The accuracy seemed to more or less monotonically increase with training despite the fact that I used minimal regularization (only a bit of data augmentation). This is a surprising fact that might stem from neural networks having a strong inductive bias ([Mingard et al., 2020](https://arxiv.org/pdf/1909.11522.pdf)).
-
-It is therefore feasible that we could have trained a stronger neural network by adding layers and training time. However, given my discussion of [climate impact (and time constraints)](../vision-a2/README.md#discussion), I will leave that as an exercise to the reviewer ;))
+# TODO
