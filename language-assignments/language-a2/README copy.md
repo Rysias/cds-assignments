@@ -69,5 +69,16 @@ $ python TODO
 ```
 ## Discussion and Results
 ### Results
+![Fake entities](./output/Fake_top_ents.png)
+
+*Figure 1: Fake entities*
+#### Real entities
+![Real entities](./output/Real_top_ents.png)
+*Figure 2: Real entities*
 
 ### Discussion (TODO)
+- Discuss the entities
+- Discuss the pros and cons of the models
+
+## TODO
+- [ ] Split textblob and spacy into separate files
