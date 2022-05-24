@@ -44,7 +44,7 @@ def process_file(filepath):
     cm.add_measures(G, measure_dict)
 
     measure_df = cm.network_to_df(G)
-    measure_df.sort_values(by="betweenness_centrality", inplace=True)
+    measure_df.sort_values(by="betweenness_centrality", ascending=False, inplace=True)
 
     write_measures(measure_df, filepath)
     visualize.plot_graph(G, filepath)
