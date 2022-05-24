@@ -54,14 +54,26 @@ The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.ht
 
 ### Using the script
 # TODO
+As with the other assignments, the script is documented using [argparse](https://docs.python.org/3/library/argparse.html). Full documentation can therefore be found by using the `--help`-flag, i.e. `python network_analysis.py --help`. Running this gives the following output 
 
-Parameter | Type | Required | Description
----- | ---- | ---- | ----
+```console
+usage: network_analysis.py [-h] --data-path DATA_PATH
+
+Does rudimentary network analysis on a file or folder. The files must be tsv files with the following
+columns: 'Source', 'Target', 'Weight'
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --data-path DATA_PATH
+                        Path to either the directory or a specific tsv file
+``` 
 
 #### Example usage
-# TODO 
+
 ```console
-$ python 
+$ python network_analysis.py --data-path input/network_file.csv
 ```
 ## Discussion and Results
+![img](../imgs/a3_network_kj.jpg)
+
 # TODO 
