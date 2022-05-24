@@ -4,6 +4,8 @@ import pandas as pd
 import logging
 from pathlib import Path
 from src import news_entities as ne
+import src.plot_geopol as plot_geopol
+import src.geopol as geopol
 from typing import Callable, Tuple
 
 # Add basic logging
@@ -21,6 +23,13 @@ def create_output_dir() -> Path:
     return output_dir
 
 
+def plot_top_ents(
+    ents: pd.DataFrame, output_dir: Path, group_type: str, top_n: int = 10
+) -> None:
+    top_ents = geopol.most_common_ents(ents["GPE"], n=top_n)
+    plot_geopol.plot_top_ents(top_ents, output_dir, group_type=group_type)
+
+
 def process_news_df(
     df: pd.DataFrame, sentiment: Tuple[str, Callable], group_label: str
 ) -> None:
@@ -29,25 +38,28 @@ def process_news_df(
 
     # Calculate the stuff
     logging.info(f"Calculating {sent_name} for {group_label} news")
-    top_ents = ne.df_ent_and_sent(df, NLP, sent_fun=sent_fun)
+    all_ents = ne.df_ent_and_sent(df, NLP, sent_fun=sent_fun)
 
     # Plot
     logging.info("plotting...")
     output_dir = create_output_dir()
-    ne.plot_top_ents(top_ents, output_dir, group_type=group_label)
+    plot_top_ents(all_ents, output_dir, group_type=group_label)
 
     # Write output
     logging.info("writing output...")
-    top_ents.to_csv(output_dir / f"{group_label}_GPE_{sent_name}.csv")
+    all_ents.to_csv(output_dir / f"{group_label}_GPE_{sent_name}.csv")
 
 
 def main(args):
     DATA_PATH = Path(args.data_path)
-
     if args.sentiment == "textblob":
-        sentiment = ("textblob", ne.initialise_textblob(NLP))
+        import src.textblob as textblob
+
+        sentiment = ("textblob", textblob.initialise_textblob(NLP))
     elif args.sentiment == "vader":
-        sentiment = ("vader", ne.initialise_vader())
+        import src.vader as vader
+
+        sentiment = ("vader", vader.initialise_vader())
     else:
         raise ValueError("Invalid sentiment type")
 
