@@ -49,7 +49,7 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--data-dir",
-        default="../../../CDS-LANG/100_english_novels/corpus",
+        default="input/",
         help="Where to look for texts",
     )
     args = argparser.parse_args()
