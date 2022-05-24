@@ -79,7 +79,7 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--data-path",
-        default="../../../CDS-LANG/tabular_examples/fake_or_real_news.csv",
+        default="input/fake_or_real_news.csv",
         help="Path to the fake_or_real_news.csv file",
     )
     args = argparser.parse_args()
