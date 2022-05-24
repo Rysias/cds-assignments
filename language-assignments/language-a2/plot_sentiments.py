@@ -20,7 +20,7 @@ def main() -> None:
     DATA_DIR = Path("output/")
     all_dfs = list(DATA_DIR.glob("*_GPE_*.csv"))
     master_df = pd.concat([read_sentiment_df(f) for f in all_dfs])
-    sns.barplot(x="news_type", y="sentiment", hue="sentiment_model", data=master_df)
+    sns.barplot(x="news_type", y="sentiment", hue="sentiment_model", data=master_df).set(title="Comparison of Sentiment Algorithms")
     plt.savefig(DATA_DIR / "sentiment_comparison.png")
 
 
