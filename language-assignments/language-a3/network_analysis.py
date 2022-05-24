@@ -28,11 +28,13 @@ def process_dir(dir_path: Path) -> None:
         process_file(filepath)
 
 
-def process_file(filepath):
+def process_file(filepath: Path) -> None:
     """"Full pipeline for processing a (valid) file"""
     df = read_tsv(filepath)
     if not right_columns(df):
-        return
+        raise ValueError(
+            f"{filepath.name} has wrong columns! should be 'Source', 'Target', 'Weight' (not {df.columns})"
+        )
     measure_dict = {
         "degree_centrality": nx.degree_centrality,
         "betweenness_centrality": partial(nx.betweenness_centrality, weight="Weigth"),
