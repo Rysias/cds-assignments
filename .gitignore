@@ -5,7 +5,7 @@
 frontpage.md
 
 # Remove input
-**/input
+**/input/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
