@@ -1,4 +1,4 @@
-# Assignment 3 - Transfer learning + CNN classification
+# Assignment 1 - Collocation
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a1)
 
 
@@ -60,14 +60,16 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script (TODO: THIS!)
+### Using the scripts 
+All the scripts are documented using argparse. instructions can therefore be found using the `--help` flag (e.g. `python collocate_single_test.py --help`). However, as there are quite a few scripts, below is a little table with descriptions: 
 
+# TODO: CREATE THIS TABLE :))
 
-Parameter | Type | Required | Description
----- | ---- | ---- | ----
-`--learning-rate` | `float` | No | The learning rate (defaults to 0.001)
-`--learning-rate` | `int` | No | Batch size for each iteration of SGD (defaults to 32)
-`--epochs` | `int` | No | How many epochs to train for (defaults to 10).
+Script Name | Supported | Solves 
+---- | ---- | ---- 
+[`collocate_single_text.py`]() | `float` | No 
+`--learning-rate` | `int` | No 
+`--epochs` | `int` | No 
 
 #### Example usage (TODO: THIS!)
 ```console

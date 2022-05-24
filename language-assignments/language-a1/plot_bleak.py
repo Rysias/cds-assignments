@@ -25,7 +25,14 @@ def main(args: argparse.Namespace) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--file-path", type=str, required=True)
+    parser = argparse.ArgumentParser(
+        description="Plot the collocates of words with highest MI of 'bleak' in 'Bleak House' by Dickins."
+    )
+    parser.add_argument(
+        "--file-path",
+        type=str,
+        required=True,
+        help="Path to the collocate file for Bleak House.",
+    )
     args = parser.parse_args()
     main(args)
