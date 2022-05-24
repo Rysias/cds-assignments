@@ -11,5 +11,5 @@ def test_calc_measures():
     measure_df = cm.calc_measures(graph, measure_dict)
     assert len(measure_df.columns) == 3
     assert "name" in measure_df.columns
-    assert measure_df["degree_centrality"].min() > 0
-    assert measure_df["betweenness_centrality"].min() > 0
+    assert measure_df["degree_centrality"].min() >= 0
+    assert measure_df["betweenness_centrality"].min() >= 0
