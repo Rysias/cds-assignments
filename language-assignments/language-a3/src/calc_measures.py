@@ -29,7 +29,6 @@ def add_measures(graph: nx.Graph, measure_dict: Dict[str, Callable]) -> None:
 def network_to_df(graph: nx.Graph) -> pd.DataFrame:
     return (
         pd.DataFrame.from_dict(dict(graph.nodes(data=True)), orient="index")
-        .drop(columns=["size"])
         .reset_index()
         .rename(columns={"index": "name"})
     )
