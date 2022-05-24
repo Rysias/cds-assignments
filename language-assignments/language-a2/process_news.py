@@ -1,4 +1,4 @@
-import spacy
+import spacy  # type: ignore
 import argparse
 import pandas as pd
 import logging
@@ -48,6 +48,8 @@ def main(args):
         sentiment = ("textblob", ne.initialise_textblob(NLP))
     elif args.sentiment == "vader":
         sentiment = ("vader", ne.initialise_vader())
+    else:
+        raise ValueError("Invalid sentiment type")
 
     news_df = ne.read_news(DATA_PATH)
     mask = news_df["label"] == "REAL"
