@@ -1,5 +1,5 @@
 import functools
-from spacy import Doc  # type: ignore
+from spacy.tokens import Doc  # type: ignore
 from typing import Callable
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 

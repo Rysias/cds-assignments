@@ -1,5 +1,5 @@
 import pandas as pd
-from spacy import Doc
+from spacy.tokens import Doc  # type: ignore
 from typing import Sequence, List
 
 

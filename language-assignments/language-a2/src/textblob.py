@@ -1,5 +1,5 @@
 import spacy  # type: ignore
-from spacy import Doc  # type: ignore
+from spacy.tokens import Doc  # type: ignore
 from typing import Callable
 
 
