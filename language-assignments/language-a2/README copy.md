@@ -1,7 +1,7 @@
-# Assignment 3 - Transfer learning + CNN classification
+# Language Assignment 2 - Sentiment and NER
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a2)
 
-# TODO: Abstract
+# TODO CREATE ABSTRACT
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
@@ -30,24 +30,30 @@ I have chosen subtask 2 for this assignment:
 - Repeat experiments using both sentiment analysis techniques, in order to compare results.
 
 ### Personal Learning Goals
-# TODO: Create this!
+There are quite a few components in this task. I therefore want to try to follow the SOLID principles to see if I can write some production-quality code! I also want to try experimenting with test-driven development as it is a great methodology for writing good code but quite difficult in a data science context.
 
 ## Methods and Design
-The overall approach to this task is quite similar to [assignment 2](../vision-a2/) with a few different notes. the main difference is that we use a much more powerful system in relying on vgg16 as our base model.
+### Methods
+The main idea is to utilize the magic of SpaCy (LINK) - a powerful production-ready NLP library with performant and easy to implement algorithms. We utilise its in-build Named Entity Recognition which allow us to recognise Geopolitical Entities (GPE) out-of-the-box. 
 
-Other than that the flow goes as follows (as shown in [transfer_cnn.py](./transfer_cnn.py)): 
-1. specify the hyperparameters using the command line
-2. load the data 
-3. initialize the model
-4. train the model
-5. evaluate (both in terms of the training plot and the classification report)
+For sentiment analysis we use two classical sentiment analysis algorithms: TextBlob and VADER. Both rely on dictionary-based approaches albeit with slight differences. While VADER uses a simple word-list and some rudimentary rules, TextBlob is build on WordNet (LINK) - an English ontology with rich linguistic information. However, TextBlob also only works on adjectives which might be a limiting factor. 
 
-### Software Design (TODO THIS)
-- **Single responsibility**: 
-- **Open-closed**: 
-- **Liskov substitution**: 
-- **Interface segregation**: 
-- **Dependency Inversion**: 
+On the whole, both algorithms are quite dated. The new state-of-the-art (SOTA) uses deep learning to include contextual information not captured in simple words.
+
+### Software Design
+This project lends itself particularly well to the SOLID principles as it has different components (entity extraction and sentiment analysis) that should ideally work independently of each other. Furthermore, it might be nice to have the option of extending the framework to include more sentiment analysis algorithms. 
+
+That being said, I have chosen to rely on [SpaCy](LINK HERE) which introduces some coupling. However, the stability and performance of SpaCy makes this tradeoff wortwhile. 
+
+Below is a summary of how each principle applies. 
+
+- **Single responsibility**: Each component of the pipeline is split out into a separate file (e.g. [`src/geopol.py`](./src/geopol.py) is separate from the [`src/plot_geopol.py`](./src/plot_geopol.py). This makes it easier to localise errors and fix dependencies.
+- **Open-closed**: As each sentiment analysis algorithm has a separate file ([`src/textblob.py](./src/textblob.py) and [`src/vader.py`](./src/vader.py)) and follows a similar input-output structure it makes it easy to add a new algorithm
+- **Liskov substitution**: Not applicable as there is no inheritance going on.
+- **Interface segregation**: By having separate files, we minimize the amounts of external dependencies in the main script ([`process_news.py`](./process_news.py)) to be only Pandas and Spacy.
+- **Dependency Inversion**: By using the fact that functions are first class citizens in python (LINK) and structural typing, we make it easier to choose between different sentiment analysis algorithms. 
+
+All of this is verified by software tests as this project is developed using a TDD approach (LINK). 
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -55,18 +61,34 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script (TODO THIS)
+### Using the script
+There are two scripts in this repository: [`process_news.py`](./process_news.py) (the main script) and [`plot_sentiments.py`](./plot_sentiments.py) (helper script for [comparing the sentiments](#sentiment)). Only `process_news.py` has any real optionality as the other is run automagically as part of `run_project.sh`. I will therefore focus this usage guide on `process_news.py`. 
 
-Parameter | Type | Required | Description
----- | ---- | ---- | ----
-`--learning-rate` | `float` | No | The learning rate (defaults to 0.001)
-`--learning-rate` | `int` | No | Batch size for each iteration of SGD (defaults to 32)
-`--epochs` | `int` | No | How many epochs to train for (defaults to 10).
+The script is documented using argparse. Usage information can therefore be found using `python process_news.py --help`. Running that command will give the following output: 
 
-#### Example usage
-```console
-$ python TODO
+```{console}
+usage: process_news.py [-h] [--sentiment {textblob,vader}] [--top-n TOP_N] [--data-path DATA_PATH]
+
+Finds Geopolitical entities (GEOP) and their sentiment from news headlines from a dataset containing fake and real news. Also plots the top n (default 20)    
+most mentioned entities
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --sentiment {textblob,vader}
+                        Sentiment model to use (default: textblob)
+  --top-n TOP_N         Number of entities to plot (default: 20)
+  --data-path DATA_PATH
+                        Path to the fake_or_real_news.csv file
 ```
+
+### **Example usage**
+```bash
+$ python process_news.py --sentiment vader --top-n 30
+```
+
+## Testing
+The scripts were developed using a TDD-methodology using [pytest](https://docs.pytest.org/en/7.0.x/). To execute the test suite run `python -m pytest` from the main directory (`language-a2`)
+
 ## Discussion and results
 ### Geopolitical Entities
 The first thing we will investigate is the performance of the NER pipeline. The output can be seen in the table below: 
@@ -96,12 +118,11 @@ Now let's turn to a quick look at the two sentiment analysis algorithms:
 
 ![Sentiment analysis algorithms](./output/sentiment_comparison.png)
 
-The first thing to note is the different scale. Vader has negative values while textblob is positive. To some extent this is expected: TextBlob has scores that range from [-1, 1] whereas Vader 
+The first thing to note is the different scale. Vader has negative values while textblob is positive. To some extent this is expected: spacytextblob has scores that range from [-1, 1] whereas Vader has scores in the range [-5, 5]. To do a formal statistical comparison one woudl therefore have to normalise both. This is however beyond this assignment. 
 
-# TODO: INVESTIGATE THIS
+Taking the scale (informally) into account, one can see that both algorithms agree on the broad tendency: fake news are generally more negative than real news. This seems intuitively right as negativity is generally more attention grabbing (CITATION). As fake news has the primary goal of engaging the reader, they have more emotional keys to play on. This stands in contrast to real news who also have to inform. 
 
+## Todo
+- [ ] Run code to check if it works 
+- [ ] Run tests
 
- 
-
-## TODO
-- [ ] Split textblob and spacy into separate files
