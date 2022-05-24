@@ -51,12 +51,16 @@ As networkx is primarily a graph analysis algorithm, the [developers recommend](
 Pyvis is a great library for interactive network visualisation. Interactive visualisations have the advantage of making it easier to explore networks as these can get [quite hairy with size](https://www.researchgate.net/profile/Henrique-Arruda/publication/332849164/figure/fig4/AS:759214012133383@1558022134731/Network-visualization-by-considering-ten-opinions.png). Interactivity does, however, have the disadvantage of being less portable compared to static visualisations. However, most modern software supports HTML (which is the output format of pyvis), so no cow on the ice. 
 
 ### Software Design
+As mentioned previously, the overall architecture is to invent the fewest amount of wheels and instead rely on the wizards behind networkx. Nevertheless, there are a few nice ways in which to make the code SOLID: 
 
-- **Single responsibility**:
-- **Open-closed**: 
-- **Liskov substitution**: 
-- **Interface segregation**: 
-- **Dependency Inversion**: 
+- **Single responsibility**: Each method only does one thing i.e. graphing is separated from analysis which is separated from writing
+- **Open-closed**: The implementation makes it easy to add/remove network metrics without having to change the course - only a single dictionary needs to be changed
+- **Liskov substitution**: Not applicable as the implementation is more functional than object-oriented. 
+- **Interface segregation**: I try to do as much calculation on the graph objects to increase the flexibility
+- **Dependency Inversion**: Typing is used to maximize interoperability between different functions. 
+Furthermore, I have tried to make it clear whether the input is correctly formatted through doc-strings and failing early. 
+
+Finally, I use [defensive programming](https://en.wikipedia.org/wiki/Defensive_programming) by failing early if the columns are not correct instead of going through expensive calculations and funky error messages. 
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
