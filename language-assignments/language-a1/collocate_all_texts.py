@@ -50,7 +50,7 @@ if __name__ == "__main__":
     )
     argparser.add_argument(
         "--corpus-path",
-        default="../../../CDS-LANG/100_english_novels/corpus",
+        default="./input/",
         help="full- or relative path to the folder to search through",
     )
     argparser.add_argument(
