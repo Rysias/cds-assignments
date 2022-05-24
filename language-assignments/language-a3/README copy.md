@@ -76,4 +76,11 @@ $ python network_analysis.py --data-path input/network_file.csv
 ## Discussion and Results
 ![img](../imgs/a3_network_kj.jpg)
 
+name|degree_centrality|betweenness_centrality|eigenvector_centrality
+:--- | ---: | ---: | ---: 
+KingJohn|0.71 |0.39 |0.42
+Bastard|0.57|0.26|0.35
+KingPhilip|0.39|0.10|0.29
+Lewis|0.36|0.08|0.28
+Salisbury|0.35|0.07|0.25
 # TODO 
