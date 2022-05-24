@@ -67,19 +67,41 @@ Parameter | Type | Required | Description
 ```console
 $ python TODO
 ```
-## Discussion and Results
-### Results
-![Fake entities](./output/Fake_top_ents.png)
+## Discussion and results
+### Geopolitical Entities
+The first thing we will investigate is the performance of the NER pipeline. The output can be seen in the table below: 
 
-*Figure 1: Fake entities*
-#### Real entities
-![Real entities](./output/Real_top_ents.png)
-*Figure 2: Real entities*
+Fake News GPEs             |  Real News GPEs
+:-------------------------:|:-------------------------:
+![Fake entities](./output/Fake_top_ents.png)|  ![Real entities](./output/Real_top_ents.png)
 
-### Discussion (TODO)
-- Discuss the entities
-- Create the plot of the sentiment 
-- Discuss the pros and cons of the models
+*figure 1: Mentions of geopolitcal entities*
+
+The first thing to notice is that the performance is generally good. Most of the entries are in fact geopolitical entities. There are only two mistakes. One is that US and U.S. should be only one entity. This could be remedied by adding Named Entity Disambiguation (LINK) to the pipeline. In this simple instance it could probably be solved with a rule-based approach. For a more scalable (but also complex) solution, the [current SOTA](https://paperswithcode.com/paper/pre-training-of-deep-contextualized) seems to be using embeddings from large language models. In this case however, it would be shooting sparrows with cannons as the non-English idiom goes.
+
+The other issue is that "Kasich" is recognised as a Geopolitical Entity, although it probably refers to the former senator from Ohio (LINK). This is, however, a difficult mistake, as he has buildings named after him such as the Kasic Hall (LINK). He is therefore in an abstract sense a political entity that is related to geography, which is fairly confusing for algorithms and people alike!
+
+These relatively minor mistakes highlights how powerful the modern open source data science ecosystem is. It allows students like us to stand on the shoulders of giants (like SpaCy) and create awesome insights without the trouble of training giant models. 
+
+For example the following insights can be gleamed from the plots.  
+
+* **Real News are more domestically focused while fake news seem more international**: Most of the entities in the Real news dataset are US states, whereas there are many countries in the fake news dataset. 
+* **The dataset seems primarily concerned with the US**: This is not at all surprising but nevertheless important for the types of analysis one can make.
+* **Iran vs Russia**: There is pretty strong difference in focus of the two top entities in the respective cohorts. This might indicate that fake news are more focus on general narratives and real news more focused on current events. 
+
+While the above insights are interesting one should treat them as paths of exploration rather than scientifically solid findings. However, that is an essential first step for doing great science!
+
+### Sentiment
+Now let's turn to a quick look at the two sentiment analysis algorithms: 
+
+![Sentiment analysis algorithms](./output/sentiment_comparison.png)
+
+The first thing to note is the different scale. Vader has negative values while textblob is positive. To some extent this is expected: TextBlob has scores that range from [-1, 1] whereas Vader 
+
+# TODO: INVESTIGATE THIS
+
+
+ 
 
 ## TODO
 - [ ] Split textblob and spacy into separate files

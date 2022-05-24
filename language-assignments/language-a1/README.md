@@ -13,7 +13,7 @@ This folder contains the scripts for finding collocation in a txt-file given a s
 - `*.txt`: outputs from `profile_collocate_sh`
 
 # TODO
-- [] refactor functions into src
-- [] create reproducible pipenv
-- [] create run_project.sh 
-- [] Create README following structure of the other repos
+- [x] refactor functions into src
+- [x] create reproducible pipenv
+- [x] create run_project.sh 
+- [ ] Create README following structure of the other repos
