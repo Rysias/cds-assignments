@@ -76,3 +76,4 @@ $ python TODO
 
 ## Discussion
 TODO: THIS
+- Something about performance testing

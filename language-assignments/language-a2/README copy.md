@@ -78,6 +78,7 @@ $ python TODO
 
 ### Discussion (TODO)
 - Discuss the entities
+- Create the plot of the sentiment 
 - Discuss the pros and cons of the models
 
 ## TODO
