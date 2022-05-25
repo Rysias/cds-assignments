@@ -20,7 +20,7 @@ def main(args) -> None:
     df_train = df.sample(frac=0.8, random_state=42)
     df_test = df.drop(df_train.index)
     # save test
-    df_test.to_csv(Path("input/test_csv"), index=False)
+    df_test.to_csv(Path("input/test.csv"), index=False)
 
     toxicdf = df_train[df_train["label"] == 1]
     nontoxicdf = df_train[df_train["label"] == 0]
