@@ -1,0 +1,6 @@
+{
+    "models": [
+        "gpt-neo-125m",
+        "gpt-j-6b"
+    ]
+}
