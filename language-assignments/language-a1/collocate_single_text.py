@@ -8,7 +8,8 @@
 import argparse
 import logging
 from pathlib import Path
-import src.collocate as collocate
+import src.collocate_pipeline as collocate
+import src.util as util
 
 # add basic logging
 logging.basicConfig(
@@ -25,7 +26,7 @@ def main(args):
     logging.info(f"Searching for {search_term} in {file_path}...")
     collocate_df = collocate.process_file(file_path, search_term, window_size)
     logging.info(f"writing output...")
-    collocate.write_output(collocate_df, args.file_name, search_term)
+    util.write_output(collocate_df, file_path, search_term)
     logging.info("done!")
 
 
@@ -48,9 +49,7 @@ if __name__ == "__main__":
         help="Window size (on each side of node word)",
     )
     argparser.add_argument(
-        "--data-dir",
-        default="input/",
-        help="Where to look for texts",
+        "--data-dir", default="input/", help="Where to look for texts",
     )
     args = argparser.parse_args()
     main(args)

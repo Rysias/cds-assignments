@@ -2,6 +2,8 @@
 - Create a program which does the above for every novel in the corpus, saving one output CSV per novel
 """
 import src.collocate as clt
+import src.util as util
+import src.tokenize as tokenize
 import argparse
 import logging
 from pathlib import Path
@@ -9,10 +11,6 @@ from pathlib import Path
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-
-
-def tokenize_docs(texts, n_cores=1):
-    return clt.NLP.pipe(texts, n_process=n_cores, disable=clt.NLP.pipe_names)
 
 
 def main(args):
@@ -23,12 +21,12 @@ def main(args):
 
     logging.info("Cleaning all texts...")
     all_texts = [
-        (clt.clean_file(file), file)
+        (util.clean_file(file), file)
         for i, file in enumerate(path_dir.glob("*.txt"))
         if i < 11
     ]
     logging.info("Tokenizing all texts...")
-    all_docs = tokenize_docs(text for text, _ in all_texts)
+    all_docs = tokenize.tokenize_docs(text for text, _ in all_texts)
     files = [file for _, file in all_texts]
     for i, text in enumerate(all_docs):
         corpus = clt.get_word_list(text)

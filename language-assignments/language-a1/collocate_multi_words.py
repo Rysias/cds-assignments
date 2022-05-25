@@ -2,6 +2,8 @@
 Create a program which allows a user to define a number of different collocates at the same time, rather than only one
 """
 import src.collocate as clt
+import src.util as util
+import src.tokenize as tokenize
 import argparse
 import pandas as pd
 import logging
@@ -13,13 +15,13 @@ logging.basicConfig(
 
 
 def join_texts(file_list):
-    return " ".join(clt.clean_file(file_path) for file_path in file_list)
+    return " ".join(util.clean_file(file_path) for file_path in file_list)
 
 
 def process_corpus(file_list):
     logging.info("processing corpus...")
     joined_text = join_texts(file_list)
-    return clt.tokenize_doc(joined_text)
+    return tokenize.tokenize_doc(joined_text)
 
 
 def main(args):
@@ -28,7 +30,7 @@ def main(args):
     data_dir = Path(args.data_dir)
     file_path = data_dir / args.file_name
 
-    doc = clt.get_doc(file_path)
+    doc = tokenize.get_doc(file_path)
     corpus = clt.get_word_list(doc)
 
     colloc_list = [None for _ in range(len(search_terms))]
@@ -58,9 +60,7 @@ if __name__ == "__main__":
         help="Node words to find collocates (space delimited)",
     )
     argparser.add_argument(
-        "--data-dir",
-        default="input/",
-        help="Directory, where texts are located",
+        "--data-dir", default="input/", help="Directory, where texts are located",
     )
     argparser.add_argument(
         "--window-size",

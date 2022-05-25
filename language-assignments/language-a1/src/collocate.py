@@ -1,29 +1,14 @@
-from spacy.tokens import Doc  # type: ignore
-from typing import Iterable, List, Sequence
-import spacy  # type: ignore
 import pandas as pd
 import numpy as np
 import logging
 from pathlib import Path
 from collections import Counter
 from spacy.tokens import Doc  # type: ignore
-from typing import List, Sequence
+from typing import List, Sequence, Iterable
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
-
-# Disable everything but tokenisation to improve performance
-NLP = spacy.load(
-    "en_core_web_sm",
-    exclude=["tagger", "parser", "ner", "tok2vec", "attribute_ruler", "lemmatizer"],
-)
-NLP.max_length = 100000000  # For handling funky bug - too long to actually matter
-
-
-def read_txt(file_path: Path) -> List[str]:
-    with open(file_path, "r", encoding="utf-8-sig") as f:
-        return f.read().splitlines()
 
 
 def get_window(words: np.ndarray, idx: int, window_size: int) -> np.ndarray:
@@ -39,26 +24,6 @@ def flatten_list(lst: Iterable[Iterable]) -> List:
 
 def count_words(corpus: Iterable, term: str) -> int:
     return np.sum(corpus == term)
-
-
-def clean_file(file_path: Path) -> str:
-    raw_text = read_txt(file_path)
-    return " ".join(raw_text).lower()
-
-
-def tokenize_doc(text, n_cores: int = 1) -> Doc:
-    return next(NLP.pipe([text], n_process=n_cores, disable=NLP.pipe_names))
-
-
-def tokenize_docs(texts, n_cores=1):
-    return NLP.pipe(
-        [text.lower() for text in texts], n_process=n_cores, disable=NLP.pipe_names
-    )
-
-
-def get_doc(file_path: Path) -> Doc:
-    clean_text = clean_file(file_path)
-    return tokenize_doc(clean_text)
 
 
 def text_to_word_list(text_list: Sequence[Doc]) -> np.ndarray:
@@ -108,19 +73,3 @@ def collocate_pipeline(corpus, search_term, window_size):
     logging.info(f"Calculated MI for {search_term}")
     return df
 
-
-def process_file(file_path, search_term, window_size):
-    doc = get_doc(file_path)
-    corpus = get_word_list(doc)
-    return collocate_pipeline(corpus, search_term, window_size)
-
-
-def process_file2(file_path, search_term, window_size):
-    doc = read_txt(file_path)
-    corpus = text_to_word_list(doc)
-    return collocate_pipeline(corpus, search_term, window_size)
-
-
-def write_output(collocate_df, file_name, search_term):
-    output_name = Path("output") / f"{file_name[:-4]}_{search_term}.csv"
-    collocate_df.to_csv(output_name, index=False)
