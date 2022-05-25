@@ -30,8 +30,20 @@ For this assignment the goal is to write software for generating the beginning o
 
 ## Methods and Design
 ### Data Collection
+- https://www.uvic.ca/ecs/ece/isot/datasets/fake-news/index.php
+- Downloaded via kaggle
 
 ### Cleaning News
+- Length is important (as you pay per token + off)
+- Removing URLs (from both --> tendency to generate false ones)
+
+### Generating news / prompt engineering 
+- 6b.eleuther.ai <-- used for testing prompts 
+- About Goose.ai 
+    - API based on EleutherAI
+    - Works with OpenAI's API (with different endpoint)
+- More on that in discussion
+- Notes on manual selection
 
 ### Software Design
 # TODO 
@@ -59,7 +71,12 @@ Parameter | Type | Required | Description
 $ python 
 ```
 ## Discussion and Results
-# TODO 
+- Examples (in a table; semi manual)
+    - Comments on the examples
+- Notes on the process
+    - Fake URLs 
+    - Tendency to repeat itself
+- The role of manual selectoin
 
 # TODO List
 - [ ] Fill out TODO's in this readme 
