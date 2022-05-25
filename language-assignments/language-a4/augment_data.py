@@ -15,16 +15,22 @@ def main(args) -> None:
     if not datapath.exists():
         logging.error(f"The dataset path {datapath} does not exist.")
         exit(1)
+    # split dataset into train and test
     df = pd.read_csv(datapath)
-    toxicdf = df[df["label"] == 1]
-    nontoxicdf = df[df["label"] == 0]
+    df_train = df.sample(frac=0.8, random_state=42)
+    df_test = df.drop(df_train.index)
+    # save test
+    df_test.to_csv(Path("input/test_csv"), index=False)
+
+    toxicdf = df_train[df_train["label"] == 1]
+    nontoxicdf = df_train[df_train["label"] == 0]
     logging.info(f"Augmenting toxic data...")
     augdf = augment.synonym_augment(toxicdf, n=args.augment_size)
 
     full_df = (
         pd.concat([augdf, toxicdf, nontoxicdf]).drop_duplicates().reset_index(drop=True)
     )
-    full_df.to_csv(Path("input/augmented_data.csv"), index=False)
+    full_df.to_csv(Path("input/augmented_train_data.csv"), index=False)
 
 
 if __name__ == "__main__":
