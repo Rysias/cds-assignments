@@ -34,6 +34,10 @@ def main(args: argparse.Namespace) -> None:
     model = convnet.create_model(dropout=DROPOUT)
     logging.info(f"model summary: {model.summary()}")
 
+    # undersample
+    rus = RandomUnderSampler(random_state=42)
+    X_train, y_train = rus.fit_resample(X_train, y_train)
+
     # Train the model
     history = model.fit(
         X_train,
