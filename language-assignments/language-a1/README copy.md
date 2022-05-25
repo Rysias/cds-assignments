@@ -5,7 +5,7 @@
 #TODO: Create abstract 
 
 
-## Table of Content
+## Table of Content (UPDATE)
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
 - [Methods and design](#methods-and-design)
