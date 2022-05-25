@@ -10,6 +10,7 @@ imbalanced-learn = "*"
 scikit-learn = "*"
 matplotlib = "*"
 tensorflow-hub = "*"
+nlpaug = "*"
 
 [dev-packages]
 ipytest = "*"
