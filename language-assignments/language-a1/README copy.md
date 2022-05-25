@@ -43,10 +43,7 @@ Apart from challenging myself with the bonus tasks, I want to see if I can make 
 # TODO WRITE THIS OUT
 
 ### Software Design
-- Share core functionality through src/collocate.py 
-    - Might have been nicer to split more out
-- Still uses a functional paradigm (lower complexity)
-- Focus on single responsibility and interface segregation
+As all the scripts share the 
 
 - **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor.
 - **Open-closed**: Not too applicable as we have little functionality to add.
@@ -63,13 +60,14 @@ The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.ht
 ### Using the scripts 
 All the scripts are documented using argparse. instructions can therefore be found using the `--help` flag (e.g. `python collocate_single_test.py --help`). However, as there are quite a few scripts, below is a little table with descriptions: 
 
-# TODO: CREATE THIS TABLE :))
 
 Script Name | Supported | Solves 
 ---- | ---- | ---- 
-[`collocate_single_text.py`]() | `float` | No 
-`--learning-rate` | `int` | No 
-`--epochs` | `int` | No 
+[`collocate_single_text.py`](./collocate_single_text.py) | ::heavy_check_mark: | Collocation of a given word in a single file (main task) 
+[`collocate_corpus.py`](./collocate_corpus.py) | ::heavy_check_mark: | Collocation of a word in an entire corpus (outputs a single file)
+[`collocate_multi_words.py`](./collocate_corpus.py) | ::heavy_check_mark: | Collocation of multiple words in a text
+[`collocate_all_texts.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Runs collocation on all texts in a directory (outputs one .csv per file)
+[`plot_bleak.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Creates a nice plot of the output of our test.
 
 #### Example usage (TODO: THIS!)
 ```console
@@ -77,5 +75,22 @@ $ python TODO
 ```
 
 ## Discussion
-TODO: THIS
-- Something about performance testing
+### Performance testing
+Early in my process, I discovered that collocation is a compute-intensive task. As I was writing a script that handled _all 100 texts_ in the dataset I was spending most of my time waiting. To remedy this I employed performance testing to boost the performance. I used cProfile - a great command-line tool that generates detailed performance reports. You can see the script used [here](./profile_collocate.sh) and the output directory is [`/performance`](./performance/). 
+
+The tool was immensively helpful in shaving down the run-time. One of the main benefits was removing expensive for-loops when finding the collocates. Instead of was able to run the pipeline in pure pandas which is much faster (link). 
+
+If we look at the latest [`profile.txt`](./performance/profile.txt) it is apparent that most of the time is spent on tokenizing the text. This is currently done through SpaCy, which is quite performant. It is feasible that we could spend some time developing a super-fast tokenizer specialized to collocation but I am quite satisfied with the performance. 
+
+### Collocation results
+Now that we have created a performant pipeline, it is time to look at what sorts of insights can be gleamed from collocation. Below, I have created a plot of the highest MI collocates of the word "Bleak" in the Charles Dickins classic "Bleak House". 
+![img](./output/Dickens_Bleak_1853_bleak.png)
+*figure 1: Bleak House collocates*
+
+When creating this plot it quickly become apparent that it was important to remove words that only appear once as they might score artificially highly on MI. For example, the top locates in [the file](./output/Dickens_Bleak_1853_bleak.csv) are "Charles" and "Dickens", which is not relevant for the plot. 
+
+But once that is done, the plot provides an interesting view into the book. (Disclaimer: I haven't read the book (yet!) so the plot also provides my first view). The word "thinning" is particularly interesting. From a quick google search it seems to be present in an interaction between the narrator and a guard in [chapter 52](http://www.literaturepage.com/read/dickens-bleak-house-802.html). Here the guard says the phrase "Bleak House is thinning fast" twice. This phrase takes up a lot of space in the plot as all words (except "is") appear in top five. 
+
+While this finding probably won't revolutionize the field of English Litterature, it did lead me to a key part of the book in a quite organic way. Collocation seems to be a useful tool for distant reading (LINK) the classics (if one has access to txt files and python but not [CliffsNotes](https://www.cliffsnotes.com/)!)
+
+
