@@ -35,12 +35,19 @@ For this assignment, you will write a small Python program to perform collocatio
 Apart from challenging myself with the bonus tasks, I want to see if I can make the assignment follow the  [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) to the extent that it makes sense. There is a lot of room for this, as many of the tasks follow the same basic structure. I will explain more about this in the [software design section](#software-design). 
 
 ## Methods and Design
-- Uses Spacy for tokenisation
-    - lower case and punctuation removed
-- other than that a vectorized approach using numpy and pandas to calculate Mutual information 
-- Link to MI calculation + short explainer
+There a several steps in creating a collocation pipeline. The first is to tokenize the document, that is to split the document into words (tokens). This seems like a trivial task - why not just split by spaces and call it a day. But language is difficult (and English particularly so). Punctuation and weird grammatical rules produce a plethora of edge cases. I will therefore rely on the wizards of [SpaCy](spacy.io) - a magnificent software package for doing production-grade NLP. 
 
-# TODO WRITE THIS OUT
+The only main preprocessing I do is to remove punctuation and lower-case all words. 
+
+The next is to find all the collocates, that is finding all words within a user-specified window of the source word. To speed up the computations (which was necessary as discussed [later](#performance-testing)) I use pandas and numpy for vectorization.
+
+When all these collocates have been found and organised in a dataframe, the final step is to calculate the mutual information score. Informally, mutual information is a measure of how much information about A (say the source word) the presence of B (the collocate) gives you. More formally, I use the formula used by [English Corpora](https://www.english-corpora.org/mutualInformation.asp), which goes as follows: 
+
+```
+MI = log ( (AB * sizeCorpus) / (A * B * span) ) / log (2)
+```
+
+With A being frequency of node word, B being the frequency of the collocate, and AB being their joint frequency. 
 
 ### Software Design
 As all the scripts share the 
