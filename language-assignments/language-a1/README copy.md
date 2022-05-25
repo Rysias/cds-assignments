@@ -50,13 +50,15 @@ MI = log ( (AB * sizeCorpus) / (A * B * span) ) / log (2)
 With A being frequency of node word, B being the frequency of the collocate, and AB being their joint frequency. 
 
 ### Software Design
-As all the scripts share the 
+As all the scripts share much of the same machinery, there are ample opportunity to keep the code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and [SOLID](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design). Below I describe how each of the SOLID principles apply to my code.
 
-- **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor.
-- **Open-closed**: Not too applicable as we have little functionality to add.
+- **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor.On a higher level, I have also split the parts (tokenization and collocation) into different files ([`src/tokenize.py`](./src/tokenize.py) and [`src/collocate.py`](./src/collocate.py)) which further increases cohesion while lowering coupling.
+- **Open-closed**: By splitting the tokenization into a separate file, I make it easier to switch the backend to another framework such as [NLTK](https://www.nltk.org/). 
 - **Liskov substitution**: Not applicable as we don't work with classes. 
-- **Interface segregation**: Each file (e.g. [`collocate_corpus.py`](./collocate_corpus.py)) has more or less only base python dependencies. This makes it easier to change implementation details.
-- **Dependency Inversion**: Not super relevant for this project, as the assignment is relatively set so we don't need to juggle different back-ends.
+- **Interface segregation**: I segregate interfaces on two levels.
+    1. Each script (e.g. [`collocate_single_txt.py`](./collocate_single_text.py)) has minimal dependencies, which lowers coupling. 
+    2. By splitting functionality as described earlier, I make testing and changing files less dependent on external dependencies.
+- **Dependency Inversion**: Not super relevant for this project, as the assignment is relatively set so we don't need to juggle different back-ends. However, following the other principles makes this relatively easy to implement.
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -76,9 +78,9 @@ Script Name | Supported | Solves
 [`collocate_all_texts.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Runs collocation on all texts in a directory (outputs one .csv per file)
 [`plot_bleak.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Creates a nice plot of the output of our test.
 
-#### Example usage (TODO: THIS!)
+#### Example usage
 ```console
-$ python TODO
+python collocate_single_text.py --file-name "Dickens_Bleak_1853.txt" --search-term "bleak" --window-size 6
 ```
 
 ## Discussion
