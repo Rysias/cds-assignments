@@ -8,13 +8,20 @@
 import argparse
 import logging
 from pathlib import Path
-import src.collocate_pipeline as collocate
+import src.tokenize as tokenize
+import src.collocate as collocate
 import src.util as util
 
 # add basic logging
 logging.basicConfig(
     format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
 )
+
+
+def process_file(file_path: Path, search_term: str, window_size: int):
+    doc = tokenize.get_doc(file_path)
+    corpus = tokenize.get_word_list(doc)
+    return collocate.collocate_pipeline(corpus, search_term, window_size)
 
 
 def main(args):
@@ -24,7 +31,7 @@ def main(args):
     file_path = DATA_DIR / args.file_name
 
     logging.info(f"Searching for {search_term} in {file_path}...")
-    collocate_df = collocate.process_file(file_path, search_term, window_size)
+    collocate_df = process_file(file_path, search_term, window_size)
     logging.info(f"writing output...")
     util.write_output(collocate_df, file_path, search_term)
     logging.info("done!")

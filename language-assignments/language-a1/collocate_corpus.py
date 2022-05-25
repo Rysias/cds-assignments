@@ -3,17 +3,19 @@ Create a program which does this for the whole dataset, creating a CSV with one 
 """
 
 import src.collocate as clt
+import src.util as util
+import src.tokenize as tokenize
 import argparse
 from pathlib import Path
 
 
 def join_texts(file_list):
-    return " ".join(clt.clean_file(file_path) for file_path in file_list)
+    return " ".join(util.clean_file(file_path) for file_path in file_list)
 
 
 def process_corpus(file_list):
     joined_text = join_texts(file_list)
-    return clt.tokenize_doc(joined_text)
+    return tokenize.tokenize_doc(joined_text)
 
 
 def main(args):
@@ -24,7 +26,7 @@ def main(args):
     all_paths = list(path_dir.glob("*.txt"))
     big_text = process_corpus(all_paths)
 
-    corpus = clt.get_word_list(big_text)
+    corpus = tokenize.get_word_list(big_text)
     collate_df = clt.collocate_pipeline(corpus, search_term, window_size)
 
     collate_df.to_csv(Path("output") / f"corpus_{search_term}.csv")
