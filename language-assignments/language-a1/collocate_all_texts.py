@@ -28,10 +28,10 @@ def main(args):
     logging.info("Tokenizing all texts...")
     all_docs = tokenize.tokenize_docs(text for text, _ in all_texts)
     files = [file for _, file in all_texts]
-    for i, text in enumerate(all_docs):
-        corpus = clt.get_word_list(text)
+    for i, (text, file) in enumerate(zip(all_docs, files)):
+        corpus = tokenize.get_word_list(text)
         collate_df = clt.collocate_pipeline(corpus, search_term, window_size)
-        clt.write_output(collate_df, files[i].name, search_term)
+        util.write_output(collate_df, file, search_term)
         if i % 10 == 0:
             logging.info(f"processed {i+1} of {len(all_texts)} files")
 

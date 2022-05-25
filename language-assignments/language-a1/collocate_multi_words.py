@@ -31,7 +31,7 @@ def main(args):
     file_path = data_dir / args.file_name
 
     doc = tokenize.get_doc(file_path)
-    corpus = clt.get_word_list(doc)
+    corpus = tokenize.get_word_list(doc)
 
     colloc_list = [None for _ in range(len(search_terms))]
     for i, search_term in enumerate(search_terms):

@@ -1,10 +1,8 @@
 import pandas as pd
 import numpy as np
 import logging
-from pathlib import Path
 from collections import Counter
-from spacy.tokens import Doc  # type: ignore
-from typing import List, Sequence, Iterable
+from typing import List, Iterable
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -24,14 +22,6 @@ def flatten_list(lst: Iterable[Iterable]) -> List:
 
 def count_words(corpus: Iterable, term: str) -> int:
     return np.sum(corpus == term)
-
-
-def text_to_word_list(text_list: Sequence[Doc]) -> np.ndarray:
-    return np.concatenate((get_word_list(doc) for doc in text_list), axis=None)
-
-
-def get_word_list(doc: Doc) -> np.ndarray:
-    return np.array([tok.text for tok in doc if not tok.is_punct | tok.is_space])
 
 
 def find_target_idx(words: Iterable[str], search_term: str):
