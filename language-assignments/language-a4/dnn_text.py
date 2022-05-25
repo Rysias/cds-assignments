@@ -11,9 +11,12 @@ from sklearn.model_selection import train_test_split
 import src.report_performance as rp
 import src.convnet as convnet
 from pathlib import Path
+import logging
+
+logging.basicConfig(level=logging.INFO)
 
 
-BATCH_SIZE = 64
+BATCH_SIZE = 32
 
 
 def main(args: argparse.Namespace) -> None:
@@ -28,6 +31,7 @@ def main(args: argparse.Namespace) -> None:
 
     assert X_train.shape[0] == y_train.shape[0]
     model = convnet.create_model(dropout=DROPOUT)
+    
 
     # Train the model
     history = model.fit(
@@ -46,7 +50,8 @@ def main(args: argparse.Namespace) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Trains a deep neural network for detecting toxicity"
+        description="Trains a deep neural network for detecting toxicity",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter
     )
     parser.add_argument(
         "--dataset",
@@ -59,6 +64,10 @@ if __name__ == "__main__":
     parser.add_argument(
         "--epochs", default=1, type=int, required=False, help="Number of epochs"
     )
+    parser.add_argument(
+        "--batch-size", default=32, type=int, required=False, help="Batch size"
+    )
+
     parser.add_argument(
         "--dropout",
         default=0.5,

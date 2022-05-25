@@ -9,8 +9,8 @@ def define_model(dropout=0.2) -> tf.keras.Model:
     )
     model = tf.keras.Sequential()
     model.add(hub_layer)
-    model.add(tf.keras.layers.Dense(16, activation="relu"))
-    model.add(tf.keras.layers.Dropout(dropout))
+    #model.add(tf.keras.layers.Dense(16, activation="relu"))
+    #model.add(tf.keras.layers.Dropout(dropout))
     model.add(tf.keras.layers.Dense(1))
     return model
 
