@@ -23,16 +23,12 @@ BATCH_SIZE = 32
 def main(args: argparse.Namespace) -> None:
     EPOCHS = args.epochs
     DROPOUT = args.dropout
-    rawdf = pd.read_csv(Path(args.dataset))
-    toxicdf = rawdf[rawdf["label"] == 1]
-    non_toxicdf = rawdf[rawdf["label"] == 0]
-    aug_df = augment.synonym_augment(toxicdf, "text", "label", n=10)
-    df = pd.concat([toxicdf, non_toxicdf, aug_df])
-    X_train, X_test, y_train, y_test = train_test_split(
-        df[["text"]], df["label"], test_size=0.2
-    )
-    # sampler = RandomUnderSampler(random_state=42)
-    # X_resampled, y_resampled = sampler.fit_resample(X_train, y_train)
+    df_train = pd.read_csv(Path(args.train_data))
+    df_test = pd.read_csv(Path(args.test_data))
+    X_train = df_train[["text"]].values
+    y_train = df_train["label"].values
+    X_test = df_test[["text"]].values
+    y_test = df_test["label"].values
 
     assert X_train.shape[0] == y_train.shape[0]
     model = convnet.create_model(dropout=DROPOUT)
@@ -59,11 +55,18 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "--dataset",
-        default="input/VideoCommentsThreatCorpus.csv",
+        "--train-data",
+        default="input/augmented_train_data.csv",
         type=str,
         required=False,
-        help="Path to the dataset.",
+        help="Path to the train dataset.",
+    )
+    parser.add_argument(
+        "--test-data",
+        default="input/test.csv",
+        type=str,
+        required=False,
+        help="Path to the test dataset.",
     )
     # add epoch as argument
     parser.add_argument(
