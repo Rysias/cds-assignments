@@ -26,7 +26,7 @@ def main(args) -> None:
     nontoxicdf = df_train[df_train["label"] == 0]
     logging.info(f"Augmenting toxic data...")
     augdf = augment.synonym_augment(toxicdf, n=args.augment_size)
-
+    logging.info("Done! writing to file...")
     full_df = (
         pd.concat([augdf, toxicdf, nontoxicdf]).drop_duplicates().reset_index(drop=True)
     )
