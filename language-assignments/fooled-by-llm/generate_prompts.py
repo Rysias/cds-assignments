@@ -17,7 +17,7 @@ def generate_prompt(
     prompt: str, model_name: str = "gpt-neo-125m", max_tokens: int = 75, temperature=0.9
 ) -> str:
     """
-    Generates a prompt using OpenAI's GPT-2 model.
+    Generates a prompt using a model from EleutherAI.
     """
     return openai.Completion.create(
         prompt=prompt,
@@ -27,10 +27,16 @@ def generate_prompt(
     )["choices"][0]["text"]
 
 
+def prepare_prompt(
+    df: pd.DataFrame, cat_col: str = "type", title_col: str = "title"
+) -> pd.Series:
+    return df[cat_col].str.lower() + " headline: " + df[title_col] + "\n" + "text:"
+
+
 def main(args: argparse.Namespace) -> None:
     MODEL_NAME = args.model_name
-    df = pd.read_csv(Path("data/clean_news_examples.csv"))
-    df["prompt"] = df["type"].str.lower() + " headline: " + df["title"] + "\n" + "text:"
+    df = pd.read_csv(Path(args.file_path))
+    df["prompt"] = prepare_prompt(df)
 
     logging.info("Authenticating...")
     prompts.authenticate_goose(Path("config.json"))
@@ -49,6 +55,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate prompts for news examples")
     parser.add_argument(
         "--model-name", "-m", type=str, default="gpt-neo-125m", choices=config["models"]
+    )
+    parser.add_argument(
+        "--file-path", "-f", type=str, default="data/clean_news_examples.csv"
     )
     args = parser.parse_args()
     main(args)

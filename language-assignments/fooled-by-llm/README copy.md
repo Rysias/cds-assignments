@@ -16,13 +16,22 @@
     * [Discussion](#discussion)
 
 ## Assignment Description
-# TODO
+For this assignment the goal is to write software for generating the beginning of news articles based on headlines using GPT-models. The software should do the following: 
+
+1. Download (and clean) a suitable dataset
+    - This script can then be used as a ground-truth dataset for the turing
+2. Create a script for generating news articles  
+    - The script should take as input a) the source dataset and b) the model to use
+3. Format the data to be ready for a News Turing test
 
 ### Personal Learning Goals
-# TODO 
+- Prompt engineering 
+- Working with large language models
 
 ## Methods and Design
-# TODO 
+### Data Collection
+
+### Cleaning News
 
 ### Software Design
 # TODO 
@@ -51,3 +60,8 @@ $ python
 ```
 ## Discussion and Results
 # TODO 
+
+# TODO List
+- [ ] Fill out TODO's in this readme 
+- [ ] Add download data (kaggle) --> data/raw
+- [ ] Find way to visualize.
