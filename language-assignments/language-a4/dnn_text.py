@@ -24,6 +24,9 @@ def main(args: argparse.Namespace) -> None:
     EPOCHS = args.epochs
     DROPOUT = args.dropout
     df_train = pd.read_csv(Path(args.train_data))
+    extra_train = pd.read_csv(Path("input/toxic_train.csv"))
+    df_train = pd.concat([df_train, extra_train]).reset_index(drop=True)
+    logging.info(f"{df_train.shape =}")
     df_test = pd.read_csv(Path(args.test_data))
     X_train = df_train[["text"]].values
     y_train = df_train["label"].values
@@ -35,16 +38,17 @@ def main(args: argparse.Namespace) -> None:
     logging.info(f"model summary: {model.summary()}")
 
     # undersample
-    rus = RandomUnderSampler(random_state=42)
-    X_train, y_train = rus.fit_resample(X_train, y_train)
+    #rus = RandomUnderSampler(random_state=42)
+    #X_train, y_train = rus.fit_resample(X_train, y_train)
+    logging.info(f"{y_train.mean() = }")
 
     # Train the model
     history = model.fit(
         X_train,
-        y_test,
+        y_train,
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
-        validation_data=(X_test, y_test),
+        validation_data=(X_train, y_train),
     )
 
     # Evaluate the model
