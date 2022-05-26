@@ -66,15 +66,21 @@ def batch_encode(tokenizer, texts, batch_size=256, max_length=128):
         inputs = tokenizer.batch_encode_plus(
             batch,
             max_length=max_length,
-            padding="longest",  # implements dynamic padding
+            padding="max_length",  # implements dynamic padding
             truncation=True,
             return_attention_mask=True,
             return_token_type_ids=False,
         )
         input_ids.extend(inputs["input_ids"])
         attention_mask.extend(inputs["attention_mask"])
-
-    return tf.convert_to_tensor(input_ids), tf.convert_to_tensor(attention_mask)
+    # DEBUG STUFF
+    target_len = len(input_ids[0])
+    assert all(len(ids) == target_len for ids in input_ids), ValueError("we found our problem!")
+    logging.info(f"{input_ids[:5] = }")    
+    input_tensors = tf.convert_to_tensor(input_ids)
+    logging.info(f"{attention_mask[:5] = }")
+    attention_mask_tensors = tf.convert_to_tensor(attention_mask)
+    return input_tensors, attention_mask_tensors
 
 
 def focal_loss(gamma=2.0, alpha=0.2):
@@ -135,22 +141,11 @@ def build_model(transformer, max_length=128):
     )
 
     X = tf.keras.layers.Dense(
-        256,
-        activation="relu",
-        kernel_initializer=weight_initializer,
-        bias_initializer="zeros",
-    )(D1)
-
-    D2 = tf.keras.layers.Dropout(params["LAYER_DROPOUT"], seed=params["RANDOM_STATE"])(
-        X
-    )
-
-    X = tf.keras.layers.Dense(
         32,
         activation="relu",
         kernel_initializer=weight_initializer,
         bias_initializer="zeros",
-    )(D2)
+    )(D1)
 
     D3 = tf.keras.layers.Dropout(params["LAYER_DROPOUT"], seed=params["RANDOM_STATE"])(
         X
@@ -193,14 +188,16 @@ y_train = train_df["label"]
 y_valid = val_df["label"]
 
 # Load test data
-test = pd.read_csv("input/VidoCommentsThreatCorpus.csv")
+test = pd.read_csv("input/VideoCommentsThreatCorpus.csv")
 X_test = test["text"]
 y_test = test["label"]
 
+logging.info(f"{X_test.head() = }")
+
 # Check data
-logging.info("Our training data has   ", len(X_train.index), " rows.")
-logging.info("Our validation data has ", len(X_valid.index), " rows.")
-logging.info("Our test data has       ", len(X_test.index), " rows.")
+logging.info(f"Our training data has {len(X_train.index)} rows.")
+logging.info(f"Our validation data has {len(X_valid.index)} rows.")
+logging.info(f"Our test data has {len(X_test.index)} rows.")
 
 
 # Instantiate DistilBERT tokenizer...we use the Fast version to optimize runtime
