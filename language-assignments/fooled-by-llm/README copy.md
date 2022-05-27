@@ -1,6 +1,9 @@
 # Assignment 3 - Transfer learning + CNN classification
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/fooled-by-llm)
 
+The project uses GPT (Generative Pre-trained Transformer) models. The main idea behind these is to train a transformer (LINK) on a huge pile of text. This has (perhaps surprisingly) shown to be an extremely effective approach in making models perform (relatively) well on a wide variety of tasks from [machine translation](LINK) to [question answering](LINK) - sometimes even [without extra training](LINK)! 
+
+There are, however, several complications with running these models. Because of their extreme size, they require extraordinary resources to run. GPT-3, the famous model trained by OpenAI, has 175 BILLION parameters requiring a whooping [700GB of memory](https://www.hyro.ai/glossary/gpt-3))(!). This requires multiple GPUs (or [TPUs](https://www.hyro.ai/glossary/gpt-3)) just for inference, which is more than most people (or even organisations) can handle. 
 # TODO 
 
 ## Table of Content
@@ -43,29 +46,61 @@ On the domain-specific side, there are a few steps that needed to be taken to en
 - **Limiting length of articles**: I have limited the text of the ground-truth and generated articles to a maximum of two sentences (or <75 tokens). I will discuss the reasons for this in other sections. 
 
 
-### Generating news / prompt engineering 
-- 6b.eleuther.ai <-- used for testing prompts 
-- About Goose.ai 
-    - API based on EleutherAI
-    - Works with OpenAI's API (with different endpoint)
-- More on that in discussion
-- Notes on manual selection
+### Models
+This project uses open source models trained by [EleutherAI](LINK), an open collective dedicated to training and understanding large language models. They have trained a bunch of GPT models ranging from the relatively small (125 million parameters) to the fairly huge (20 billion parameters). 
+
+As all of these are require too much compute and memory for personal computers (and even UCloud), the project relies on API calls from [goose.ai](goose.ai). Goose.ai is an extremely cheap and easy to use provider of EleutherAI's models. They integrate well with the OpenAI python library making it relatively easy to implement. 
+
+Relying on the API also makes the project extremely easy to scale. The difference between using a small (and cheap) model such as `gpt-neo-125m` and a huge model 20 billion parameter model like [GPT NeoX 20B](LINK) is literally just one parameters. 
+
+### Prompt engineering
+Figuring out good prompts is an essential component of creating good output from large language models (LINK). For experimenting I have used [6b.eleuther.ai](https://6b.eleuther.ai/), a GUI created by the EleutherAI teams which allows for rapid testing of different ideas - without having to pay for use!
+
+The prompt that I ended up using was the following: 
+```
+{Real|Fake} headline: {headline from dataset}
+text: 
+```
+This has the aim of giving the model some context wrt the style (real or fake news) as well as the type of text to generate (text following a headline). 
+
+For the `temperature` parameter, which controls how 'risky' the model is when choosing answers with 0 being argmax-sampling and 1 being the maximum, I choose 0.9 which is the recommended value by goose.ai (LINKS). 
+
 
 ### Software Design
-# TODO 
-- **Single responsibility**: 
-- **Open-closed**: 
-- **Liskov substitution**: 
-- **Interface segregation**: 
-- **Dependency Inversion**: 
+The main goal of the software design is to balance flexibility and rapid iteration with reproducibility. There are several choices that supports this. 
+
+One is to use scripts instead of notebooks. While, I have used notebooks for EDA ([`ExploreDataset.ipynb`](./ExploreDataset.ipynb)) and figuring out how to clean the data ([`CleanPrompts.ipynb`](./CleanPrompts.ipynb)), the entire pipeline can be run as scripts as crystallized in [`run_project.sh`](./run-project.sh). 
+
+Secondly, I have used [argparse](LINK) to provide flexible documentation and usage for the different scripts. This allows users to experiment while still having strong defaults. 
+
+Thirdly, I have used test-driven development (TDD; LINK) for part of the workflow. This ensures that the code is stable and design is put at the forefront.
+
+Finally (and perhaps most importantly), I have designed by following the SOLID-principles. As in the other assignments, these guiding principles make for cleaner code overall. Below is a breakdown. 
+
+- **Single responsibility**: Each aspect of the code (like [cleaning files](./src/clean_text.py) or [generating prompts](./src/prompts.py)) are split out into seperate components.
+- **Open-closed**: By using argparse, it becomes easier to change the behavior without modifiying the code. Furthermore, relying on the API makes it super easy to change back-ends. 
+- **Liskov substitution**: Not applicable. 
+- **Interface segregation**: By splitting the functionality into a `src/` directory with separate functionality the main scripts are relatively indifferent to implementation details. 
+- **Dependency Inversion**: The OpenAI API makes it possible to pass different models instead of writing custom applications which makes for a cleaner design.
 
 ## Usage 
-TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
-# TODO: ADD Description of how to get API key.
+TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. however, you need to have a valid API in a `config.json` for this to work. 
+
+### Getting an API key
+- sign up through goose
+- Put it in `config.json`
+```{json}
+{
+    "goose_api": "<YOUR API KEY HERE>"
+}
+```
+
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script
+### Using the script(s)
+- Bash script 
+- Prompt script 
 # TODO 
 
 Parameter | Type | Required | Description
