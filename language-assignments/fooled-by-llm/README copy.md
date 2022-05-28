@@ -154,17 +154,14 @@ And the GPT generated text:
 ```
 "President Obama met with Mexican President Felipe Calderon as part of their exchange of prime ministers. Obama’s first official trip abroad as president included a stop at a camp for children and young immigrants. He urged them to learn about the country’s political system and find a job. (...)" 
 ```
-There are a couple of things that 
+There are a couple of things worth noting. One is that the two texts mention different presidents. This might be because the GPT model lacked information about the time of the headline: both of the people mentioned were presidents during the Obama Administration, and Obama did meet both of them. Therefore there's nothing implausible about that part of the text. 
 
-- Two different presidents 
-    - Training data spans quite a bit --> include date
-- Ellipses 
-    - GPT doesn't know when to stop
-- Bullshit in general
+There are, however, a few odd things about the GPT-generated text. First of all, the neither the US nor Mexico have a prime minister making their "exchange of prime ministers" impossible. Secondly, [Obama's meeting with Calderon](https://en.wikipedia.org/wiki/List_of_international_presidential_trips_made_by_Barack_Obama#2009) was his third trip, not his first. This highlights a general problem of bullshitting that makes these kinds of models ill-equipped for falsehoods. This has been rigorously demonstrated on the [TruthfulQA](https://owainevans.github.io/pdfs/truthfulQA_lin_evans.pdf) benchmark where bigger models tend to perform worse. 
 
-
+The ellipses (which I added) are also interesting: GPT-style models have a hard time knowing when to stop. Given the artificial limit of 75 tokens the models often stopped in the middle of sentences. 
 
 Contrast that with the Fake news headline:
+
 ```
 '“This is a big deal!” Obama Lied About ISIS Progress In The Middle East'
 ```
@@ -176,19 +173,17 @@ And the generated text is:
 ```
 "“ISIS is effective, well-funded and expanding, taking over the U.S.-backed regional allies like our own Iraqi Embassy in Amman, Jordan. The White House is lying.” (...)
 ```
-- In some sense GPT is more coherent
-    - "good crazy" vs 'effective, well-funded and expanding'
-- still problems with ellipses
+In some sense the generated text is more coherent. "effective, well-funded and expanding" is more news-like than "good crazy!". Nevertheless, it still has the problem of writing coherently for longer stretches. I added the ellipses as the model starting going on about other Fake headlines, which was not the intention. 
 
-- 
+This points to a more fundamental discussion about the interaction of humans and machines in research and applications. For what amount of manual editing is "fair"? Is it still machine generated text if a human editor has chosen the one coherent example out of thousands? 
 
-- Examples (in a table; semi manual)
-    - Comments on the examples
-- Notes on the process
-    - Fake URLs and total weird stuff
-    - Tendency to repeat itself
-- The role of manual selection
-    - how much should that play a role in project and real life?
+My personal take is that minor copy editing is acceptable when doing research. As most people who have tried writing knows, a blank page is much more than an article to review. Machine generated text might therefore be more valuable (and more harmful) when used as a rough generator than if used an end-to-end pipeline. 
+
+That being said, I only scratched the surface of prompt engineering in this assignment. With more dedicated work (and the accelerating pace of model improvements; LINK), who knows how good the text generation can get? One thing is certain: it is essential for the humanities and social sciences to be in the room to evaluate the progress. 
+
+
+
+
 
 # TODO List
 - [ ] Fill out TODO's in this readme 
