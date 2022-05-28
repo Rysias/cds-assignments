@@ -53,7 +53,7 @@ def main(args: argparse.Namespace) -> None:
 if __name__ == "__main__":
     config = util.read_json(Path("model_options.json"))
     parser = argparse.ArgumentParser(
-        description="Generate prompts for news examples",
+        description="Generate news using a GPT model from goose.ai",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
