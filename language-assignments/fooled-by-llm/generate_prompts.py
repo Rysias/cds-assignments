@@ -27,10 +27,10 @@ def generate_prompt(
     )["choices"][0]["text"]
 
 
-def prepare_prompt(
+def type_title_prompt(
     df: pd.DataFrame, cat_col: str = "type", title_col: str = "title"
 ) -> pd.Series:
-    """ Prepares a prompt for each news item """
+    """ Prepares a prompt for each news item based on type and title"""
     assert (
         cat_col in df.columns and title_col in df.columns
     ), f"{cat_col} or {title_col} not in df"
@@ -42,7 +42,7 @@ def main(args: argparse.Namespace) -> None:
     MAX_TOKENS = args.max_tokens
     TEMPERATURE = args.temperature
     df = pd.read_csv(Path(args.file_path))
-    df["prompt"] = prepare_prompt(df)
+    df["prompt"] = type_title_prompt(df)
 
     logging.info("Authenticating...")
     prompts.authenticate_goose(Path("config.json"))
@@ -65,7 +65,12 @@ if __name__ == "__main__":
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
-        "--model-name", "-m", type=str, default="gpt-neo-125m", choices=config["models"]
+        "--model-name",
+        "-m",
+        type=str,
+        default="gpt-neo-125m",
+        choices=config["models"],
+        help="GPT model to use for generation",
     )
     parser.add_argument(
         "--file-path",
