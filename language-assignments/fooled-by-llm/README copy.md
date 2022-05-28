@@ -87,18 +87,21 @@ Finally (and perhaps most importantly), I have designed by following the SOLID-p
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. however, you need to have a valid API in a `config.json` for this to work. 
 
 ### Getting an API key
-- sign up through goose
-- Put it in `config.json`
-```{json}
-{
-    "goose_api": "<YOUR API KEY HERE>"
-}
-```
+To use the main script, `generate_prompts.py`, you need an API key from goose.ai. There are a couple of steps to get one: 
+1. setup your account on [goose.ai](https://goose.ai/docs) by following the linked guide
+2. Copy your secret key to a file called `config.json`. The json should look like the one below:
+
+    ```{json}
+    {
+        "goose_api": <YOUR API KEY HERE>
+    }
+    ```
 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
 ### Using the script(s)
+# TODO 
 - Bash script 
 - Prompt script 
 # TODO 
@@ -111,7 +114,37 @@ Parameter | Type | Required | Description
 ```console
 $ python 
 ```
-## Discussion and Results
+## Discussion
+
+Take the example of the Reuters headline: 
+```
+"Obama, Mexican president discuss immigration, anti-drugs fight: White House"
+```
+The ground-truth goes as follows: 
+```
+"U.S. President Barack Obama and Mexican President Enrique Peña Nieto discussed immigration from Central America and the fight against heroin production during a phone call on Thursday, the White House said. “ The leaders committed to continue working jointly to address irregular migration from Central America,” the White House said in a statement. “"
+```
+And the GPT generated text: 
+```
+"President Obama met with Mexican President Felipe Calderon as part of their exchange of prime ministers. Obama’s first official trip abroad as president included a stop at a camp for children and young immigrants. He urged them to learn about the country’s political system and find a job." (...)
+```
+
+....
+
+Contrast that with the Fake news headline:
+```
+'“This is a big deal!” Obama Lied About ISIS Progress In The Middle East'
+```
+Here the ground-truth text goes:
+```
+"Steve Hayes says the biggest scandal yet for Obama is possibly the downplaying of the progress of ISIS in the middle east. Basically, ISIS intel was cooked to make Obama look good crazy!"
+```
+And the generated text is: 
+```
+"“ISIS is effective, well-funded and expanding, taking over the U.S.-backed regional allies like our own Iraqi Embassy in Amman, Jordan. The White House is lying.” (...)
+```
+
+
 - Examples (in a table; semi manual)
     - Comments on the examples
 - Notes on the process
