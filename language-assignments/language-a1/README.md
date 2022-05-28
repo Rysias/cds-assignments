@@ -1,12 +1,14 @@
 # Assignment 1 - Collocation
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a1)
 
-- Collocations as a tool
-
-# TODO: Create abstract 
+![](../imgs/neuronsthatf.jpg)
 
 
-## Table of Content (UPDATE)
+["Neurons that fire together, wire together"](https://neurosciencenews.com/wire-fire-neurons-19835/). Such goes a famous saying by Donald Hebb. However, the powers of joint activity goes beyond neuroscience - it can also be used in studying text! 
+
+In this assignment we will build a tool that does collocation, that is figuring out what words appear in the same context. This can be a useful tool for doing distant reading and analysing stylistic differences in authors. 
+
+## Table of Content 
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
 - [Methods and design](#methods-and-design)

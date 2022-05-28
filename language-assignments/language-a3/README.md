@@ -1,6 +1,8 @@
 # Assignment 3 - Network analysis
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a3)
 
+![](../imgs/a3_network_kj.jpg)
+
 # TODO
 - Callback to other assignments --> now we look at interactions
 - Networks as a tool for awesomeness

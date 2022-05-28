@@ -1,6 +1,9 @@
 # Language Assignment 2 - Sentiment and NER
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a2)
 
+![Source realpython.com](https://files.realpython.com/media/How-to-Use-SpaCy-for-Natural-Language-Processing-in-Python_Watermarked_1.b363fc084a80.jpg)
+*Source: realpython.com*
+
 # TODO 
 - Move beyond simple counting --> use great software 
 - Why is sentiment and NER useful? 

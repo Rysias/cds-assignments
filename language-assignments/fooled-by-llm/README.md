@@ -13,7 +13,6 @@
 
 
 ## Table of Content
-# TODO: Update this
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
 - [Methods](#methods-and-design)

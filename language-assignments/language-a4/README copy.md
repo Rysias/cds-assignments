@@ -1,6 +1,8 @@
 # Assignment 3 - Transfer learning + CNN classification
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a4)
 
+![Aargh](https://imgs.xkcd.com/comics/machine_learning.png)
+
 # TODO 
 - Deep learning 
 - 
