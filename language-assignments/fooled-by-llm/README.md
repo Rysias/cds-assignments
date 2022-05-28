@@ -1,5 +1,14 @@
-# Assignment 3 - Transfer learning + CNN classification
+# Self Assignment - News Generation with GPT
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/fooled-by-llm)
+
+
+- Short introduction to GPT
+- Accessibiliy
+- Implications for news? 
+    - Post truth
+- Context of this project: Create Turing test
+
+
 
 The project uses GPT (Generative Pre-trained Transformer) models. The main idea behind these is to train a transformer (LINK) on a huge pile of text. This has (perhaps surprisingly) shown to be an extremely effective approach in making models perform (relatively) well on a wide variety of tasks from [machine translation](LINK) to [question answering](LINK) - sometimes even [without extra training](LINK)! 
 
@@ -7,6 +16,7 @@ There are, however, several complications with running these models. Because of 
 # TODO 
 
 ## Table of Content
+# TODO: Update this
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
 - [Methods and design](#methods-and-design)
@@ -186,6 +196,6 @@ That being said, I only scratched the surface of prompt engineering in this assi
 
 
 # TODO List
-- [ ] Fill out TODO's in this readme 
-- [ ] Add download data (kaggle) --> data/raw
-- [ ] Find way to visualize.
+- [x] Fill out TODO's in this readme 
+- [x] Add download data (kaggle) --> data/raw
+- [x] Find way to visualize.
