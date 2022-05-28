@@ -1,7 +1,9 @@
-# Assignment 3 - Transfer learning + CNN classification
+# Assignment 3 - Network analysis
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a3)
 
 # TODO
+- Callback to other assignments --> now we look at interactions
+- Networks as a tool for awesomeness
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
