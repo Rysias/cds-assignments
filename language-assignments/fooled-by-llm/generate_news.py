@@ -8,6 +8,7 @@ import src.util as util
 import openai
 import logging
 from pathlib import Path
+from src.prompts import PROMPT_FUNCS
 
 # add basic logging
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
@@ -27,22 +28,13 @@ def generate_prompt(
     )["choices"][0]["text"]
 
 
-def type_title_prompt(
-    df: pd.DataFrame, cat_col: str = "type", title_col: str = "title"
-) -> pd.Series:
-    """ Prepares a prompt for each news item based on type and title"""
-    assert (
-        cat_col in df.columns and title_col in df.columns
-    ), f"{cat_col} or {title_col} not in df"
-    return df[cat_col].str.lower() + " headline: " + df[title_col] + "\n" + "text:"
-
-
 def main(args: argparse.Namespace) -> None:
     MODEL_NAME = args.model_name
     MAX_TOKENS = args.max_tokens
     TEMPERATURE = args.temperature
+    PROMPT_FUNC = PROMPT_FUNCS[args.prompt_function]
     df = pd.read_csv(Path(args.file_path))
-    df["prompt"] = type_title_prompt(df)
+    df["prompt"] = PROMPT_FUNC(df)
 
     logging.info("Authenticating...")
     prompts.authenticate_goose(Path("config.json"))
@@ -71,6 +63,14 @@ if __name__ == "__main__":
         default="gpt-neo-125m",
         choices=config["models"],
         help="GPT model to use for generation",
+    )
+    parser.add_argument(
+        "--prompt-function",
+        "-p",
+        type=str,
+        default="type_title_prompt",
+        choices=PROMPT_FUNCS.keys(),
+        help="Function to use for generating prompts",
     )
     parser.add_argument(
         "--file-path",
