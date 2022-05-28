@@ -10,23 +10,23 @@
 
 
 
-The project uses GPT (Generative Pre-trained Transformer) models. The main idea behind these is to train a transformer (LINK) on a huge pile of text. This has (perhaps surprisingly) shown to be an extremely effective approach in making models perform (relatively) well on a wide variety of tasks from [machine translation](LINK) to [question answering](LINK) - sometimes even [without extra training](LINK)! 
 
-There are, however, several complications with running these models. Because of their extreme size, they require extraordinary resources to run. GPT-3, the famous model trained by OpenAI, has 175 BILLION parameters requiring a whooping [700GB of memory](https://www.hyro.ai/glossary/gpt-3))(!). This requires multiple GPUs (or [TPUs](https://www.hyro.ai/glossary/gpt-3)) just for inference, which is more than most people (or even organisations) can handle. 
-# TODO 
 
 ## Table of Content
 # TODO: Update this
 - [Assignment Description](#assignment-description)
     * [Personal learning goals](#personal-learning-goals)
-- [Methods and design](#methods-and-design)
-    * [Software design](#software-design)
+- [Methods](#methods-and-design)
+    * [Data Collection](#data-collection)
+    * [Cleaning News](#cleaning-news)
+    * [Models](#models)
+    * [Prompt Engineering](#prompt-engineering)
+- [Software design](#software-design)
 - [Usage](#usage)
+    * [Getting an API key](#getting-an-api-key)
     * [Setting up](#setting-up)
     * [Using the script(s)](#using-the-scripts)
-- [Results and Discussion](#results-and-discussion)
-    * [Results](#results)
-    * [Discussion](#discussion)
+- [Discussion](#discussion)
 
 ## Assignment Description
 For this assignment the goal is to write software for generating the beginning of news articles based on headlines using GPT-models. The software should do the following: 
@@ -42,8 +42,7 @@ There are two learning goals in particular that have shaped my development of th
 
 ## Methods and Design
 ### Data Collection
-# TODO: IMPLEMENT KAGGLE SCRIPT
-The dataset I use is the [ISOT Fake News Dataset](https://www.uvic.ca/ecs/ece/isot/assets/docs/ISOT_Fake_News_Dataset_ReadMe.pdf). It is a large collection of "real" news scraped from Reuters.com and fake news scraped from a wide variety of internet sources. Furthermore, the data is easily accessible via kaggle.com and the script [`download_data.sh`]()
+The dataset I use is the [ISOT Fake News Dataset](https://www.uvic.ca/ecs/ece/isot/assets/docs/ISOT_Fake_News_Dataset_ReadMe.pdf). It is a large collection of "real" news scraped from Reuters.com and fake news scraped from a wide variety of internet sources. Furthermore, the data is easily accessible via kaggle.com and the script [`download_data.sh`](/data_download.sh)
 
 ### Cleaning News
 While the ISOT dataset is in general relatively clean, it is nevertheless an NLP dataset which necessitates more cleaning. The cleaning pipeline consists of both general and domain specific steps. 
@@ -89,9 +88,9 @@ Finally (and perhaps most importantly), I have designed by following the SOLID-p
 
 - **Single responsibility**: Each aspect of the code (like [cleaning files](./src/clean_text.py) or [generating prompts](./src/prompts.py)) are split out into seperate components.
 - **Open-closed**: By using argparse, it becomes easier to change the behavior without modifiying the code. Furthermore, relying on the API makes it super easy to change back-ends. 
-- **Liskov substitution**: Not applicable. 
+- **Liskov substitution**: Not applicable as I don't use object oriented design.
 - **Interface segregation**: By splitting the functionality into a `src/` directory with separate functionality the main scripts are relatively indifferent to implementation details. 
-- **Dependency Inversion**: The OpenAI API makes it possible to pass different models instead of writing custom applications which makes for a cleaner design.
+- **Dependency Inversion**: The OpenAI API makes it possible to pass different models instead of writing custom applications which makes for a cleaner design. Furthermore, I use [dependency injection](https://stackify.com/dependency-injection/) to make it easier to pass different prompt-generation functions in [`generate_news.py`](/generate_news.py)
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. however, you need to have a valid API in a `config.json` for this to work. 
@@ -164,22 +163,12 @@ And the GPT generated text:
 ```
 The U.S. said that it was preparing a list of those responsible for the 'transgressions' and possible sanctions as a warning to the Cambodian government to respect democratic freedoms, including the dissolution.
 ```
-# TODO: THIS
 
-Contrast that with the Fake news headline:
+At first glance the GPT-text looks quite convincing; there are no blatant grammatical errors and the text sounds plausible. However, there is a huge problem: the text is not grounded in facts. It is not certain that the U.S. were actually preparing a list with responsible people. In fact, they were instead "ending support for the [...] Election Committee". 
 
-```
-"Shaquille O’Neal: “The Earth is flat. Yes, it is.”"
-```
-Here the ground-truth text goes:
-```
-"21st Century Wire says No, it is not. Retired basketball megastar Shaquille O Neal has stated that he believes the world is flat."
-```
-And the generated text is: 
-```
-"Shaq O’Neal thinks the world is flat. Shaq WHO? Shaq, one of the highest paid athletes in NBA, is not an educated person. He thinks the earth is flat and might have even said so. I think reality shows like Dancing with the Stars and Breakout Kings are in way over his head, and he (...)"
-```
-# TODO: Comment this
+This ability is what has made large language models into "Stochastic Parrots" ([Bender et al., 2021](https://dl.acm.org/doi/10.1145/3442188.3445922)). They learn to mimic what they have seen (human generated data), without having their knowledge grounded in reality. This is illustrated by the fact that larger language models perform _worse_ on the benchmark [TruthfulQA](https://owainevans.github.io/pdfs/truthfulQA_lin_evans.pdf)
+
+However, from this experiment I also found that the models produce a lot of bad text. Fictive URLs, weirdly formatted emails, pure repetitions, and other useless output. I often find myself cherry-picking good examples, or perhaps lightly editing the texts. 
 
 This points to a more fundamental discussion about the interaction of humans and machines in research and applications. For what amount of manual editing is "fair"? Is it still machine generated text if a human editor has chosen the one coherent example out of thousands? 
 
