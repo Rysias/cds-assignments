@@ -154,36 +154,32 @@ The best way to illustrate the abilities of the generative model (and this proje
 
 Let's start with a (true) headline from Reuters:
 ```
-"Obama, Mexican president discuss immigration, anti-drugs fight: White House"
+U.S. says it will take steps after Cambodia's dissolves opposition party
 ```
 The ground-truth goes as follows: 
 ```
-"U.S. President Barack Obama and Mexican President Enrique Peña Nieto discussed immigration from Central America and the fight against heroin production during a phone call on Thursday, the White House said. “ The leaders committed to continue working jointly to address irregular migration from Central America,” the White House said in a statement. “"
+"The United States expressed  grave concern  on Thursday about the Cambodian government s decision to dissolve the main opposition party and said Washington will take  concrete steps  in response, according to a White House statement. As a first step, the White House said, the United States will end its support for the Cambodian National Election Committee and its administration of the 2018 national election."
 ```
 And the GPT generated text: 
 ```
-"President Obama met with Mexican President Felipe Calderon as part of their exchange of prime ministers. Obama’s first official trip abroad as president included a stop at a camp for children and young immigrants. He urged them to learn about the country’s political system and find a job. (...)" 
+The U.S. said that it was preparing a list of those responsible for the 'transgressions' and possible sanctions as a warning to the Cambodian government to respect democratic freedoms, including the dissolution.
 ```
-There are a couple of things worth noting. One is that the two texts mention different presidents. This might be because the GPT model lacked information about the time of the headline: both of the people mentioned were presidents during the Obama Administration, and Obama did meet both of them. Therefore there's nothing implausible about that part of the text. 
-
-There are, however, a few odd things about the GPT-generated text. First of all, the neither the US nor Mexico have a prime minister making their "exchange of prime ministers" impossible. Secondly, [Obama's meeting with Calderon](https://en.wikipedia.org/wiki/List_of_international_presidential_trips_made_by_Barack_Obama#2009) was his third trip, not his first. This highlights a general problem of bullshitting that makes these kinds of models ill-equipped for falsehoods. This has been rigorously demonstrated on the [TruthfulQA](https://owainevans.github.io/pdfs/truthfulQA_lin_evans.pdf) benchmark where bigger models tend to perform worse. 
-
-The ellipses (which I added) are also interesting: GPT-style models have a hard time knowing when to stop. Given the artificial limit of 75 tokens the models often stopped in the middle of sentences. 
+# TODO: THIS
 
 Contrast that with the Fake news headline:
 
 ```
-'“This is a big deal!” Obama Lied About ISIS Progress In The Middle East'
+"Shaquille O’Neal: “The Earth is flat. Yes, it is.”"
 ```
 Here the ground-truth text goes:
 ```
-"Steve Hayes says the biggest scandal yet for Obama is possibly the downplaying of the progress of ISIS in the middle east. Basically, ISIS intel was cooked to make Obama look good crazy!"
+"21st Century Wire says No, it is not. Retired basketball megastar Shaquille O Neal has stated that he believes the world is flat."
 ```
 And the generated text is: 
 ```
-"“ISIS is effective, well-funded and expanding, taking over the U.S.-backed regional allies like our own Iraqi Embassy in Amman, Jordan. The White House is lying.” (...)
+"Shaq O’Neal thinks the world is flat. Shaq WHO? Shaq, one of the highest paid athletes in NBA, is not an educated person. He thinks the earth is flat and might have even said so. I think reality shows like Dancing with the Stars and Breakout Kings are in way over his head, and he (...)"
 ```
-In some sense the generated text is more coherent. "effective, well-funded and expanding" is more news-like than "good crazy!". Nevertheless, it still has the problem of writing coherently for longer stretches. I added the ellipses as the model starting going on about other Fake headlines, which was not the intention. 
+# TODO: Comment this
 
 This points to a more fundamental discussion about the interaction of humans and machines in research and applications. For what amount of manual editing is "fair"? Is it still machine generated text if a human editor has chosen the one coherent example out of thousands? 
 

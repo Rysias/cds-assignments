@@ -2,6 +2,8 @@
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a4)
 
 # TODO 
+- Deep learning 
+- 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)

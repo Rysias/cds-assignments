@@ -1,7 +1,10 @@
 # Language Assignment 2 - Sentiment and NER
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a2)
 
-# TODO CREATE ABSTRACT
+# TODO 
+- Move beyond simple counting --> use great software 
+- Why is sentiment and NER useful? 
+- Why does leveraging libraries rock?
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
