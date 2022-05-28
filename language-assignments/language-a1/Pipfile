@@ -6,3 +6,4 @@ name = "pypi"
 [packages]
 pandas = "*"
 spacy = "*"
+seaborn = "*"
