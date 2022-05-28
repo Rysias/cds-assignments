@@ -3,9 +3,9 @@
 
 ![](../imgs/a3_network_kj.jpg)
 
-# TODO
-- Callback to other assignments --> now we look at interactions
-- Networks as a tool for awesomeness
+Network analysis provide an incredibly powerful abstraction for analysing relations. It has a myriad of applications from detecting fake news on twitter (LINK) to ranking websites. Abstractly, everytime you have some entities (be it words, tweets, nations, or characters) that are connected (through co-occurence, retweets, or trade for instance) you can analyse them as a network. 
+
+In this assignment we will create a tool for creating directed, weighted network analysis on any sort of data. The pipeline will both create dazzling visualisations (like the one above) and analysis of interesting metrics. Such we will further expand our toolkit from earlier assignments. 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)

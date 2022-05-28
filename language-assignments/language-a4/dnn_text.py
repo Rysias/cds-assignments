@@ -4,28 +4,21 @@ Trains a deep neural network for detecting toxicity
 import argparse
 import pandas as pd
 
-# import tensorflow metrics
-
-from imblearn.under_sampling import RandomUnderSampler  # type: ignore
-from sklearn.model_selection import train_test_split
+# import random undersampler
+from imblearn.under_sampling import RandomUnderSampler
 import src.report_performance as rp
 import src.convnet as convnet
-import src.augment as augment
 from pathlib import Path
 import logging
 
 logging.basicConfig(level=logging.INFO)
 
 
-BATCH_SIZE = 32
-
-
 def main(args: argparse.Namespace) -> None:
     EPOCHS = args.epochs
+    BATCH_SIZE = args.batch_size
     DROPOUT = args.dropout
     df_train = pd.read_csv(Path(args.train_data))
-    extra_train = pd.read_csv(Path("input/toxic_train.csv"))
-    df_train = pd.concat([df_train, extra_train]).reset_index(drop=True)
     logging.info(f"{df_train.shape =}")
     df_test = pd.read_csv(Path(args.test_data))
     X_train = df_train[["text"]].values
@@ -38,8 +31,8 @@ def main(args: argparse.Namespace) -> None:
     logging.info(f"model summary: {model.summary()}")
 
     # undersample
-    #rus = RandomUnderSampler(random_state=42)
-    #X_train, y_train = rus.fit_resample(X_train, y_train)
+    rus = RandomUnderSampler(random_state=42)
+    X_train, y_train = rus.fit_resample(X_train, y_train)
     logging.info(f"{y_train.mean() = }")
 
     # Train the model
@@ -48,7 +41,7 @@ def main(args: argparse.Namespace) -> None:
         y_train,
         epochs=EPOCHS,
         batch_size=BATCH_SIZE,
-        validation_data=(X_train, y_train),
+        validation_data=(X_test, y_test),
     )
 
     # Evaluate the model

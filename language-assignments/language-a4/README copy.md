@@ -1,11 +1,12 @@
-# Assignment 3 - Transfer learning + CNN classification
+# Assignment 4: Deep Learning Text Classification
+
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a4)
 
 ![Aargh](https://imgs.xkcd.com/comics/machine_learning.png)
 
-# TODO 
-- Deep learning 
-- 
+In this penultimate assignment we will grapple with the current state-of-the-art in NLP: Deep Learning. As the infamous saying by Jelinek goes: ["Every time I fire a linguist, the performance [...] goes up"](https://en.wikipedia.org/wiki/Frederick_Jelinek). Deep Learning throws away many of the careful feature engineering of traditional NLP and replaces it with large models and loads of data. 
+
+It has shown to be an unreasonably with [larger models systematically outperforming](https://arxiv.org/abs/2001.08361) smaller ones. However, training these models are not as easy as it looks, as we will discover the hard way in this assignment. 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
@@ -30,7 +31,7 @@ The assignment for this week builds on these concepts and techniques. We're goin
   - Save the classification report to a text file 
 
 ### Personal Learning Goals
-# TODO 
+In this assignment I want to cut my teeth on wrestling with deep learning in text classification. Usually, I prefer working with APIs and pre-trained models so it might be fun getting a look under the hood and experience the engineering efforts required to make these aewsome models. 
 
 ## Methods and Design
 ### Data
@@ -75,12 +76,13 @@ However, for this to work well on our use case we need to take the imbalanced da
 Whether these approaches will work, we will discover in the [discussion section](#discussion).
 
 ### Software Design
-# TODO 
-- **Single responsibility**: 
-- **Open-closed**: 
-- **Liskov substitution**: 
-- **Interface segregation**: 
-- **Dependency Inversion**: 
+This project also follows the SOLID-principles. The overaching goal is to make experimentation as easy as possible. Throughout these assignments I have discovered that the more I follow the principles contra corner-cutting, the happier I become in the end.  
+
+- **Single responsibility**: Each function and script does one thing well like [`src/augment.py`](src/augment.py) for augmenting data, and splitting each model into its own file. 
+- **Open-closed**: By providing abstract interfaces for the classifiers (in the sense that all iterations of convnets need the same inputs), it becomes easy to add other models. 
+- **Liskov substitution**: Not quite applicable as the design is more functional than object oriented.
+- **Interface segregation**: By using type hints, most functions are clear about what they expect. Also, the main functions are kept fairly clean with minimal inputs given the `src/` layout, to reduce dependencies
+- **Dependency Inversion**: Not explicitly used but most functions are easy to replace (i.e. having another vectorizer), which is because of the strong design of scikit-learn and spacy. 
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -95,7 +97,7 @@ Parameter | Type | Required | Description
 ---- | ---- | ---- | ----
 
 
-#### Example usage
+#### **Example usage**
 ```console
 $ python 
 ```

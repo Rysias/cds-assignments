@@ -5,9 +5,10 @@
 *Source: realpython.com*
 
 # TODO 
-- Move beyond simple counting --> use great software 
-- Why is sentiment and NER useful? 
-- Why does leveraging libraries rock?
+[Last assignmet](../language-a1/README.md) we looked at a (relatively) simple NLP system: counting words close to each other. However, more modern NLP has quite a bit more to offer. This is in large part thanks to the open source community with organisations such as [SpaCy](https://spacy.io/) and [Huggingface](https://huggingface.co/) allowing us mere mortals to stand on the shoulders of giants and build complex analysis pipelines while abstract away (most of) the hassle. 
+
+Specifically, we will look at [Named Entity Recognition (NER)](https://en.wikipedia.org/wiki/Named-entity_recognition) and [Sentiment Analysis](https://en.wikipedia.org/wiki/Sentiment_analysis), two widely used techniques in both industry and academia. Combined, they allow us to figure out _who_ a specific corpora talks us about, and _in what tone_ they are talked about. The practical applications of this are endless ranging from measuring the performance of tweets to analysing books. Let's dive in!
+
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
