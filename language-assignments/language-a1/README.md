@@ -75,11 +75,11 @@ All the scripts are documented using argparse. instructions can therefore be fou
 
 Script Name | Supported | Solves 
 ---- | ---- | ---- 
-[`collocate_single_text.py`](./collocate_single_text.py) | ::heavy_check_mark: | Collocation of a given word in a single file (main task) 
-[`collocate_corpus.py`](./collocate_corpus.py) | ::heavy_check_mark: | Collocation of a word in an entire corpus (outputs a single file)
-[`collocate_multi_words.py`](./collocate_corpus.py) | ::heavy_check_mark: | Collocation of multiple words in a text
-[`collocate_all_texts.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Runs collocation on all texts in a directory (outputs one .csv per file)
-[`plot_bleak.py`](./collocate_all_texts.py) | ::heavy_check_mark: | Creates a nice plot of the output of our test.
+[`collocate_single_text.py`](./collocate_single_text.py) | :heavy_check_mark: | Collocation of a given word in a single file (main task) 
+[`collocate_corpus.py`](./collocate_corpus.py) | :heavy_check_mark: | Collocation of a word in an entire corpus (outputs a single file)
+[`collocate_multi_words.py`](./collocate_corpus.py) | :heavy_check_mark: | Collocation of multiple words in a text
+[`collocate_all_texts.py`](./collocate_all_texts.py) | :heavy_check_mark: | Runs collocation on all texts in a directory (outputs one .csv per file)
+[`plot_bleak.py`](./collocate_all_texts.py) | :heavy_check_mark: | Creates a nice plot of the output of our test.
 
 #### Example usage
 ```console
@@ -103,6 +103,7 @@ When creating this plot it quickly become apparent that it was important to remo
 
 But once that is done, the plot provides an interesting view into the book. (Disclaimer: I haven't read the book (yet!) so the plot also provides my first view). The word "thinning" is particularly interesting. From a quick google search it seems to be present in an interaction between the narrator and a guard in [chapter 52](http://www.literaturepage.com/read/dickens-bleak-house-802.html). Here the guard says the phrase "Bleak House is thinning fast" twice. This phrase takes up a lot of space in the plot as all words (except "is") appear in top five. 
 
-While this finding probably won't revolutionize the field of English Litterature, it did lead me to a key part of the book in a quite organic way. Collocation seems to be a useful tool for distant reading (LINK) the classics (if one has access to txt files and python but not [CliffsNotes](https://www.cliffsnotes.com/)!)
+While this finding probably won't revolutionize the field of English Litterature, it did lead me to a key part of the book in a quite organic way. Collocation seems to be a useful tool for [distant reading](https://books.google.dk/books/about/Distant_Reading.html?id=Sh9uNQEACAAJ&redir_esc=y) the classics (if one has access to txt files and python but not [CliffsNotes](https://www.cliffsnotes.com/)!)
+
 
 

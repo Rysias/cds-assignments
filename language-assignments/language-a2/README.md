@@ -37,7 +37,7 @@ I have chosen subtask 2 for this assignment:
 - Repeat experiments using both sentiment analysis techniques, in order to compare results.
 
 ### Personal Learning Goals
-There are quite a few components in this task. I therefore want to try to follow the SOLID principles to see if I can write some production-quality code! I also want to try experimenting with test-driven development as it is a great methodology for writing good code but quite difficult in a data science context.
+There are quite a few components in this task. I therefore want to try to follow the [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) to see if I can write some production-quality code! I also want to try experimenting with [test-driven development](http://agiledata.org/essays/tdd.html) as it is a great methodology for writing good code but quite difficult in a data science context.
 
 ## Methods and Design
 ### Methods
