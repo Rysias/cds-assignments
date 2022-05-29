@@ -92,16 +92,61 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script
-Below is a hgh-level 
+### Using the script(s)
+Below is a high level overview of the different scripts in the repo:
 
-Parameter | Type | Required | Description
----- | ---- | ---- | ----
+Name | Description | Supported
+---- | :----: | ---:
+[`augment_data.py`](./augment_data.py) | Creates the training and test set (including [augmentation and adding extra data](#deep-learning-approach)) for the deep learning approach | :heavy_check_mark:
+[`logistic_regression.py`](./augment_data.py) | Trains a logistic regression classifier | :heavy_check_mark:
+[`dnn_text.py`](./augment_data.py) | Trains a deep learning classifier | :heavy_check_mark:
+
+All of the scripts are documented using [argparse](https://docs.python.org/3/library/argparse.html). This means that full documentation can be found using the `--help`-flag. Below are the results output for the respective scripts: 
+
+**`augment_data.py`**
+```
+usage: augment_data.py [-h] [--dataset DATASET] [--augment-size AUGMENT_SIZE]
+
+Creates training and test set for DNN classifier via extra data and data augmentation
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --dataset DATASET     Path to dataset (default: input/VideoCommentsThreatCorpus.csv)
+  --augment-size AUGMENT_SIZE
+                        Number of times to augment each row (default: 3)
+```
+**`logistic_regresssion.py`**
+```
+usage: logistic_regression.py [-h] [--dataset DATASET]
+
+Performs logistic regression on the given dataset.    
+
+optional arguments:
+  -h, --help         show this help message and exit  
+  --dataset DATASET  Path to the dataset.
+```
+**`dnn_text.py`**
+```
+usage: dnn_text.py [-h] [--train-data TRAIN_DATA] [--test-data TEST_DATA] [--epochs EPOCHS] [--batch-size BATCH_SIZE] [--dropout DROPOUT]
+
+Trains a deep neural network for detecting toxicity
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --train-data TRAIN_DATA
+                        Path to the train dataset. (default: input/augmented_train_data.csv)
+  --test-data TEST_DATA
+                        Path to the test dataset. (default: input/test.csv)
+  --epochs EPOCHS       Number of epochs (default: 1)
+  --batch-size BATCH_SIZE
+                        Batch size (default: 32)
+  --dropout DROPOUT     Dropout rate (float between 0-1) (default: 0.5)
+```
 
 
 #### **Example usage**
 ```console
-$ python 
+$ python dnn_text.py --epochs 100 --dropout 0.2 
 ```
 ## Discussion and Results
 ### Classification Reports

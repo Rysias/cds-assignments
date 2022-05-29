@@ -48,7 +48,10 @@ def main(args) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Augments data")
+    parser = argparse.ArgumentParser(
+        description="Creates training and test set for DNN classifier via extra data and data augmentation",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
+    )
     parser.add_argument(
         "--dataset",
         type=str,
