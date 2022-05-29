@@ -33,7 +33,7 @@ def main(args: argparse.Namespace) -> None:
     # undersample
     rus = RandomUnderSampler(random_state=42)
     X_train, y_train = rus.fit_resample(X_train, y_train)
-    logging.info(f"{y_train.mean() = }")
+    logging.info(f"after undersampling: {y_train.mean() = }")
 
     # Train the model
     history = model.fit(
