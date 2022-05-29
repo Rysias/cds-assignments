@@ -3,7 +3,7 @@
 
 ![](../imgs/a3_network_kj.jpg)
 
-Network analysis provide an incredibly powerful abstraction for analysing relations. It has a myriad of applications from detecting fake news on twitter (LINK) to ranking websites. Abstractly, everytime you have some entities (be it words, tweets, nations, or characters) that are connected (through co-occurence, retweets, or trade for instance) you can analyse them as a network. 
+Network analysis provide an incredibly powerful abstraction for analysing relations. It has a myriad of applications from [detecting fake news on twitter](https://methods.sagepub.com/video/using-social-network-analysis-to-study-the-spread-of-misinformation) to [ranking websites](https://cs.wmich.edu/gupta/teaching/cs3310/lectureNotes_cs3310/Pagerank%20Explained%20Correctly%20with%20Examples_www.cs.princeton.edu_~chazelle_courses_BIB_pagerank.pdf). Abstractly, everytime you have some entities (be it words, tweets, nations, or characters) that are connected (through co-occurence, retweets, or trade for instance) you can analyse them as a network. 
 
 In this assignment we will create a tool for creating directed, weighted network analysis on any sort of data. The pipeline will both create dazzling visualisations (like the one above) and analysis of interesting metrics. Such we will further expand our toolkit from earlier assignments. 
 

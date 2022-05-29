@@ -126,6 +126,6 @@ Now let's turn to a quick look at the two sentiment analysis algorithms:
 
 The first thing to note is the different scale. Vader has negative values while textblob is positive. To some extent this is expected: spacytextblob has scores that range from [-1, 1] whereas Vader has scores in the range [-5, 5]. To do a formal statistical comparison one woudl therefore have to normalise both. This is however beyond this assignment. 
 
-Taking the scale (informally) into account, one can see that both algorithms agree on the broad tendency: fake news are generally more negative than real news. This seems intuitively right as negativity is generally more attention grabbing (CITATION). As fake news has the primary goal of engaging the reader, they have more emotional keys to play on. This stands in contrast to real news who also have to inform. 
+Taking the scale (informally) into account, one can see that both algorithms agree on the broad tendency: fake news are generally more negative than real news. This seems intuitively right as negativity is generally more attention grabbing ([Rozin & Royzman, 2001](https://journals.sagepub.com/doi/abs/10.1207/s15327957pspr0504_2?casa_token=AbdtLbyPwl4AAAAA:dWmyMLT7qU7vle8nILEsYFpqDtA0m2zXA13X0eZfQW8_fVuqx27ZwOFKpvkK1f1OjiMrn0GcX0ZNTA)). As fake news has the primary goal of engaging the reader, they have more emotional keys to play on. This stands in contrast to real news who also have to inform. 
 
 
