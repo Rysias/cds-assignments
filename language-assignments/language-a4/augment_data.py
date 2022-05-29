@@ -10,11 +10,22 @@ logging.basicConfig(
 )
 
 
+def get_more_train(train_path: Path = Path("input/train.csv")) -> pd.DataFrame:
+    """
+    Loads the train data and returns the dataframe with the additional training data
+    """
+    rawdf = pd.read_csv(train_path)
+    df = rawdf.loc[rawdf["threat"] == 1, ["threat", "comment_text"]]
+    df.columns = ["label", "text"]
+    return df
+
+
 def main(args) -> None:
     datapath = Path(args.dataset)
     if not datapath.exists():
         logging.error(f"The dataset path {datapath} does not exist.")
         exit(1)
+
     # split dataset into train and test
     df = pd.read_csv(datapath)
     df_train = df.sample(frac=0.8, random_state=42)
@@ -24,6 +35,9 @@ def main(args) -> None:
 
     toxicdf = df_train[df_train["label"] == 1]
     nontoxicdf = df_train[df_train["label"] == 0]
+    # Add additional training data
+    logging.info("Loading more training data")
+    toxicdf = pd.concat([toxicdf, get_more_train()])
     logging.info(f"Augmenting toxic data...")
     augdf = augment.synonym_augment(toxicdf, n=args.augment_size)
     logging.info("Done! writing to file...")
@@ -44,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--augment-size",
         type=int,
-        default=10,
+        default=3,
         help="Number of times to augment each row",
     )
     args = parser.parse_args()

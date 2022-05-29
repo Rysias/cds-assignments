@@ -29,6 +29,7 @@ def handle_lookups(e: Exception):
 def synonym_augment(
     df: pd.DataFrame, text_col: str = "text", label_col: str = "label", n: int = 2
 ) -> pd.DataFrame:
+    """ Augments the data with n copies of each entry in the text column """
     try:
         # duplicate df
         aug_df = repeat_df(df, n)
