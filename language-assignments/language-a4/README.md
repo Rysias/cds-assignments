@@ -88,6 +88,8 @@ This project also follows the SOLID-principles. The overaching goal is to make e
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
+**NB: Running this script requires that you have downloaded the [jigsaw data](https://www.kaggle.com/datasets/julian3833/jigsaw-toxic-comment-classification-challenge?resource=download) from kaggle and placed it in `inputs/`!**
+
 
 ### Setting up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
