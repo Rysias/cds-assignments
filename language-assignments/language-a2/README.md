@@ -4,7 +4,6 @@
 ![Source realpython.com](https://files.realpython.com/media/How-to-Use-SpaCy-for-Natural-Language-Processing-in-Python_Watermarked_1.b363fc084a80.jpg)
 *Source: realpython.com*
 
-# TODO 
 [Last assignmet](../language-a1/README.md) we looked at a (relatively) simple NLP system: counting words close to each other. However, more modern NLP has quite a bit more to offer. This is in large part thanks to the open source community with organisations such as [SpaCy](https://spacy.io/) and [Huggingface](https://huggingface.co/) allowing us mere mortals to stand on the shoulders of giants and build complex analysis pipelines while abstract away (most of) the hassle. 
 
 Specifically, we will look at [Named Entity Recognition (NER)](https://en.wikipedia.org/wiki/Named-entity_recognition) and [Sentiment Analysis](https://en.wikipedia.org/wiki/Sentiment_analysis), two widely used techniques in both industry and academia. Combined, they allow us to figure out _who_ a specific corpora talks us about, and _in what tone_ they are talked about. The practical applications of this are endless ranging from measuring the performance of tweets to analysing books. Let's dive in!
@@ -41,16 +40,16 @@ There are quite a few components in this task. I therefore want to try to follow
 
 ## Methods and Design
 ### Methods
-The main idea is to utilize the magic of SpaCy (LINK) - a powerful production-ready NLP library with performant and easy to implement algorithms. We utilise its in-build Named Entity Recognition which allow us to recognise Geopolitical Entities (GPE) out-of-the-box. 
+The main idea is to utilize the magic of [SpaCy](https://spacy.io/) - a powerful production-ready NLP library with performant and easy to implement algorithms. We utilise its in-build [Named Entity Recognition](https://en.wikipedia.org/wiki/Named-entity_recognition) which allow us to recognise Geopolitical Entities (GPE) out-of-the-box. 
 
-For sentiment analysis we use two classical sentiment analysis algorithms: TextBlob and VADER. Both rely on dictionary-based approaches albeit with slight differences. While VADER uses a simple word-list and some rudimentary rules, TextBlob is build on WordNet (LINK) - an English ontology with rich linguistic information. However, TextBlob also only works on adjectives which might be a limiting factor. 
+For sentiment analysis we use two classical sentiment analysis algorithms: [TextBlob](https://github.com/SamEdwardes/spacytextblob) and [VADER](https://github.com/cjhutto/vaderSentiment). Both rely on dictionary-based approaches albeit with slight differences. While VADER uses a simple word-list and some rudimentary rules, TextBlob is build on [WordNet](https://wordnet.princeton.edu/) - an English ontology with rich linguistic information. However, TextBlob also only works on adjectives which might be a limiting factor. 
 
 On the whole, both algorithms are quite dated. The new state-of-the-art (SOTA) uses deep learning to include contextual information not captured in simple words.
 
 ### Software Design
 This project lends itself particularly well to the SOLID principles as it has different components (entity extraction and sentiment analysis) that should ideally work independently of each other. Furthermore, it might be nice to have the option of extending the framework to include more sentiment analysis algorithms. 
 
-That being said, I have chosen to rely on [SpaCy](LINK HERE) which introduces some coupling. However, the stability and performance of SpaCy makes this tradeoff wortwhile. 
+That being said, I have chosen to rely on [SpaCy](https://spacy.io) which introduces some coupling. However, the stability and performance of SpaCy makes this tradeoff wortwhile. 
 
 Below is a summary of how each principle applies. 
 
@@ -58,9 +57,9 @@ Below is a summary of how each principle applies.
 - **Open-closed**: As each sentiment analysis algorithm has a separate file ([`src/textblob.py](./src/textblob.py) and [`src/vader.py`](./src/vader.py)) and follows a similar input-output structure it makes it easy to add a new algorithm
 - **Liskov substitution**: Not applicable as there is no inheritance going on.
 - **Interface segregation**: By having separate files, we minimize the amounts of external dependencies in the main script ([`process_news.py`](./process_news.py)) to be only Pandas and Spacy.
-- **Dependency Inversion**: By using the fact that functions are first class citizens in python (LINK) and structural typing, we make it easier to choose between different sentiment analysis algorithms. 
+- **Dependency Inversion**: By using the fact that functions are [first class citizens in python](https://www.tutorialspoint.com/first-class-citizens-in-python) and structural typing, we make it easier to choose between different sentiment analysis algorithms. 
 
-All of this is verified by software tests as this project is developed using a TDD approach (LINK). 
+All of this is verified by software tests as this project is developed using a [TDD approach](https://en.wikipedia.org/wiki/Test-driven_development). 
 
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
@@ -106,9 +105,9 @@ Fake News GPEs             |  Real News GPEs
 
 *figure 1: Mentions of geopolitcal entities*
 
-The first thing to notice is that the performance is generally good. Most of the entries are in fact geopolitical entities. There are only two mistakes. One is that US and U.S. should be only one entity. This could be remedied by adding Named Entity Disambiguation (LINK) to the pipeline. In this simple instance it could probably be solved with a rule-based approach. For a more scalable (but also complex) solution, the [current SOTA](https://paperswithcode.com/paper/pre-training-of-deep-contextualized) seems to be using embeddings from large language models. In this case however, it would be shooting sparrows with cannons as the non-English idiom goes.
+The first thing to notice is that the performance is generally good. Most of the entries are in fact geopolitical entities. There are only two mistakes. One is that US and U.S. should be only one entity. This could be remedied by adding [Named Entity Disambiguation](https://paperswithcode.com/task/entity-disambiguation) to the pipeline. In this simple instance it could probably be solved with a rule-based approach. For a more scalable (but also complex) solution, the [current SOTA](https://paperswithcode.com/paper/pre-training-of-deep-contextualized) seems to be using embeddings from large language models. In this case however, it would be shooting sparrows with cannons as the non-English idiom goes.
 
-The other issue is that "Kasich" is recognised as a Geopolitical Entity, although it probably refers to the former senator from Ohio (LINK). This is, however, a difficult mistake, as he has buildings named after him such as the Kasic Hall (LINK). He is therefore in an abstract sense a political entity that is related to geography, which is fairly confusing for algorithms and people alike!
+The other issue is that "Kasich" is recognised as a Geopolitical Entity, although it probably refers to the ][former senator from Ohio](https://en.wikipedia.org/wiki/John_Kasich). This is, however, a difficult mistake, as he has buildings named after him such as [the Kasic Hall](https://ohioexpocenter.com/rental-facilities/buildings-and-floorplans/kasich-hall/). He is therefore in an abstract sense a political entity that is related to geography, which is fairly confusing for algorithms and people alike!
 
 These relatively minor mistakes highlights how powerful the modern open source data science ecosystem is. It allows students like us to stand on the shoulders of giants (like SpaCy) and create awesome insights without the trouble of training giant models. 
 
@@ -129,7 +128,4 @@ The first thing to note is the different scale. Vader has negative values while 
 
 Taking the scale (informally) into account, one can see that both algorithms agree on the broad tendency: fake news are generally more negative than real news. This seems intuitively right as negativity is generally more attention grabbing (CITATION). As fake news has the primary goal of engaging the reader, they have more emotional keys to play on. This stands in contrast to real news who also have to inform. 
 
-## Todo
-- [ ] Run code to check if it works 
-- [ ] Run tests
 

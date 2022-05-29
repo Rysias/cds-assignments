@@ -2,6 +2,7 @@
 [GITHUB LINK](https://github.com/Rysias/cds-assignments/tree/main/language-assignments/language-a1)
 
 ![](../imgs/neuronsthatf.jpg)
+*source: Google Images*
 
 
 ["Neurons that fire together, wire together"](https://neurosciencenews.com/wire-fire-neurons-19835/). Such goes a famous saying by Donald Hebb. However, the powers of joint activity goes beyond neuroscience - it can also be used in studying text! 
