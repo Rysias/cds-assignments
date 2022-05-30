@@ -9,12 +9,12 @@ In this assignment we will create a tool for creating directed, weighted network
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
-    * [Personal learning goals](#personal-learning-goals)
-- [Methods and design](#methods-and-design)
-    * [Software design](#software-design)
+    * [Personal Learning Goals](#personal-learning-goals)
+- [Methods and Design](#methods-and-design)
+    * [Software Design](#software-design)
 - [Usage](#usage)
-    * [Setting up](#setting-up)
-    * [Using the script(s)](#using-the-scripts)
+    * [Setting Up](#setting-up)
+    * [Using the Script(s)](#using-the-scripts)
 - [Results and Discussion](#results-and-discussion)
     * [Results](#results)
     * [Discussion](#discussion)

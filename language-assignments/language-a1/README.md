@@ -68,7 +68,7 @@ As all the scripts share much of the same machinery, there are ample opportunity
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. 
 
 ### Setting up
-The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
+The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure to have python 3.9 (or later) installed on your system!
 
 ### Using the scripts 
 All the scripts are documented using argparse. instructions can therefore be found using the `--help` flag (e.g. `python collocate_single_test.py --help`). However, as there are quite a few scripts, below is a little table with descriptions: 
