@@ -6,7 +6,7 @@
 
 Throughout these assignments we have looked at increasingly sophisticated NLP techniques from [simple string processing](../language-a1/README.md) to [deep learning](../language-a4/README.md). In this self-assignment we will look at the current hottest topic in NLP, namely, large generative models. 
 
-Large generative models are all the rage in NLP. Starting with the (now infamous) 1.5 billion parameter GPT-2 from OpenAI (LINK), the AI community discovered that merely throwing larger models, more data, and more compute at so-called foundation models increased performance on a wide range of tasks from [machine translation](LINK) to [question answering](LINK). And this was with only minimal fine-tuning!
+Large generative models are all the rage in NLP. Starting with the (now infamous) 1.5 billion parameter GPT-2 from OpenAI (LINK), the AI community discovered that merely throwing larger models, more data, and more compute at so-called foundation models increased performance on a wide range of tasks from [machine translation](https://paperswithcode.com/sota/machine-translation-on-wmt2014-english-german) to [question answering](https://paperswithcode.com/dataset/squad). And this was with only minimal fine-tuning!
 
 While these models can be used for good, they can also be employed for more nefarious purposes. As their main objective is [mimicking human text](https://dl.acm.org/doi/10.1145/3442188.3445922), they can be used to automatically generate content - without any moral compas to guide. In this post-truth era it is not difficult to see how that might go accelerate already worrying developments. 
 
@@ -39,7 +39,7 @@ For this assignment the goal is to write software for generating the beginning o
 3. Format the data to be ready for a News Turing test
 
 ### Personal Learning Goals
-There are two learning goals in particular that have shaped my development of this assignment. One is to gain experience working with large language models, which I (and other smarter people (LINK)) believe might be the future of Artificial (General) Intelligence. The second is to create a workflow and structure that supports rapid iterations and reproducibility. This is particularly important when exploring new technologies but iteration speed and reproducibility are key skills across all of data science (and science!). 
+There are two learning goals in particular that have shaped my development of this assignment. One is to gain experience working with large language models, which I (and other [smarter people](https://openai.com/blog/better-language-models/)) believe might be the future of Artificial (General) Intelligence. The second is to create a workflow and structure that supports rapid iterations and reproducibility. This is particularly important when exploring new technologies but iteration speed and reproducibility are key skills across all of data science (and science more broadly). 
 
 ## Methods and Design
 ### Data Collection

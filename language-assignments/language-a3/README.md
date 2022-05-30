@@ -11,13 +11,13 @@ In this assignment we will create a tool for creating directed, weighted network
 - [Assignment Description](#assignment-description)
     * [Personal Learning Goals](#personal-learning-goals)
 - [Methods and Design](#methods-and-design)
+    * [Metrics](#metrics)
+    * [Visualisation](#visualisation)
     * [Software Design](#software-design)
 - [Usage](#usage)
     * [Setting Up](#setting-up)
     * [Using the Script(s)](#using-the-scripts)
-- [Results and Discussion](#results-and-discussion)
-    * [Results](#results)
-    * [Discussion](#discussion)
+- [Discussion and Results](#discussion-and-results)
 
 ## Assignment Description
 In this assignment, you are going to write a ```.py``` script which can be used for network analysis. As we saw last week, pretty much anything can be formalised as a network. We're not going to focus on creating the edgelists for this project; instead, the goal is to have a script that would work the same way on _any_ input data, as long as the input format is correct. 
@@ -41,7 +41,7 @@ Apart from solving the extra tasks, which requires a scalable achitecture, I wan
 
 ## Methods and Design
 ### Metrics
-This assignment relies on the [networkx-package](https://networkx.org/), which is the de-facto standard for network analysis in python. I the package to calculate the following three metrics: degree-centrality, (weighted) betweenness-centrality, and (weighted) eigenvector centrality. 
+This assignment relies on the [networkx-package](https://networkx.org/), which is the de-facto standard for network analysis in python. I used the package to calculate the following three metrics: degree-centrality, (weighted) betweenness-centrality, and (weighted) eigenvector centrality. 
 
 [Degree-centrality](https://networkx.org/documentation/stable/reference/algorithms/generated/networkx.algorithms.centrality.degree_centrality.html) is simply defined as the fraction of nodes a given node is connected to. It is thus one of the simplest network measures. 
 

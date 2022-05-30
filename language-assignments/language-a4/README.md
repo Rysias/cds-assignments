@@ -6,16 +6,19 @@
 
 In this penultimate assignment we will grapple with the current state-of-the-art in NLP: Deep Learning. As the infamous saying by Jelinek goes: ["Every time I fire a linguist, the performance [...] goes up"](https://en.wikipedia.org/wiki/Frederick_Jelinek). Deep Learning throws away many of the careful feature engineering of traditional NLP and replaces it with large models and loads of data. 
 
-It has shown to be an unreasonably with [larger models systematically outperforming](https://arxiv.org/abs/2001.08361) smaller ones. However, training these models are not as easy as it looks, as we will discover the hard way in this assignment. 
+It has shown to be an unreasonably effective approach with [larger models systematically outperforming](https://arxiv.org/abs/2001.08361) smaller ones. However, training these models are not as easy as it looks, as we will discover the hard way in this assignment. 
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
-    * [Personal learning goals](#personal-learning-goals)
-- [Methods and design](#methods-and-design)
-    * [Software design](#software-design)
+    * [Personal Learning Goals](#personal-learning-goals)
+- [Methods and Design](#methods-and-design)
+    * [Data](#data)
+    * [Baseline: Logistic Regression](#baseline-logistic-regression)
+    * [Deep Learning Approach](#deep-learning-approach)
+    * [Software Design](#software-design)
 - [Usage](#usage)
-    * [Setting up](#setting-up)
-    * [Using the script(s)](#using-the-scripts)
+    * [Setting Up](#setting-up)
+    * [Using the Script(s)](#using-the-scripts)
 - [Results and Discussion](#results-and-discussion)
     * [Results](#results)
     * [Discussion](#discussion)
@@ -31,7 +34,7 @@ The assignment for this week builds on these concepts and techniques. We're goin
   - Save the classification report to a text file 
 
 ### Personal Learning Goals
-In this assignment I want to cut my teeth on wrestling with deep learning in text classification. Usually, I prefer working with APIs and pre-trained models so it might be fun getting a look under the hood and experience the engineering efforts required to make these aewsome models. 
+In this assignment I want to cut my teeth on wrestling with deep learning in text classification. Usually, I prefer working with APIs and pre-trained models so it might be fun getting a look under the hood and experience the engineering efforts required to make these awesome models. 
 
 ## Methods and Design
 ### Data
@@ -50,16 +53,16 @@ Instead, breaking down the metric into precision and recall gives a more nuanced
 
 The implications for the training data is that one should make sure to have the training procedure reflect the above to avoid a biased estimator. I will discuss this further for the two models below. 
 
-### Baseline: logistic regression
+### Baseline: Logistic Regression
 For the baseline, I have chosen a simple setup. I have implemented a "pipeline" with the following components
 
-1. [Undesampler](https://imbalanced-learn.org/stable/references/generated/imblearn.under_sampling.RandomUnderSampler.html): Randomly undersamples the majority class to get equally many positive and negative examples
+1. [Undersampler](https://imbalanced-learn.org/stable/references/generated/imblearn.under_sampling.RandomUnderSampler.html): Randomly undersamples the majority class to get equally many positive and negative examples
 2. [TF-IDF](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html): Creates TF-IDF features (link), disregarding stop words
 3. [Logistic Regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression): Does good-ol' logistic regression
 
 I create these using scikit-learn and imbalanced-learn pipelines, which abstracts away many of the difficulties creating valid classifiers such as [data leakage](https://machinelearningmastery.com/data-leakage-machine-learning/). 
 
-### Deep Learning approach
+### Deep Learning Approach
 The main limitation of the baseline appraoch is that TF-IDF only uses individual words while disregarding context such as semantics and syntax. More modern deep learning approaches take care of this by creating end-to-end models trained on huge amounts of data. Empirically, this creates more sophisticated features which in turn create better models. (LINKS). 
 
 For this assignment I use transfer learning with the `nlm-en-dim50-with-normalization` from [google](https://tfhub.dev/google/nnlm-en-dim50-with-normalization/2) as my feature layer. This uses a feed-forward neural network trained on the Google 7B news dataset to create a 50-dimensional embedding, which we can then build a classifier on top of. 
@@ -91,10 +94,10 @@ TL;DR: An example of the entire setup and running the pipeline can be run using 
 **NB: Running this script requires that you have downloaded the [jigsaw data](https://www.kaggle.com/datasets/julian3833/jigsaw-toxic-comment-classification-challenge?resource=download) from kaggle and placed it in `inputs/`!**
 
 
-### Setting up
+### Setting Up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script(s)
+### Using the Script(s)
 Below is a high level overview of the different scripts in the repo:
 
 Name | Description | Supported
@@ -146,12 +149,13 @@ optional arguments:
 ```
 
 
-#### **Example usage**
+#### **Example Usage**
 ```console
 $ python dnn_text.py --epochs 100 --dropout 0.2 
 ```
 ## Discussion and Results
 ### Classification Reports
+The classification reports can be found in [`output/`](./output/)
 #### Logistic Regression
 ```{console}
               precision    recall  f1-score   support
