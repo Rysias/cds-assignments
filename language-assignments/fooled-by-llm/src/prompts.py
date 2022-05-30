@@ -55,6 +55,20 @@ def type_title_date_prompt(
     )
 
 
+def generate_prompt(
+    prompt: str, model_name: str = "gpt-neo-125m", max_tokens: int = 75, temperature=0.9
+) -> str:
+    """
+    Generates a prompt using a model from EleutherAI.
+    """
+    return openai.Completion.create(
+        prompt=prompt,
+        engine=model_name,
+        max_tokens=max_tokens,
+        temperature=temperature,
+    )["choices"][0]["text"]
+
+
 PROMPT_FUNCS = {
     "type_title_prompt": type_title_prompt,
     "type_title_date_prompt": type_title_date_prompt,

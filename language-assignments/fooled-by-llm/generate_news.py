@@ -5,7 +5,6 @@ import pandas as pd
 import argparse
 import src.prompts as prompts
 import src.util as util
-import openai
 import logging
 from pathlib import Path
 from src.prompts import PROMPT_FUNCS
@@ -14,18 +13,6 @@ from src.prompts import PROMPT_FUNCS
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
 
-def generate_prompt(
-    prompt: str, model_name: str = "gpt-neo-125m", max_tokens: int = 75, temperature=0.9
-) -> str:
-    """
-    Generates a prompt using a model from EleutherAI.
-    """
-    return openai.Completion.create(
-        prompt=prompt,
-        engine=model_name,
-        max_tokens=max_tokens,
-        temperature=temperature,
-    )["choices"][0]["text"]
 
 
 def main(args: argparse.Namespace) -> None:
@@ -40,7 +27,7 @@ def main(args: argparse.Namespace) -> None:
     prompts.authenticate_goose(Path("config.json"))
     logging.info("generating prompts...")
     df["generated_text"] = df["prompt"].apply(
-        lambda x: generate_prompt(
+        lambda x: prompts.generate_prompt(
             x, model_name=MODEL_NAME, max_tokens=MAX_TOKENS, temperature=TEMPERATURE
         )
     )
