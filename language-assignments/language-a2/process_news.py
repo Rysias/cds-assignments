@@ -1,3 +1,7 @@
+"""
+Main function for running the full pipeline
+"""
+
 import spacy  # type: ignore
 import argparse
 import pandas as pd

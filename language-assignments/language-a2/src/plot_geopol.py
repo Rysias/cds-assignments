@@ -1,3 +1,6 @@
+"""
+Plotting functions for the GPEs.
+"""
 import seaborn as sns
 import matplotlib.pyplot as plt
 

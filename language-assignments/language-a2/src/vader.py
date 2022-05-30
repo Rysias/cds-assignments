@@ -1,3 +1,6 @@
+"""
+Implements vader sentiment
+"""
 import functools
 from spacy.tokens import Doc  # type: ignore
 from typing import Callable

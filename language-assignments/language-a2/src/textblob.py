@@ -1,3 +1,6 @@
+"""
+Implements the textblob sentiment analysis algorithm.
+"""
 import spacy  # type: ignore
 from spacy.tokens import Doc  # type: ignore
 from typing import Callable

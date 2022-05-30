@@ -1,3 +1,6 @@
+"""
+Runs the full NLP pipeline on all news files in the input folder.
+"""
 import pandas as pd
 import spacy
 from spacy.tokens import Doc

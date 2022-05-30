@@ -1,3 +1,6 @@
+"""
+Functions for handling extractions of geopolitical entities (GPEs)
+"""
 import pandas as pd
 from spacy.tokens import Doc  # type: ignore
 from typing import Sequence, List
