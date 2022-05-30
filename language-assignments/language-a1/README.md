@@ -7,16 +7,16 @@
 
 ["Neurons that fire together, wire together"](https://neurosciencenews.com/wire-fire-neurons-19835/). Such goes a famous saying by Donald Hebb. However, the powers of joint activity goes beyond neuroscience - it can also be used in studying text! 
 
-In this assignment we will build a tool that does collocation, that is figuring out what words appear in the same context. This can be a useful tool for doing distant reading and analysing stylistic differences in authors. 
+In this assignment we will build a tool that does *collocation*, i.e. figuring out which words appear in the same context. This can be a useful tool for doing distant reading and analysing stylistic differences in authors. 
 
 ## Table of Content 
 - [Assignment Description](#assignment-description)
-    * [Personal learning goals](#personal-learning-goals)
-- [Methods and design](#methods-and-design)
-    * [Software design](#software-design)
+    * [Personal Learning Goals](#personal-learning-goals)
+- [Methods and Design](#methods-and-design)
+    * [Software Design](#software-design)
 - [Usage](#usage)
-    * [Setting up](#setting-up)
-    * [Using the script(s)](#using-the-scripts)
+    * [Setting Up](#setting-up)
+    * [Using the Script(s)](#using-the-scripts)
 - [Results and Discussion](#results-and-discussion)
     * [Results](#results)
     * [Discussion](#discussion)
@@ -30,16 +30,16 @@ For this assignment, you will write a small Python program to perform collocatio
 - Calculate the mutual information score for each context word.
 - Save the results as a CSV file with (at least) the following columns: the collocate term; how often it appears as a collocate; how often it appears in the text; the mutual information score.
 
-**Additional bonus tasks completed**
+**Additional Bonus Tasks Completed**
 - Create a program which does the above for every novel in the corpus, saving one output CSV per novel
 - Create a program which does this for the whole dataset, creating a CSV with one set of results, showing the mutual information scores for collocates across the whole set of texts
 - Create a program which allows a user to define a number of different collocates at the same time, rather than only one
 
 ### Personal Learning Goals
-Apart from challenging myself with the bonus tasks, I want to see if I can make the assignment follow the  [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) to the extent that it makes sense. There is a lot of room for this, as many of the tasks follow the same basic structure. I will explain more about this in the [software design section](#software-design). 
+Apart from challenging myself with the bonus tasks, I want to see if I can make the assignment follow the  [SOLID principles](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design) to the extent that it makes sense. There is a lot of room for this, as many of the tasks follow the same basic structure. I will explain more about this in the [software design section](#software-design) as an addition to the general [methods](#methods-and-design). 
 
 ## Methods and Design
-There a several steps in creating a collocation pipeline. The first is to tokenize the document, that is to split the document into words (tokens). This seems like a trivial task - why not just split by spaces and call it a day. But language is difficult (and English particularly so). Punctuation and weird grammatical rules produce a plethora of edge cases. I will therefore rely on the wizards of [SpaCy](spacy.io) - a magnificent software package for doing production-grade NLP. 
+There a several steps in creating a collocation pipeline. The first is to tokenize the document, that is to split the document into words (tokens). This seems like a trivial task - why not just split by spaces and call it a day? But language is difficult (and English particularly so). Punctuation and weird grammatical rules produce a plethora of edge cases. I will therefore rely on the wizards of [SpaCy](spacy.io) - a magnificent software package for doing production-grade NLP. 
 
 The only main preprocessing I do is to remove punctuation and lower-case all words. 
 
@@ -56,10 +56,10 @@ With A being frequency of node word, B being the frequency of the collocate, and
 ### Software Design
 As all the scripts share much of the same machinery, there are ample opportunity to keep the code [DRY](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) and [SOLID](https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design). Below I describe how each of the SOLID principles apply to my code.
 
-- **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor.On a higher level, I have also split the parts (tokenization and collocation) into different files ([`src/tokenize.py`](./src/tokenize.py) and [`src/collocate.py`](./src/collocate.py)) which further increases cohesion while lowering coupling.
+- **Single responsibility**: Each function does one thing and one thing only, which makes them a) easier to debug and b) easier to refactor. On a higher level, I have also split the parts (tokenization and collocation) into different files ([`src/tokenize.py`](./src/tokenize.py) and [`src/collocate.py`](./src/collocate.py)) which further increases cohesion while lowering coupling.
 - **Open-closed**: By splitting the tokenization into a separate file, I make it easier to switch the backend to another framework such as [NLTK](https://www.nltk.org/). 
 - **Liskov substitution**: Not applicable as we don't work with classes. 
-- **Interface segregation**: I segregate interfaces on two levels.
+- **Interface segregation**: I segregate interfaces on two levels;
     1. Each script (e.g. [`collocate_single_txt.py`](./collocate_single_text.py)) has minimal dependencies, which lowers coupling. 
     2. By splitting functionality as described earlier, I make testing and changing files less dependent on external dependencies.
 - **Dependency Inversion**: Not super relevant for this project, as the assignment is relatively set so we don't need to juggle different back-ends. However, following the other principles makes this relatively easy to implement.
@@ -91,12 +91,12 @@ python collocate_single_text.py --file-name "Dickens_Bleak_1853.txt" --search-te
 ### Performance testing
 Early in my process, I discovered that collocation is a compute-intensive task. As I was writing a script that handled _all 100 texts_ in the dataset I was spending most of my time waiting. To remedy this I employed performance testing to boost the performance. I used cProfile - a great command-line tool that generates detailed performance reports. You can see the script used [here](./profile_collocate.sh) and the output directory is [`/performance`](./performance/). 
 
-The tool was immensively helpful in shaving down the run-time. One of the main benefits was removing expensive for-loops when finding the collocates. Instead of was able to run the pipeline in pure pandas which is much faster (link). 
+The tool was immensively helpful in shaving down the run-time. One of the main benefits was removing expensive for-loops when finding the collocates. Instead I was able to run the pipeline in pure pandas which is [much faster](https://pythonspeed.com/articles/vectorization-python/). 
 
 If we look at the latest [`profile.txt`](./performance/profile.txt) it is apparent that most of the time is spent on tokenizing the text. This is currently done through SpaCy, which is quite performant. It is feasible that we could spend some time developing a super-fast tokenizer specialized to collocation but I am quite satisfied with the performance. 
 
 ### Collocation results
-Now that we have created a performant pipeline, it is time to look at what sorts of insights can be gleamed from collocation. Below, I have created a plot of the highest MI collocates of the word "Bleak" in the Charles Dickins classic "Bleak House". 
+Now that we have created a performant pipeline, it is time to look at what sorts of insights can be gleamed from collocation. Below, I have created a plot of the highest MI collocates of the word "Bleak" in Charles Dickins' classic "Bleak House". 
 ![img](./output/Dickens_Bleak_1853_bleak.png)
 *figure 1: Bleak House collocates*
 
