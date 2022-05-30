@@ -1,3 +1,7 @@
+"""
+Tokenizes text with spaCy.
+"""
+
 import src.util as util
 import spacy
 import numpy as np

@@ -1,5 +1,5 @@
 """
-- Create a program which does the above for every novel in the corpus, saving one output CSV per novel
+Create a program which does the above for every novel in the corpus, saving one output CSV per novel
 """
 import src.collocate as clt
 import src.util as util
