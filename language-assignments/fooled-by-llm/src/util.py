@@ -1,3 +1,7 @@
+"""
+Miscellaneous functions for reading and writing files.
+"""
+
 from pathlib import Path
 import json
 

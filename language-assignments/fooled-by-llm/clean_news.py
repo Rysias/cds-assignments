@@ -1,3 +1,7 @@
+"""
+Cleans the news data.
+"""
+
 import pandas as pd
 from pathlib import Path
 import src.clean_text as clean_text

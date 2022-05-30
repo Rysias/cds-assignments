@@ -1,3 +1,7 @@
+"""
+Functions for generating prompts and texts from gpt-models
+"""
+
 from pathlib import Path
 import src.util as util
 import openai

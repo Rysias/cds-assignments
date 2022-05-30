@@ -1,3 +1,6 @@
+"""
+Functions for doing rudimentary cleaning of text in news articles
+"""
 import pandas as pd
 
 

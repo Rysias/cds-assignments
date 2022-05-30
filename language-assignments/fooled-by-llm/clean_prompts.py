@@ -1,3 +1,6 @@
+"""
+Cleans the gpt-generated texts
+"""
 import pandas
 from pathlib import Path
 import src.clean_text as clean_text
