@@ -16,17 +16,17 @@ This assignment investigates the capabilities of these language models to genera
 
 ## Table of Content
 - [Assignment Description](#assignment-description)
-    * [Personal learning goals](#personal-learning-goals)
+    * [Personal Learning Goals](#personal-learning-goals)
 - [Methods](#methods-and-design)
     * [Data Collection](#data-collection)
     * [Cleaning News](#cleaning-news)
     * [Models](#models)
     * [Prompt Engineering](#prompt-engineering)
-- [Software design](#software-design)
+- [Software Design](#software-design)
 - [Usage](#usage)
-    * [Getting an API key](#getting-an-api-key)
-    * [Setting up](#setting-up)
-    * [Using the script(s)](#using-the-scripts)
+    * [Getting an API Key](#getting-an-api-key)
+    * [Setting Up](#setting-up)
+    * [Using the Script(s)](#using-the-scripts)
 - [Discussion](#discussion)
 
 ## Assignment Description
@@ -63,7 +63,7 @@ As all of these are require too much compute and memory for personal computers (
 
 Relying on the API also makes the project extremely easy to scale. The difference between using a small (and cheap) model such as `gpt-neo-125m` and a huge model 20 billion parameter model like [GPT NeoX 20B](LINK) is literally just one parameters. 
 
-### Prompt engineering
+### Prompt Engineering
 Figuring out good prompts is an essential component of creating good output from large language models (LINK). For experimenting I have used [6b.eleuther.ai](https://6b.eleuther.ai/), a GUI created by the EleutherAI teams which allows for rapid testing of different ideas - without having to pay for use!
 
 The prompt that I ended up using was the following: 
@@ -96,7 +96,7 @@ Finally (and perhaps most importantly), I have designed by following the SOLID-p
 ## Usage 
 TL;DR: An example of the entire setup and running the pipeline can be run using the bash-script `run_project.sh`. however, you need to have a valid API in a `config.json` for this to work. 
 
-### Getting an API key
+### Getting an API Key
 To use the main script, `generate_prompts.py`, you need an API key from goose.ai. There are a couple of steps to get one: 
 1. setup your account on [goose.ai](https://goose.ai/docs) by following the linked guide
 2. Copy your secret key to a file called `config.json`. The json should look like the one below:
@@ -107,10 +107,10 @@ To use the main script, `generate_prompts.py`, you need an API key from goose.ai
     }
     ```
 
-### Setting up
+### Setting Up
 The project uses [pipenv](https://pipenv-fork.readthedocs.io/en/latest/basics.html). Setup can be done as easily as `pipenv install` (after pipenv has been installed) and activating the environment is `pipenv shell`. NB: Make sure that you have python 3.9 (or later) installed on your system!
 
-### Using the script(s)
+### Using the Script(s)
 There are two main scripts for this project: `generate_news.py` and `prompt_pipeline.py`. 
 
 [`generate_news.py`](/generate_news.py) is the main script for generating news based on headlines and other information using the generative models. It is documented via argparse, which makes it possible to use `python generate_news.py --help` to get up to date documentation. The output looks like this: 
@@ -145,7 +145,7 @@ The script [`prompt_pipeline.sh`](/prompt_pipeline.sh) runs the entire pipeline 
 
 It takes only one argument which is the model name. This allows the developer to test the pipeline on a cheap model and run it on a more expensive (and better) one.
 
-#### **Example usage**
+#### **Example Usage**
 ```console
 $ python generate_news.py --model-name "gpt-j-6b" --temperate 0.95 --max-tokens 1000
 ```
@@ -175,13 +175,4 @@ This points to a more fundamental discussion about the interaction of humans and
 
 My personal take is that minor copy editing is acceptable when doing research. As most people who have tried writing knows, a blank page is much more than an article to review. Machine generated text might therefore be more valuable (and more harmful) when used as a rough generator than if used an end-to-end pipeline. 
 
-That being said, I only scratched the surface of prompt engineering in this assignment. With more dedicated work (and the accelerating pace of model improvements; LINK), who knows how good the text generation can get? One thing is certain: it is essential for the humanities and social sciences to be in the room to evaluate the progress. 
-
-
-
-
-
-# TODO List
-- [x] Fill out TODO's in this readme 
-- [x] Add download data (kaggle) --> data/raw
-- [x] Find way to visualize.
+That being said, I only scratched the surface of prompt engineering in this assignment. With more dedicated work (and the [accelerating pace of model improvements](https://hbr.org/2021/09/ai-adoption-skyrocketed-over-the-last-18-months)), who knows how good the text generation can get? One thing is certain: it is essential for the humanities and social sciences to be in the room to evaluate the progress. 
