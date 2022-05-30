@@ -97,7 +97,7 @@ $ python network_analysis.py --data-path input/network_file.csv
 The scripts were developed using a TDD-methodology using [pytest](https://docs.pytest.org/en/7.0.x/). To execute the test suite run `python -m pytest` from the main directory.
 
 ## Discussion and Results
-To investigate whether we have successfully completed the task, we will investigate one the output of one of the input files, namely [`input/KJ.csv`] from Ross' data. First let's have a look at the visualisation.
+To investigate whether we have successfully completed the task, we will investigate one the output of one of the input files, namely [`input/KJ.csv`] from Ross' data. First, let's have a look at the visualisation.
 
 ![img](../imgs/a3_network_kj.jpg)
 

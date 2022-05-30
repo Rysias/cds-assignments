@@ -57,13 +57,13 @@ The implications for the training data is that one should make sure to have the 
 For the baseline, I have chosen a simple setup. I have implemented a "pipeline" with the following components
 
 1. [Undersampler](https://imbalanced-learn.org/stable/references/generated/imblearn.under_sampling.RandomUnderSampler.html): Randomly undersamples the majority class to get equally many positive and negative examples
-2. [TF-IDF](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html): Creates TF-IDF features (link), disregarding stop words
+2. [TF-IDF](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html): Creates TF-IDF features, disregarding stop words
 3. [Logistic Regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression): Does good-ol' logistic regression
 
 I create these using scikit-learn and imbalanced-learn pipelines, which abstracts away many of the difficulties creating valid classifiers such as [data leakage](https://machinelearningmastery.com/data-leakage-machine-learning/). 
 
 ### Deep Learning Approach
-The main limitation of the baseline appraoch is that TF-IDF only uses individual words while disregarding context such as semantics and syntax. More modern deep learning approaches take care of this by creating end-to-end models trained on huge amounts of data. Empirically, this creates more sophisticated features which in turn create better models. (LINKS). 
+The main limitation of the baseline appraoch is that TF-IDF only uses individual words while disregarding context such as semantics and syntax. More modern deep learning approaches take care of this by creating end-to-end models trained on huge amounts of data. Empirically, this creates more sophisticated features which in turn create better models, as can be seen by their dominance on virtually [all text classification benchmarks](https://paperswithcode.com/task/text-classification)
 
 For this assignment I use transfer learning with the `nlm-en-dim50-with-normalization` from [google](https://tfhub.dev/google/nnlm-en-dim50-with-normalization/2) as my feature layer. This uses a feed-forward neural network trained on the Google 7B news dataset to create a 50-dimensional embedding, which we can then build a classifier on top of. 
 
@@ -75,7 +75,7 @@ There are several advantages of this approach (in theory):
 However, for this to work well on our use case we need to take the imbalanced data seriously to avoid the default prediction scenario. There are several steps I will attempt: 
 
 1. **Undersampling**: just like in the [logistic regression](#logistic-regression) described above. 
-2. **Fake data generation**: I the package [nlpaug](LINK) to generate extra training data by replacing synonyms in the toxic dataset. 
+2. **Fake data generation**: I the package [nlpaug](https://nlpaug.readthedocs.io/) to generate extra training data by replacing synonyms in the toxic dataset. 
 3. **Adding training data from the net**: I add extra toxic training data from the [jigsaw kaggle competition](https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge) to reduce the imbalance.
 
 Whether these approaches will work, we will discover in the [discussion section](#discussion).
@@ -196,7 +196,7 @@ If assignments are truly about the journey, not the destination, this assignment
 2. Run predictions on VideoCommentsThreatCorpus to extract the threat scores.
 3. Tune the threshold to strike the right balance between false positives and false negatives. 
 
-The above approach highlights some interesting points about the direction of data science. The approach is, from an engineering perspective, extremely easy to implement: It requires little to no pre-processing, and the model is implemented in 2 lines of code (LINK). However, behind that is a huge structure of shoulders of giants: the company, Unitary, who has developed the Detoxify package, which relies heavily on the transformers library by huggingface, which in turn relies on the research in large language models driven by huge tech giants like Google, Microsoft, and Facebook. 
+The above approach highlights some interesting points about the direction of data science. The approach is, from an engineering perspective, extremely easy to implement: It requires little to no pre-processing, and the model is implemented in [2 lines of code](https://github.com/unitaryai/detoxify#quick-prediction). However, behind that is a huge structure of shoulders of giants: the company, Unitary, who has developed the Detoxify package, which relies heavily on the transformers library by huggingface, which in turn relies on the research in large language models driven by huge tech giants like Google, Microsoft, and Facebook. 
 
 Where does this leave the digital humanities scholar / data scientist? In many ways it leverages their value: as ever more technical detail is abstracted away, how the models are used becomes increasingly important. This requires interdisciplinary skills, where one understands both the technical implementations and the societal implications. I will investigate more of this in [my self-assignment](../fooled-by-llm/), where I will look at truly large language models. 
 

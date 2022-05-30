@@ -6,7 +6,7 @@
 
 Throughout these assignments we have looked at increasingly sophisticated NLP techniques from [simple string processing](../language-a1/README.md) to [deep learning](../language-a4/README.md). In this self-assignment we will look at the current hottest topic in NLP, namely, large generative models. 
 
-Large generative models are all the rage in NLP. Starting with the (now infamous) 1.5 billion parameter GPT-2 from OpenAI (LINK), the AI community discovered that merely throwing larger models, more data, and more compute at so-called foundation models increased performance on a wide range of tasks from [machine translation](https://paperswithcode.com/sota/machine-translation-on-wmt2014-english-german) to [question answering](https://paperswithcode.com/dataset/squad). And this was with only minimal fine-tuning!
+Large generative models are all the rage in NLP. Starting with the (now infamous) 1.5 billion parameter [GPT-2 from OpenAI](https://openai.com/blog/gpt-2-1-5b-release/), the AI community discovered that merely throwing larger models, more data, and more compute at so-called foundation models increased performance on a wide range of tasks from [machine translation](https://paperswithcode.com/sota/machine-translation-on-wmt2014-english-german) to [question answering](https://paperswithcode.com/dataset/squad). And this was with only minimal fine-tuning!
 
 While these models can be used for good, they can also be employed for more nefarious purposes. As their main objective is [mimicking human text](https://dl.acm.org/doi/10.1145/3442188.3445922), they can be used to automatically generate content - without any moral compas to guide. In this post-truth era it is not difficult to see how that might go accelerate already worrying developments. 
 
@@ -57,14 +57,14 @@ On the domain-specific side, there are a few steps that needed to be taken to en
 
 
 ### Models
-This project uses open source models trained by [EleutherAI](LINK), an open collective dedicated to training and understanding large language models. They have trained a bunch of GPT models ranging from the relatively small (125 million parameters) to the fairly huge (20 billion parameters). 
+This project uses open source models trained by [EleutherAI](https://www.eleuther.ai/faq/), an open collective dedicated to training and understanding large language models. They have trained a bunch of GPT models ranging from the relatively small (125 million parameters) to the fairly huge (20 billion parameters). 
 
 As all of these are require too much compute and memory for personal computers (and even UCloud), the project relies on API calls from [goose.ai](goose.ai). Goose.ai is an extremely cheap and easy to use provider of EleutherAI's models. They integrate well with the OpenAI python library making it relatively easy to implement. 
 
-Relying on the API also makes the project extremely easy to scale. The difference between using a small (and cheap) model such as `gpt-neo-125m` and a huge model 20 billion parameter model like [GPT NeoX 20B](LINK) is literally just one parameters. 
+Relying on the API also makes the project extremely easy to scale. The difference between using a small (and cheap) model such as `gpt-neo-125m` and a huge model 20 billion parameter model like [GPT NeoX 20B](https://blog.eleuther.ai/announcing-20b/) is literally just one parameters. 
 
 ### Prompt Engineering
-Figuring out good prompts is an essential component of creating good output from large language models (LINK). For experimenting I have used [6b.eleuther.ai](https://6b.eleuther.ai/), a GUI created by the EleutherAI teams which allows for rapid testing of different ideas - without having to pay for use!
+Figuring out good prompts is an [essential component of creating good output](https://blog.andrewcantino.com/blog/2021/04/21/prompt-engineering-tips-and-tricks/) from large language models. For experimenting I have used [6b.eleuther.ai](https://6b.eleuther.ai/), a GUI created by the EleutherAI teams which allows for rapid testing of different ideas - without having to pay for use!
 
 The prompt that I ended up using was the following: 
 ```
@@ -73,7 +73,7 @@ text:
 ```
 This has the aim of giving the model some context wrt the style (real or fake news) as well as the type of text to generate (text following a headline). 
 
-For the `temperature` parameter, which controls how 'risky' the model is when choosing answers with 0 being argmax-sampling and 1 being the maximum, I choose 0.9 which is the recommended value by goose.ai (LINKS). 
+For the `temperature` parameter, which controls how 'risky' the model is when choosing answers with 0 being argmax-sampling and 1 being the maximum, I choose 0.9 which is the [recommended value by goose.ai](https://goose.ai/docs). 
 
 
 ### Software Design
@@ -81,9 +81,9 @@ The main goal of the software design is to balance flexibility and rapid iterati
 
 One is to use scripts instead of notebooks. While, I have used notebooks for EDA ([`ExploreDataset.ipynb`](./ExploreDataset.ipynb)) and figuring out how to clean the data ([`CleanPrompts.ipynb`](./CleanPrompts.ipynb)), the entire pipeline can be run as scripts as crystallized in [`run_project.sh`](./run-project.sh). 
 
-Secondly, I have used [argparse](LINK) to provide flexible documentation and usage for the different scripts. This allows users to experiment while still having strong defaults. 
+Secondly, I have used [argparse](https://docs.python.org/3/library/argparse.html) to provide flexible documentation and usage for the different scripts. This allows users to experiment while still having strong defaults. 
 
-Thirdly, I have used test-driven development (TDD; LINK) for part of the workflow. This ensures that the code is stable and design is put at the forefront.
+Thirdly, I have used [test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development) for part of the workflow. This ensures that the code is stable and design is put at the forefront.
 
 Finally (and perhaps most importantly), I have designed by following the SOLID-principles. As in the other assignments, these guiding principles make for cleaner code overall. Below is a breakdown. 
 
