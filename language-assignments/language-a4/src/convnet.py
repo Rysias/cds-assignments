@@ -1,3 +1,6 @@
+"""
+Implements a simple deep neural network model for binary classification.
+"""
 import tensorflow as tf
 import tensorflow_hub as hub
 import logging

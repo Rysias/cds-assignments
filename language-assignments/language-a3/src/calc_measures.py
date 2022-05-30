@@ -1,3 +1,6 @@
+"""
+Functions for calculating measures in the network
+"""
 import networkx as nx
 import pandas as pd
 from typing import Dict, Callable

@@ -1,3 +1,6 @@
+"""
+Generic functions to evaluate a model on a dataset. 
+"""
 import numpy as np
 from sklearn.metrics import classification_report
 from tensorflow.keras import Model

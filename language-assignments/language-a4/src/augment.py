@@ -1,9 +1,11 @@
-import logging
+"""
+Functions for doing NLP data augmentation
+"""
+
 import nlpaug.augmenter.word as naw  # type: ignore
 import nltk
 import pandas as pd
 import numpy as np
-from typing import List
 
 aug = naw.SynonymAug(aug_src="wordnet", aug_max=2)
 

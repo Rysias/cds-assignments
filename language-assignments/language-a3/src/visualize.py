@@ -1,3 +1,7 @@
+"""
+Functions for visualising the network
+"""
+
 from pathlib import Path
 from networkx import Graph  # type: ignore
 from pyvis.network import Network  # type: ignore

@@ -1,3 +1,6 @@
+"""
+Implements a logistic regression for classification of imbalanced data. 
+"""
 from imblearn.pipeline import Pipeline
 from imblearn.under_sampling import RandomUnderSampler
 

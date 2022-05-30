@@ -1,3 +1,6 @@
+"""
+Main script for running network analysis
+"""
 import argparse
 import pandas as pd
 import networkx as nx  # type: ignore
