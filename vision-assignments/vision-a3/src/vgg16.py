@@ -28,12 +28,16 @@ def data_augmentation():
     return tf.keras.Sequential(
         [
             tf.keras.layers.RandomFlip("horizontal"),
-           # tf.keras.layers.RandomRotation(0.2),
+            # tf.keras.layers.RandomRotation(0.2),
         ]
     )
 
 
-def create_model(base_model: Model, input_shape: int, num_classes: int = 10,) -> Model:
+def create_model(
+    base_model: Model,
+    input_shape: int,
+    num_classes: int = 10,
+) -> Model:
     logging.info("Creating model...")
     preprocess_input = tf.keras.applications.vgg16.preprocess_input
     augmentation = data_augmentation()
@@ -48,7 +52,7 @@ def create_model(base_model: Model, input_shape: int, num_classes: int = 10,) ->
     x = global_average_layer(x)
     x = tf.keras.layers.Dense(256)(x)
     x = tf.keras.layers.Dense(256)(x)
-    #x = tf.keras.layers.Dropout(0.2)(x)
+    # x = tf.keras.layers.Dropout(0.2)(x)
     outputs = prediction_layer(x)
     return tf.keras.Model(inputs, outputs)
 
@@ -71,4 +75,3 @@ def finetuneable_vgg16(input_shape, learning_rate=0.001) -> Model:
     model = create_model(vgg16, input_shape)
     compile_model(model, learning_rate=learning_rate)
     return model
-

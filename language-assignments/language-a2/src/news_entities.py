@@ -27,4 +27,3 @@ def df_ent_and_sent(df: pd.DataFrame, nlp: spacy.lang, sent_fun) -> pd.DataFrame
     return pd.DataFrame(
         zip(df["title"], geopols, sentiments), columns=["title", "GPE", "sentiment"]
     )
-

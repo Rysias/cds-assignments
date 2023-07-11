@@ -15,7 +15,7 @@ def read_tsv(filepath: Path) -> pd.DataFrame:
 
 
 def write_measures(measure_df: pd.DataFrame, filepath: Path) -> None:
-    """Writes measures to dataframe """
+    """Writes measures to dataframe"""
     output_path = Path("output") / f"{filepath.stem}_measures.csv"
     measure_df.to_csv(output_path, index=False)
 
@@ -32,7 +32,7 @@ def process_dir(dir_path: Path) -> None:
 
 
 def process_file(filepath: Path) -> None:
-    """"Full pipeline for processing a (valid) file"""
+    """ "Full pipeline for processing a (valid) file"""
     df = read_tsv(filepath)
     if not right_columns(df):
         raise ValueError(

@@ -35,4 +35,3 @@ def network_to_df(graph: nx.Graph) -> pd.DataFrame:
         .reset_index()
         .rename(columns={"index": "name"})
     )
-

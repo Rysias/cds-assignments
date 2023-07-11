@@ -1,3 +1,7 @@
+"""
+Functions for collocating texts
+"""
+
 import pandas as pd
 import numpy as np
 import logging
@@ -62,4 +66,3 @@ def collocate_pipeline(corpus, search_term, window_size):
     )
     logging.info(f"Calculated MI for {search_term}")
     return df
-

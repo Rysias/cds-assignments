@@ -3,7 +3,11 @@ from sklearn.metrics import classification_report
 from pathlib import Path
 
 
-def get_classification_report(model, x_test: np.ndarray, y_test: np.ndarray,) -> str:
+def get_classification_report(
+    model,
+    x_test: np.ndarray,
+    y_test: np.ndarray,
+) -> str:
     """
     Generates a classification report for the given model.
     """
@@ -12,7 +16,7 @@ def get_classification_report(model, x_test: np.ndarray, y_test: np.ndarray,) ->
 
 
 def save_classification_report(report: str, filename: str) -> None:
-    """ Save classification report as txt file """
+    """Save classification report as txt file"""
     output_dir = Path("output")
     if not output_dir.exists():
         output_dir.mkdir()

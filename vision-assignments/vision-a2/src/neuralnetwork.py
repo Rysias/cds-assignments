@@ -43,7 +43,7 @@ class NeuralNetwork:
         # loop over epochs
         for epoch in np.arange(0, epochs):
             # loop over individual training points
-            for (x, target) in zip(X, y):
+            for x, target in zip(X, y):
                 self.fit_partial(x, target)
 
             # check diaplay

@@ -32,7 +32,9 @@ if __name__ == "__main__":
         description="Given a filename, finds the top three similar images in the same directory. Outputs an image with th e source + top three similar, as well as a csv-file with the file names."
     )
     argparser.add_argument(
-        "--img-name", required=True, help="file name of the specified image",
+        "--img-name",
+        required=True,
+        help="file name of the specified image",
     )
     argparser.add_argument(
         "--data-dir",

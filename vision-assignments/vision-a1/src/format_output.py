@@ -12,7 +12,7 @@ import src.img_help as ih
 
 
 def create_output_dir() -> Path:
-    """Creates a directory for the output and returns the path """
+    """Creates a directory for the output and returns the path"""
     output_dir = Path("output")
     if not output_dir.exists():
         output_dir.mkdir()
@@ -42,14 +42,14 @@ def resize_square(img: np.ndarray, size=300) -> np.ndarray:
 
 
 def format_source_img(source_path: Path) -> np.ndarray:
-    """ Makes source image into a square and add the word 'SOURCE' to the middle """
+    """Makes source image into a square and add the word 'SOURCE' to the middle"""
     return add_text(resize_square(ih.read_img(source_path)), "SOURCE")
 
 
 def format_dist_list(
     source_path: Path, small_dist_df: pd.DataFrame
 ) -> List[np.ndarray]:
-    """ Formats all images for the final square image """
+    """Formats all images for the final square image"""
     dist_img_list = [format_source_img(source_path)]
     for filename, row in small_dist_df.iterrows():
         img = resize_square(ih.read_img(filename))
@@ -61,7 +61,7 @@ def arrange_square(img_list: List[np.ndarray], img_dim=300) -> np.ndarray:
     """Adapted from https://stackoverflow.com/a/52283965
     Arranges images into a square
     """
-    if len(img_list) not in [i ** 2 for i in range(10)]:
+    if len(img_list) not in [i**2 for i in range(10)]:
         raise ValueError("List must have square number of elements")
     canvas_shape = math.isqrt(len(img_list))
     imgmatrix = np.zeros((canvas_shape * img_dim, canvas_shape * img_dim, 3), np.uint8)
@@ -85,7 +85,7 @@ def create_dist_output_dict(target_file: Path, dist_df: pd.DataFrame) -> pd.Data
 
 
 def create_dist_square(source_path, small_dist_df: pd.DataFrame) -> np.ndarray:
-    """ Creates the output image with source image and three closest ones with info arranged in a square"""
+    """Creates the output image with source image and three closest ones with info arranged in a square"""
     formatted_imgs = format_dist_list(source_path, small_dist_df)
     return arrange_square(formatted_imgs)
 

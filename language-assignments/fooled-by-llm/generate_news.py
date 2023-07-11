@@ -13,8 +13,6 @@ from src.prompts import PROMPT_FUNCS
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
 
 
-
-
 def main(args: argparse.Namespace) -> None:
     MODEL_NAME = args.model_name
     MAX_TOKENS = args.max_tokens

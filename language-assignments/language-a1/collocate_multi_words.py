@@ -60,7 +60,9 @@ if __name__ == "__main__":
         help="Node words to find collocates (space delimited)",
     )
     argparser.add_argument(
-        "--data-dir", default="input/", help="Directory, where texts are located",
+        "--data-dir",
+        default="input/",
+        help="Directory, where texts are located",
     )
     argparser.add_argument(
         "--window-size",

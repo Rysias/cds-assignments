@@ -14,4 +14,3 @@ def test_initialise_vader(vocab):
     doc = Doc(vocab, words=["I", "am", "angry", "!"])
     assert callable(sentiment_function)
     assert type(sentiment_function(doc)) is float
-

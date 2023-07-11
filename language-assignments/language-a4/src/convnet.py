@@ -23,7 +23,9 @@ def define_model(dropout) -> tf.keras.Model:
     return model
 
 
-def compile_model(model: tf.keras.Model,) -> None:
+def compile_model(
+    model: tf.keras.Model,
+) -> None:
     model.compile(
         optimizer="adam",
         loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),

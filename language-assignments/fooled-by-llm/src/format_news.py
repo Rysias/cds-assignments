@@ -1,7 +1,7 @@
 """
 Helper functions for formatting the news for Turing test.
 """
-import spacy #type: ignore
+import spacy  # type: ignore
 
 
 def create_sentencizer() -> spacy.pipeline.Sentencizer:

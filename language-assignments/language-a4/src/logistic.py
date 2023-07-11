@@ -28,4 +28,3 @@ def create_pipeline(textcol: str = "clean_text") -> Pipeline:
             ("model", logistic),
         ]
     )
-

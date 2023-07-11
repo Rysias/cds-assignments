@@ -6,7 +6,7 @@ from pathlib import Path
 
 
 def clean_text(text: pd.Series) -> pd.Series:
-    """ Remove whitespace and punctuation """
+    """Remove whitespace and punctuation"""
     return (
         text.str.replace(r"\s+", " ", regex=True)
         .str.replace(r"[^\w\s]", "", regex=True)

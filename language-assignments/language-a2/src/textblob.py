@@ -6,6 +6,7 @@ from spacy.tokens import Doc  # type: ignore
 from typing import Callable
 from spacytextblob.spacytextblob import SpacyTextBlob
 
+
 def textblob_sentiment(doc: Doc) -> float:
     return doc._.blob.polarity
 

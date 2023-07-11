@@ -56,7 +56,9 @@ if __name__ == "__main__":
         help="Window size (on each side of node word)",
     )
     argparser.add_argument(
-        "--data-dir", default="input/", help="Where to look for texts",
+        "--data-dir",
+        default="input/",
+        help="Where to look for texts",
     )
     args = argparser.parse_args()
     main(args)

@@ -27,7 +27,7 @@ def authenticate_goose(config: Path) -> None:
 def type_title_prompt(
     df: pd.DataFrame, cat_col: str = "type", title_col: str = "title"
 ) -> pd.Series:
-    """ Prepares a prompt for each news item based on type and title"""
+    """Prepares a prompt for each news item based on type and title"""
     assert (
         cat_col in df.columns and title_col in df.columns
     ), f"{cat_col} or {title_col} not in df"
@@ -40,7 +40,7 @@ def type_title_date_prompt(
     title_col: str = "title",
     date_col: str = "date",
 ) -> pd.Series:
-    """ Prepares a prompt for each news item based on type and title"""
+    """Prepares a prompt for each news item based on type and title"""
     assert (
         cat_col in df.columns and title_col in df.columns and date_col in df.columns
     ), f"{cat_col} or {title_col} or {date_col} not in df"

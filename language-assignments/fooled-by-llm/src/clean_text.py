@@ -5,7 +5,7 @@ import pandas as pd
 
 
 def remove_tags(text: pd.Series) -> pd.Series:
-    """ Removes (description) tags from text """
+    """Removes (description) tags from text"""
     new_text = text.str.replace(r"\(.*\)", "", regex=True)
     new_text = new_text.str.replace(r"\[.*\]", "", regex=True)
     return new_text
@@ -29,7 +29,7 @@ def clean_text(text: pd.Series) -> pd.Series:
 
 
 def remove_text_to_dash(text: pd.Series) -> pd.Series:
-    """Removes text before the first dash """
+    """Removes text before the first dash"""
     new_text = text.str.replace(r"^[^-]*-", "", regex=True).str.strip()
     return new_text
 
@@ -40,4 +40,3 @@ def clean_true_news(df: pd.DataFrame) -> pd.DataFrame:
             df["type"] == "True", df["short_text"]
         )
     )
-

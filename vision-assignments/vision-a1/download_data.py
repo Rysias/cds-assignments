@@ -29,7 +29,6 @@ FLOWER_URL = "https://www.robots.ox.ac.uk/~vgg/data/flowers/17/17flowers.tgz"
 INPUT_PATH = Path("input")
 
 if __name__ == "__main__":
-
     # Download the dataset
     if not os.path.exists(INPUT_PATH):
         os.makedirs(INPUT_PATH)

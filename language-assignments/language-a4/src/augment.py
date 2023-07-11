@@ -31,13 +31,17 @@ def handle_lookups(e: Exception):
 def synonym_augment(
     df: pd.DataFrame, text_col: str = "text", label_col: str = "label", n: int = 2
 ) -> pd.DataFrame:
-    """ Augments the data with n copies of each entry in the text column """
+    """Augments the data with n copies of each entry in the text column"""
     try:
         # duplicate df
         aug_df = repeat_df(df, n)
         text = aug.augment(aug_df[text_col].tolist())
-        return pd.DataFrame({"label": aug_df[label_col], "text": text,})
+        return pd.DataFrame(
+            {
+                "label": aug_df[label_col],
+                "text": text,
+            }
+        )
     except LookupError as e:
         handle_lookups(e)
         return synonym_augment(df, text_col=text_col, label_col=label_col, n=n)
-
